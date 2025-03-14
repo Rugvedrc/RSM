@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Raghavendra Swami Math{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    {% block additional_head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav id="rsm-base-nav-section">
+        <div id="rsm-base-nav-container">
+            <!-- Left Aligned Logo -->
+            <a id="rsm-base-nav-logo" href="{{ url_for('index') }}">
+                <img id="rsm-base-nav-logo-img" src="{{ url_for('static', filename='images/logo.png') }}" alt="Raghavendra Swami Math Logo" height="40">
+                <span id="rsm-base-nav-logo-text">Raghavendra Swami Math</span>
+            </a>
+
+            <!-- Navbar Toggler for Mobile -->
+            <button id="rsm-base-nav-toggler" type="button">
+                <span id="rsm-base-nav-toggler-icon"></span>
+            </button>
+
+            <!-- Right Aligned Menu -->
+            <div id="rsm-base-nav-menu">
+                <ul id="rsm-base-nav-menu-list">
+                    <li id="rsm-base-nav-menu-item-home"><a href="{{ url_for('index') }}">Home</a></li>
+                    <li id="rsm-base-nav-menu-item-about"><a href="{{ url_for('about')}}">About Us</a></li>
+                    <li id="rsm-base-nav-menu-item-announcements"><a href="{{ url_for('announcements') }}">Announcements</a></li>
+                    <li id="rsm-base-nav-menu-item-seva"><a href="{{ url_for('booking') }}">Seva Booking</a></li>
+                    <li id="rsm-base-nav-menu-item-donations"><a href="{{ url_for('donation') }}">Donations</a></li>
+                    <li id="rsm-base-nav-menu-item-contact"><a href="/#rsm-index-contact-section">Contact</a></li> 
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="rsm-base-main-section">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer id="rsm-base-footer-section">
+        <div id="rsm-base-footer-container">
+            <div id="rsm-base-footer-row-1">
+                <div id="rsm-base-footer-column-1">
+                    <h5 id="rsm-base-footer-title">Raghavendra Swami Math</h5>
+                    <p id="rsm-base-footer-address">Chhatrapati Sambhaji Nagar<br>Maharashtra, India</p>
+                </div>
+                <div id="rsm-base-footer-column-2">
+                    <h5 id="rsm-base-footer-quick-links-title">Quick Links</h5>
+                    <ul id="rsm-base-footer-quick-links-list">
+                        <li id="rsm-base-footer-quick-links-item-home"><a href="{{ url_for('index') }}">Home</a></li>
+                        <li id="rsm-base-footer-quick-links-item-about"><a href="{{ url_for('about') }}">About Us</a></li>
+                        <li id="rsm-base-footer-quick-links-item-seva"><a href="{{ url_for('booking') }}">Seva Booking</a></li>
+                        <li id="rsm-base-footer-quick-links-item-donations"><a href="{{ url_for('donation') }}">Donations</a></li>
+                    </ul>
+                </div>
+                <div id="rsm-base-footer-column-3">
+                    <h5 id="rsm-base-footer-contact-title">Contact Us</h5>
+                    <p id="rsm-base-footer-contact-info">Email: raghavendrasewasangh@gmail.com<br>Phone: +91 240 XXXXXXXX</p>
+                    <div id="rsm-base-footer-social-icons">
+                        <a href="https://youtube.com/@srsmcs?si=NrNw0YkEMZIQBYec" id="rsm-base-footer-social-icon-instagram"><i class="bi bi-youtube"></i></a>
+                        <a href="#" id="rsm-base-footer-social-icon-facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" id="rsm-base-footer-social-icon-twitter"><i class="bi bi-twitter"></i></a>
+                        
+                    </div>
+                </div>
+            </div>
+            <hr id="rsm-base-footer-divider">
+            <div id="rsm-base-footer-copyright">
+                <p>&copy; 2025 Raghavendra Swami Math. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Button -->
+    <div id="rsm-base-chatbot-icon">
+        <img src="{{ url_for('static', filename='images/robot-icon.png') }}" alt="Chatbot" onclick="toggleChatbot()">
+    </div>
+
+    <!-- Chatbot Container -->
+    <div id="rsm-base-chatbot-container">
+        <div id="rsm-base-chatbot-header">
+            <span>AI Chatbot</span>
+            <button onclick="toggleChatbot()">✖</button>
+        </div>
+        <div id="rsm-base-chatbot-messages"></div>
+        <div id="rsm-base-chatbot-input-container">
+            <input type="text" id="rsm-base-chatbot-input" placeholder="Ask me something..." onkeypress="sendMessage(event)">
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+    
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

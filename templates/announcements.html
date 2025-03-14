@@ -1,0 +1,403 @@
+{% extends "base.html" %}
+
+{% block title %}Announcements & Events - Raghavendra Swami Math{% endblock %}
+
+{% block content %}
+
+
+<!-- Announcements Hero Section -->
+<section id="rsm-announcements-hero-section">
+    <div id="rsm-announcements-hero-container">
+        <h1 id="rsm-announcements-hero-heading">Announcements & Events</h1>
+        <p id="rsm-announcements-hero-text">Stay updated with the latest activities and events at Raghavendra Swami Math</p>
+    </div>
+</section>
+
+<!-- Upcoming Events Section -->
+<section id="rsm-announcements-upcoming-events-section">
+    <div id="rsm-announcements-upcoming-events-container">
+        <h2 id="rsm-announcements-upcoming-events-heading">Upcoming Events</h2>
+        <div id="rsm-announcements-upcoming-events-row-1">
+            <div id="rsm-announcements-upcoming-events-column-1">
+                <div id="rsm-announcements-upcoming-events-card-1">
+                    <div id="rsm-announcements-upcoming-events-card-header-1">
+                        <h5 id="rsm-announcements-upcoming-events-card-title-1">Aradhana Mahotsava</h5>
+                    </div>
+                    <div id="rsm-announcements-upcoming-events-card-body-1">
+                        <div id="rsm-announcements-upcoming-events-card-time-1">
+                            <span id="rsm-announcements-upcoming-events-card-date-1">March 18-20, 2025</span>
+                            <span id="rsm-announcements-upcoming-events-card-clock-1">6:00 AM onwards</span>
+                        </div>
+                        <p id="rsm-announcements-upcoming-events-card-text-1">Join us for the annual Aradhana Mahotsava celebrations with special poojas, prasada, and cultural programs. The three-day event will include:</p>
+                        <ul id="rsm-announcements-upcoming-events-card-list-1">
+                            <li id="rsm-announcements-upcoming-events-card-list-item-1-1">Maha Abhishekam</li>
+                            <li id="rsm-announcements-upcoming-events-card-list-item-1-2">Sahasranama Archana</li>
+                            <li id="rsm-announcements-upcoming-events-card-list-item-1-3">Vedic chanting</li>
+                            <li id="rsm-announcements-upcoming-events-card-list-item-1-4">Cultural performances</li>
+                            <li id="rsm-announcements-upcoming-events-card-list-item-1-5">Annadana for all devotees</li>
+                        </ul>
+                        <p id="rsm-announcements-upcoming-events-card-note-1">Special arrangements will be made for devotees coming from outstation.</p>
+                    </div>
+                    <div id="rsm-announcements-upcoming-events-card-footer-1">
+                        <a id="rsm-announcements-upcoming-events-card-link-1" href="#" data-bs-toggle="modal" data-bs-target="#eventModal1">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div id="rsm-announcements-upcoming-events-column-2">
+                <div id="rsm-announcements-upcoming-events-card-2">
+                    <div id="rsm-announcements-upcoming-events-card-header-2">
+                        <h5 id="rsm-announcements-upcoming-events-card-title-2">Guru Purnima</h5>
+                    </div>
+                    <div id="rsm-announcements-upcoming-events-card-body-2">
+                        <div id="rsm-announcements-upcoming-events-card-time-2">
+                            <span id="rsm-announcements-upcoming-events-card-date-2">April 5, 2025</span>
+                            <span id="rsm-announcements-upcoming-events-card-clock-2">7:00 AM onwards</span>
+                        </div>
+                        <p id="rsm-announcements-upcoming-events-card-text-2">Special celebrations for Guru Purnima with Guru Puja, Sahasranama, and discourse on the importance of Guru. The schedule includes:</p>
+                        <ul id="rsm-announcements-upcoming-events-card-list-2">
+                            <li id="rsm-announcements-upcoming-events-card-list-item-2-1">Guru Paduka Pooja</li>
+                            <li id="rsm-announcements-upcoming-events-card-list-item-2-2">Special abhishekam to Sri Raghavendra Swami</li>
+                            <li id="rsm-announcements-upcoming-events-card-list-item-2-3">Discourse by eminent scholars</li>
+                            <li id="rsm-announcements-upcoming-events-card-list-item-2-4">Distribution of prasadam</li>
+                            <li id="rsm-announcements-upcoming-events-card-list-item-2-5">Cultural program in the evening</li>
+                        </ul>
+                        <p id="rsm-announcements-upcoming-events-card-note-2">All devotees are welcome to participate in this auspicious occasion.</p>
+                    </div>
+                    <div id="rsm-announcements-upcoming-events-card-footer-2">
+                        <a id="rsm-announcements-upcoming-events-card-link-2" href="#" data-bs-toggle="modal" data-bs-target="#eventModal2">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div id="rsm-announcements-upcoming-events-column-3">
+                <div id="rsm-announcements-upcoming-events-card-3">
+                    <div id="rsm-announcements-upcoming-events-card-header-3">
+                        <h5 id="rsm-announcements-upcoming-events-card-title-3">Hanuman Jayanti</h5>
+                    </div>
+                    <div id="rsm-announcements-upcoming-events-card-body-3">
+                        <div id="rsm-announcements-upcoming-events-card-time-3">
+                            <span id="rsm-announcements-upcoming-events-card-date-3">April 12, 2025</span>
+                            <span id="rsm-announcements-upcoming-events-card-clock-3">5:30 AM onwards</span>
+                        </div>
+                        <p id="rsm-announcements-upcoming-events-card-text-3">Celebrate the birth of Lord Hanuman with special rituals and programs. The celebration will include:</p>
+                        <ul id="rsm-announcements-upcoming-events-card-list-3">
+                            <li id="rsm-announcements-upcoming-events-card-list-item-3-1">Special abhishekam to Lord Hanuman</li>
+                            <li id="rsm-announcements-upcoming-events-card-list-item-3-2">Recitation of Hanuman Chalisa (108 times)</li>
+                            <li id="rsm-announcements-upcoming-events-card-list-item-3-3">Sindoor offering</li>
+                            <li id="rsm-announcements-upcoming-events-card-list-item-3-4">Discourse on the significance of Hanuman Jayanti</li>
+                            <li id="rsm-announcements-upcoming-events-card-list-item-3-5">Special prasadam distribution</li>
+                        </ul>
+                        <p id="rsm-announcements-upcoming-events-card-note-3">Devotees are encouraged to wear orange/red attire for the celebrations.</p>
+                    </div>
+                    <div id="rsm-announcements-upcoming-events-card-footer-3">
+                        <a id="rsm-announcements-upcoming-events-card-link-3" href="#" data-bs-toggle="modal" data-bs-target="#eventModal3">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Announcements -->
+<section id="rsm-announcements-recent-announcements-section">
+    <div id="rsm-announcements-recent-announcements-container">
+        <h2 id="rsm-announcements-recent-announcements-heading">Recent Announcements</h2>
+        <div id="rsm-announcements-recent-announcements-list">
+            <div id="rsm-announcements-recent-announcements-item-1">
+                <div id="rsm-announcements-recent-announcements-item-header-1">
+                    <h5 id="rsm-announcements-recent-announcements-item-title-1">Online Seva Booking System Launched</h5>
+                    <small id="rsm-announcements-recent-announcements-item-date-1">March 1, 2025</small>
+                </div>
+                <p id="rsm-announcements-recent-announcements-item-text-1">We are pleased to announce the launch of our new online seva booking system. Devotees can now book various sevas from the comfort of their homes through our website.</p>
+                <small id="rsm-announcements-recent-announcements-item-note-1">Click to read more</small>
+            </div>
+            <div id="rsm-announcements-recent-announcements-item-2">
+                <div id="rsm-announcements-recent-announcements-item-header-2">
+                    <h5 id="rsm-announcements-recent-announcements-item-title-2">New Annadana Hall Construction Completed</h5>
+                    <small id="rsm-announcements-recent-announcements-item-date-2">February 15, 2025</small>
+                </div>
+                <p id="rsm-announcements-recent-announcements-item-text-2">We are happy to inform devotees that the construction of the new Annadana Hall has been completed. The hall can now accommodate up to 200 devotees at a time for meals.</p>
+                <small id="rsm-announcements-recent-announcements-item-note-2">Click to read more</small>
+            </div>
+            <div id="rsm-announcements-recent-announcements-item-3">
+                <div id="rsm-announcements-recent-announcements-item-header-3">
+                    <h5 id="rsm-announcements-recent-announcements-item-title-3">Weekly Vedic Classes for Children</h5>
+                    <small id="rsm-announcements-recent-announcements-item-date-3">February 10, 2025</small>
+                </div>
+                <p id="rsm-announcements-recent-announcements-item-text-3">The Math is starting weekly Vedic classes for children aged 7-15 years every Sunday from 10 AM to 12 PM. Classes will include basics of Sanskrit, Vedic chanting, and stories from our scriptures.</p>
+                <small id="rsm-announcements-recent-announcements-item-note-3">Click to read more</small>
+            </div>
+            <div id="rsm-announcements-recent-announcements-item-4">
+                <div id="rsm-announcements-recent-announcements-item-header-4">
+                    <h5 id="rsm-announcements-recent-announcements-item-title-4">Special Homam for Lunar Eclipse</h5>
+                    <small id="rsm-announcements-recent-announcements-item-date-4">January 25, 2025</small>
+                </div>
+                <p id="rsm-announcements-recent-announcements-item-text-4">A special Chandi Homam will be performed during the upcoming lunar eclipse on February 5, 2025. Devotees interested in participating can register their names at the temple office.</p>
+                <small id="rsm-announcements-recent-announcements-item-note-4">Click to read more</small>
+            </div>
+            <div id="rsm-announcements-recent-announcements-item-5">
+                <div id="rsm-announcements-recent-announcements-item-header-5">
+                    <h5 id="rsm-announcements-recent-announcements-item-title-5">Extended Temple Hours During Sankranti</h5>
+                    <small id="rsm-announcements-recent-announcements-item-date-5">January 12, 2025</small>
+                </div>
+                <p id="rsm-announcements-recent-announcements-item-text-5">The temple will remain open from 5 AM to 10 PM during the Sankranti festival from January 14-16, 2025. Special rituals and prasadam will be available for devotees.</p>
+                <small id="rsm-announcements-recent-announcements-item-note-5">Click to read more</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Photo Gallery Section -->
+<section id="rsm-announcements-photo-gallery-section">
+    <div id="rsm-announcements-photo-gallery-container">
+        <h2 id="rsm-announcements-photo-gallery-heading">Event Gallery</h2>
+        <div id="rsm-announcements-photo-gallery-row-1">
+            <div id="rsm-announcements-photo-gallery-column-1">
+                <a id="rsm-announcements-photo-gallery-link-1" href="{{ url_for('static', filename='images/gallery1.jpg') }}" data-lightbox="gallery" data-title="Aradhana Celebrations 2024">
+                    <img id="rsm-announcements-photo-gallery-img-1" src="{{ url_for('static', filename='images/gallery1.jpg') }}" alt="Event 1">
+                </a>
+            </div>
+            <div id="rsm-announcements-photo-gallery-column-2">
+                <a id="rsm-announcements-photo-gallery-link-2" href="{{ url_for('static', filename='images/gallery2.jpg') }}" data-lightbox="gallery" data-title="Sankranti Celebrations 2024">
+                    <img id="rsm-announcements-photo-gallery-img-2" src="{{ url_for('static', filename='images/gallery2.jpg') }}" alt="Event 2">
+                </a>
+            </div>
+            <div id="rsm-announcements-photo-gallery-column-3">
+                <a id="rsm-announcements-photo-gallery-link-3" href="{{ url_for('static', filename='images/gallery3.jpg') }}" data-lightbox="gallery" data-title="Rama Navami 2024">
+                    <img id="rsm-announcements-photo-gallery-img-3" src="{{ url_for('static', filename='images/gallery3.jpg') }}" alt="Event 3">
+                </a>
+            </div>
+            <div id="rsm-announcements-photo-gallery-column-4">
+                <a id="rsm-announcements-photo-gallery-link-4" href="{{ url_for('static', filename='images/gallery4.jpg') }}" data-lightbox="gallery" data-title="Krishna Janmashtami 2024">
+                    <img id="rsm-announcements-photo-gallery-img-4" src="{{ url_for('static', filename='images/gallery4.jpg') }}" alt="Event 4">
+                </a>
+            </div>
+            <div id="rsm-announcements-photo-gallery-column-5">
+                <a id="rsm-announcements-photo-gallery-link-5" href="{{ url_for('static', filename='images/gallery5.jpg') }}" data-lightbox="gallery" data-title="Guru Purnima 2024">
+                    <img id="rsm-announcements-photo-gallery-img-5" src="{{ url_for('static', filename='images/gallery5.jpg') }}" alt="Event 5">
+                </a>
+            </div>
+            <div id="rsm-announcements-photo-gallery-column-6">
+                <a id="rsm-announcements-photo-gallery-link-6" href="{{ url_for('static', filename='images/gallery6.jpg') }}" data-lightbox="gallery" data-title="Navaratri 2024">
+                    <img id="rsm-announcements-photo-gallery-img-6" src="{{ url_for('static', filename='images/gallery6.jpg') }}" alt="Event 6">
+                </a>
+            </div>
+        </div>
+        <div id="rsm-announcements-photo-gallery-footer">
+            <a id="rsm-announcements-photo-gallery-link-all" href="#">View All Photos</a>
+        </div>
+    </div>
+</section>
+
+<!-- Festival Calendar Section -->
+<section id="rsm-announcements-festival-calendar-section">
+    <div id="rsm-announcements-festival-calendar-container">
+        <h2 id="rsm-announcements-festival-calendar-heading">Festival Calendar 2025</h2>
+        <div id="rsm-announcements-festival-calendar-table-container">
+            <table id="rsm-announcements-festival-calendar-table">
+                <thead id="rsm-announcements-festival-calendar-table-header">
+                    <tr id="rsm-announcements-festival-calendar-table-header-row">
+                        <th id="rsm-announcements-festival-calendar-table-header-cell-date">Date</th>
+                        <th id="rsm-announcements-festival-calendar-table-header-cell-occasion">Festival/Occasion</th>
+                        <th id="rsm-announcements-festival-calendar-table-header-cell-events">Special Events</th>
+                    </tr>
+                </thead>
+                <tbody id="rsm-announcements-festival-calendar-table-body">
+                    <tr id="rsm-announcements-festival-calendar-table-row-1">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-1">January 14</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-1">Sankranti</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-1">Special archana, cultural programs</td>
+                    </tr>
+                    <tr id="rsm-announcements-festival-calendar-table-row-2">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-2">February 10</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-2">Vasant Panchami</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-2">Saraswati Pooja, special archana</td>
+                    </tr>
+                    <tr id="rsm-announcements-festival-calendar-table-row-3">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-3">February 28</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-3">Maha Shivaratri</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-3">Night-long pooja, abhishekam</td>
+                    </tr>
+                    <tr id="rsm-announcements-festival-calendar-table-row-4">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-4">March 18-20</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-4">Aradhana Mahotsava</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-4">Special poojas, cultural events</td>
+                    </tr>
+                    <tr id="rsm-announcements-festival-calendar-table-row-5">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-5">April 5</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-5">Guru Purnima</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-5">Guru Paduka Pooja, discourse</td>
+                    </tr>
+                    <tr id="rsm-announcements-festival-calendar-table-row-6">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-6">April 12</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-6">Hanuman Jayanti</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-6">Special abhishekam, Hanuman Chalisa</td>
+                    </tr>
+                    <tr id="rsm-announcements-festival-calendar-table-row-7">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-7">May 3</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-7">Akshaya Tritiya</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-7">Special pooja, annadana</td>
+                    </tr>
+                    <tr id="rsm-announcements-festival-calendar-table-row-8">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-8">June 17</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-8">Ganga Dussehra</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-8">Special abhishekam</td>
+                    </tr>
+                    <tr id="rsm-announcements-festival-calendar-table-row-9">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-9">July 21</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-9">Guru Poornima</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-9">Special events for Vyasa Pooja</td>
+                    </tr>
+                    <tr id="rsm-announcements-festival-calendar-table-row-10">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-10">August 16</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-10">Krishna Janmashtami</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-10">Special pooja, bhajans</td>
+                    </tr>
+                    <tr id="rsm-announcements-festival-calendar-table-row-11">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-11">August 29</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-11">Ganesh Chaturthi</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-11">Special pooja, cultural events</td>
+                    </tr>
+                    <tr id="rsm-announcements-festival-calendar-table-row-12">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-12">October 3-12</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-12">Navaratri</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-12">Nine days of special celebrations</td>
+                    </tr>
+                    <tr id="rsm-announcements-festival-calendar-table-row-13">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-13">October 31</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-13">Deepavali</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-13">Special pooja, lighting ceremony</td>
+                    </tr>
+                    <tr id="rsm-announcements-festival-calendar-table-row-14">
+                        <td id="rsm-announcements-festival-calendar-table-cell-date-14">December 14</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-occasion-14">Dattatreya Jayanti</td>
+                        <td id="rsm-announcements-festival-calendar-table-cell-events-14">Special abhishekam, homam</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Event Modals -->
+<div id="rsm-announcements-event-modal-1" class="modal fade" tabindex="-1" aria-labelledby="eventModal1Label" aria-hidden="true">
+    <div id="rsm-announcements-event-modal-dialog-1" class="modal-dialog modal-lg">
+        <div id="rsm-announcements-event-modal-content-1" class="modal-content">
+            <div id="rsm-announcements-event-modal-header-1" class="modal-header">
+                <h5 id="rsm-announcements-event-modal-title-1" class="modal-title">Aradhana Mahotsava</h5>
+                <button id="rsm-announcements-event-modal-close-1" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="rsm-announcements-event-modal-body-1" class="modal-body">
+                <h6 id="rsm-announcements-event-modal-date-time-1">March 18-20, 2025 | 6:00 AM onwards</h6>
+                <p id="rsm-announcements-event-modal-description-1">Join us for the grand annual Aradhana Mahotsava celebrations commemorating Sri Raghavendra Swami. This three-day event is filled with special rituals, cultural programs, and spiritual discourses.</p>
+                
+                <h6 id="rsm-announcements-event-modal-schedule-heading-1">Detailed Schedule:</h6>
+                <div id="rsm-announcements-event-modal-schedule-table-container-1">
+                    <table id="rsm-announcements-event-modal-schedule-table-1" class="table table-bordered">
+                        <thead id="rsm-announcements-event-modal-schedule-table-header-1" class="table-light">
+                            <tr id="rsm-announcements-event-modal-schedule-table-header-row-1">
+                                <th id="rsm-announcements-event-modal-schedule-table-header-cell-day-1">Day</th>
+                                <th id="rsm-announcements-event-modal-schedule-table-header-cell-time-1">Time</th>
+                                <th id="rsm-announcements-event-modal-schedule-table-header-cell-event-1">Event</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rsm-announcements-event-modal-schedule-table-body-1">
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-1-1">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-day-1-1" rowspan="5">Day 1 (March 18)</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-1-1">6:00 AM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-1-1">Suprabhatam & Special Abhishekam</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-1-2">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-1-2">8:00 AM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-1-2">Sahasranama Archana</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-1-3">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-1-3">11:00 AM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-1-3">Maha Mangalarati & Prasada Vitarana</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-1-4">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-1-4">4:00 PM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-1-4">Discourse by Scholar</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-1-5">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-1-5">7:00 PM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-1-5">Cultural Program</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-2-1">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-day-2-1" rowspan="5">Day 2 (March 19)</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-2-1">6:00 AM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-2-1">Suprabhatam & Panchamrita Abhishekam</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-2-2">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-2-2">8:00 AM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-2-2">Rudra Homa</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-2-3">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-2-3">11:00 AM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-2-3">Maha Mangalarati & Prasada Vitarana</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-2-4">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-2-4">4:00 PM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-2-4">Vedic Chanting</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-2-5">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-2-5">7:00 PM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-2-5">Bhajans & Cultural Program</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-3-1">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-day-3-1" rowspan="5">Day 3 (March 20)</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-3-1">6:00 AM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-3-1">Suprabhatam & Maha Abhishekam</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-3-2">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-3-2">8:00 AM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-3-2">Ganapati Homa</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-3-3">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-3-3">11:00 AM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-3-3">Maha Mangalarati & Prasada Vitarana</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-3-4">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-3-4">4:00 PM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-3-4">Valedictory Function</td>
+                            </tr>
+                            <tr id="rsm-announcements-event-modal-schedule-table-row-3-5">
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-time-3-5">7:00 PM</td>
+                                <td id="rsm-announcements-event-modal-schedule-table-cell-event-3-5">Procession & Cultural Program</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h6 id="rsm-announcements-event-modal-arrangements-heading-1">Special Arrangements:</h6>
+                <ul id="rsm-announcements-event-modal-arrangements-list-1">
+                    <li id="rsm-announcements-event-modal-arrangements-item-1-1">Accommodation for outstation devotees (limited availability, please register in advance)</li>
+                    <li id="rsm-announcements-event-modal-arrangements-item-1-2">Annadana (free meals) for all devotees throughout the event</li>
+                    <li id="rsm-announcements-event-modal-arrangements-item-1-3">Special seating for elderly and differently-abled devotees</li>
+                    <li id="rsm-announcements-event-modal-arrangements-item-1-4">Live streaming of main events on our social media channels</li>
+                </ul>
+                
+                <h6 id="rsm-announcements-event-modal-registration-heading-1">How to Register:</h6>
+                <p id="rsm-announcements-event-modal-registration-text-1">Please fill out the registration form at the temple office or online through our website to confirm your participation, especially if you require accommodation.</p>
+                
+                <div id="rsm-announcements-event-modal-registration-footer-1" class="text-center mt-4">
+                    <a id="rsm-announcements-event-modal-registration-link-1" href="{{ url_for('booking') }}" class="btn btn-primary">Register Online</a>
+                </div>
+            </div>
+            <div id="rsm-announcements-event-modal-footer-1" class="modal-footer">
+                <button id="rsm-announcements-event-modal-close-button-1" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional event modals would follow the same pattern -->
+
+{% endblock %}
+
+{% block additional_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/lightbox.min.css') }}">
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/lightbox.min.js') }}"></script>
+{% endblock %}

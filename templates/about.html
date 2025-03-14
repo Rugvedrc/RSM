@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+
+{% block title %}About Us - Raghavendra Swami Math{% endblock %}
+
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Raghavendra Swami Math</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+</head>
+
+<body>
+    <!-- About Hero Section -->
+    <section id="rsm-about-page-header" class="rsm-about-page-header">
+        <div id="rsm-about-header-container" class="rsm-about-header-container">
+            <h1 id="rsm-about-main-heading" class="rsm-about-main-heading">About Raghavendra Swami Math</h1>
+            <p id="rsm-about-lead-text" class="rsm-about-lead-text">Learn about our history, mission, and spiritual
+                heritage</p>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="rsm-about-history-section" class="rsm-about-history-section">
+        <div id="rsm-about-history-container" class="rsm-about-history-container">
+            <div id="rsm-about-history-row" class="rsm-about-history-row">
+                <div id="rsm-about-history-text-column" class="rsm-about-history-text-column">
+                    <h2 id="rsm-about-history-heading" class="rsm-about-history-heading">Our History</h2>
+                    <p id="rsm-about-history-paragraph-1" class="rsm-about-history-paragraph">Raghavendra Swami Math in
+                        Chhatrapati Sambhaji Nagar was established in [year] with the divine blessings of Sri
+                        Raghavendra Swami. The Math was founded by [Founder's Name] with the aim of propagating the
+                        teachings of Sri Raghavendra Swami and serving the spiritual needs of devotees in the region.
+                    </p>
+                    <p id="rsm-about-history-paragraph-2" class="rsm-about-history-paragraph">Over the years, the Math
+                        has grown from a small shrine to a significant spiritual center, attracting devotees from across
+                        Maharashtra and beyond. The Math has been instrumental in preserving and propagating the rich
+                        spiritual traditions of the Madhwa lineage and Rayaru's teachings.</p>
+                    <p id="rsm-about-history-paragraph-3" class="rsm-about-history-paragraph">Through the dedicated
+                        service of successive pontiffs and the support of countless devotees, the Math continues to
+                        thrive as a beacon of spiritual light in Chhatrapati Sambhaji Nagar.</p>
+                </div>
+                <div id="rsm-about-history-image-column" class="rsm-about-history-image-column">
+                    <img id="rsm-about-history-image" src="static/images/math-history.jpg"
+                        alt="Raghavendra Swami Math History" class="rsm-about-history-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guru Parampara Section -->
+    <section id="rsm-about-guru-parampara-section" class="rsm-about-guru-parampara-section">
+        <div id="rsm-about-guru-parampara-container" class="rsm-about-guru-parampara-container">
+            <h2 id="rsm-about-guru-parampara-heading" class="rsm-about-guru-parampara-heading">Guru Parampara</h2>
+            <div id="rsm-about-guru-parampara-timeline" class="rsm-about-guru-parampara-timeline">
+                <div id="rsm-about-guru-row-1" class="rsm-about-guru-row">
+                    <div id="rsm-about-guru-column-1a" class="rsm-about-guru-column">
+                        <div id="rsm-about-guru-card-madhvacharya" class="rsm-about-guru-card">
+                            <div id="rsm-about-guru-card-body-madhvacharya" class="rsm-about-guru-card-body">
+                                <h5 id="rsm-about-guru-card-title-madhvacharya" class="rsm-about-guru-card-title">Sri
+                                    Madhvacharya (1238-1317)</h5>
+                                <p id="rsm-about-guru-card-text-madhvacharya" class="rsm-about-guru-card-text">The
+                                    founder of Dvaita (dualistic) philosophy, who established the Ashtamathas (eight
+                                    monasteries) in Udupi.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="rsm-about-guru-column-1b" class="rsm-about-guru-column">
+                        <div id="rsm-about-guru-card-empty-1" class="rsm-about-guru-card-empty"></div>
+                    </div>
+                </div>
+
+                <div id="rsm-about-guru-row-2" class="rsm-about-guru-row">
+                    <div id="rsm-about-guru-column-2a" class="rsm-about-guru-column">
+                        <div id="rsm-about-guru-card-empty-2" class="rsm-about-guru-card-empty"></div>
+                    </div>
+                    <div id="rsm-about-guru-column-2b" class="rsm-about-guru-column">
+                        <div id="rsm-about-guru-card-jayatirtha" class="rsm-about-guru-card">
+                            <div id="rsm-about-guru-card-body-jayatirtha" class="rsm-about-guru-card-body">
+                                <h5 id="rsm-about-guru-card-title-jayatirtha" class="rsm-about-guru-card-title">Sri
+                                    Jayatirtha (1365-1388)</h5>
+                                <p id="rsm-about-guru-card-text-jayatirtha" class="rsm-about-guru-card-text">Known as
+                                    Tikacharya, who wrote extensive commentaries on Madhvacharya's works, making them
+                                    more accessible.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="rsm-about-guru-row-3" class="rsm-about-guru-row">
+                    <div id="rsm-about-guru-column-3a" class="rsm-about-guru-column">
+                        <div id="rsm-about-guru-card-vyasatirtha" class="rsm-about-guru-card">
+                            <div id="rsm-about-guru-card-body-vyasatirtha" class="rsm-about-guru-card-body">
+                                <h5 id="rsm-about-guru-card-title-vyasatirtha" class="rsm-about-guru-card-title">Sri
+                                    Vyasatirtha (1460-1539)</h5>
+                                <p id="rsm-about-guru-card-text-vyasatirtha" class="rsm-about-guru-card-text">A
+                                    prominent philosopher and court scholar of the Vijayanagara Empire who greatly
+                                    expanded the influence of Dvaita philosophy.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="rsm-about-guru-column-3b" class="rsm-about-guru-column">
+                        <div id="rsm-about-guru-card-empty-3" class="rsm-about-guru-card-empty"></div>
+                    </div>
+                </div>
+
+                <div id="rsm-about-guru-row-4" class="rsm-about-guru-row">
+                    <div id="rsm-about-guru-column-4a" class="rsm-about-guru-column">
+                        <div id="rsm-about-guru-card-empty-4" class="rsm-about-guru-card-empty"></div>
+                    </div>
+                    <div id="rsm-about-guru-column-4b" class="rsm-about-guru-column">
+                        <div id="rsm-about-guru-card-raghavendra" class="rsm-about-guru-card">
+                            <div id="rsm-about-guru-card-body-raghavendra" class="rsm-about-guru-card-body">
+                                <h5 id="rsm-about-guru-card-title-raghavendra" class="rsm-about-guru-card-title">Sri
+                                    Raghavendra Swami (1595-1671)</h5>
+                                <p id="rsm-about-guru-card-text-raghavendra" class="rsm-about-guru-card-text">The
+                                    pontiff of Mantralayam Math, known for his miracles, scholarly works, and compassion
+                                    for all beings. His brindavana at Mantralayam continues to be a source of solace and
+                                    miracles for devotees.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="rsm-about-guru-row-5" class="rsm-about-guru-row">
+                    <div id="rsm-about-guru-column-5a" class="rsm-about-guru-column">
+                        <div id="rsm-about-guru-card-current" class="rsm-about-guru-card">
+                            <div id="rsm-about-guru-card-body-current" class="rsm-about-guru-card-body">
+                                <h5 id="rsm-about-guru-card-title-current" class="rsm-about-guru-card-title">Current
+                                    Pontiff of Our Math</h5>
+                                <p id="rsm-about-guru-card-text-current" class="rsm-about-guru-card-text">[Name and
+                                    brief history of the current head of the Math in Chhatrapati Sambhaji Nagar]</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="rsm-about-guru-column-5b" class="rsm-about-guru-column">
+                        <div id="rsm-about-guru-card-empty-5" class="rsm-about-guru-card-empty"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section id="rsm-about-mission-vision-section" class="rsm-about-mission-vision-section">
+        <div id="rsm-about-mission-vision-container" class="rsm-about-mission-vision-container">
+            <div id="rsm-about-mission-vision-row" class="rsm-about-mission-vision-row">
+                <div id="rsm-about-mission-column" class="rsm-about-mission-column">
+                    <div id="rsm-about-mission-card" class="rsm-about-mission-card">
+                        <div id="rsm-about-mission-card-body" class="rsm-about-mission-card-body">
+                            <h2 id="rsm-about-mission-title" class="rsm-about-mission-title">Our Mission</h2>
+                            <p id="rsm-about-mission-text" class="rsm-about-mission-text">The mission of Raghavendra
+                                Swami Math is to:</p>
+                            <ul id="rsm-about-mission-list" class="rsm-about-mission-list">
+                                <li id="rsm-about-mission-item-1" class="rsm-about-mission-item">Propagate the teachings
+                                    and philosophy of Sri Raghavendra Swami to all sincere seekers</li>
+                                <li id="rsm-about-mission-item-2" class="rsm-about-mission-item">Perform daily poojas
+                                    and rituals according to Vedic traditions</li>
+                                <li id="rsm-about-mission-item-3" class="rsm-about-mission-item">Provide spiritual
+                                    guidance to devotees in their quest for inner peace and self-realization</li>
+                                <li id="rsm-about-mission-item-4" class="rsm-about-mission-item">Serve the community
+                                    through various charitable activities like annadana, education, and healthcare</li>
+                                <li id="rsm-about-mission-item-5" class="rsm-about-mission-item">Preserve and promote
+                                    the rich cultural and spiritual heritage of the Madhwa tradition</li>
+                                <li id="rsm-about-mission-item-6" class="rsm-about-mission-item">Create a spiritual
+                                    sanctuary where people of all backgrounds can experience divine grace</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="rsm-about-vision-column" class="rsm-about-vision-column">
+                    <div id="rsm-about-vision-card" class="rsm-about-vision-card">
+                        <div id="rsm-about-vision-card-body" class="rsm-about-vision-card-body">
+                            <h2 id="rsm-about-vision-title" class="rsm-about-vision-title">Our Vision</h2>
+                            <p id="rsm-about-vision-text" class="rsm-about-vision-text">Our vision is to:</p>
+                            <ul id="rsm-about-vision-list" class="rsm-about-vision-list">
+                                <li id="rsm-about-vision-item-1" class="rsm-about-vision-item">Establish the Math as a
+                                    premier center for spiritual learning and practice in Maharashtra</li>
+                                <li id="rsm-about-vision-item-2" class="rsm-about-vision-item">Create a vibrant
+                                    community of devotees dedicated to spiritual growth and service</li>
+                                <li id="rsm-about-vision-item-3" class="rsm-about-vision-item">Expand our charitable
+                                    activities to reach more people in need</li>
+                                <li id="rsm-about-vision-item-4" class="rsm-about-vision-item">Develop educational
+                                    programs to teach Vedic knowledge, Sanskrit, and traditional arts</li>
+                                <li id="rsm-about-vision-item-5" class="rsm-about-vision-item">Build infrastructure that
+                                    can accommodate growing numbers of devotees and visitors</li>
+                                <li id="rsm-about-vision-item-6" class="rsm-about-vision-item">Use modern technology to
+                                    spread the timeless wisdom of Sri Raghavendra Swami globally</li>
+                                <li id="rsm-about-vision-item-7" class="rsm-about-vision-item">Foster harmony, peace,
+                                    and spiritual awakening in society</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Daily Activities Section -->
+    <section id="rsm-about-activities-section" class="rsm-about-activities-section">
+        <div id="rsm-about-activities-container" class="rsm-about-activities-container">
+            <h2 id="rsm-about-activities-heading" class="rsm-about-activities-heading">Daily Activities at the Math</h2>
+            <div id="rsm-about-activities-table-wrapper" class="rsm-about-activities-table-wrapper">
+                <table id="rsm-about-activities-table" class="rsm-about-activities-table">
+                    <thead id="rsm-about-activities-thead" class="rsm-about-activities-thead">
+                        <tr id="rsm-about-activities-header-row" class="rsm-about-activities-header-row">
+                            <th id="rsm-about-activities-header-time" class="rsm-about-activities-header-cell">Time</th>
+                            <th id="rsm-about-activities-header-activity" class="rsm-about-activities-header-cell">
+                                Activity</th>
+                            <th id="rsm-about-activities-header-description" class="rsm-about-activities-header-cell">
+                                Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rsm-about-activities-tbody" class="rsm-about-activities-tbody">
+                        <tr id="rsm-about-activities-row-1" class="rsm-about-activities-row">
+                            <td id="rsm-about-activities-time-1" class="rsm-about-activities-time-cell">5:30 AM</td>
+                            <td id="rsm-about-activities-name-1" class="rsm-about-activities-name-cell">Suprabhatam</td>
+                            <td id="rsm-about-activities-desc-1" class="rsm-about-activities-desc-cell">Morning prayers
+                                to awaken the deity</td>
+                        </tr>
+                        <tr id="rsm-about-activities-row-2" class="rsm-about-activities-row">
+                            <td id="rsm-about-activities-time-2" class="rsm-about-activities-time-cell">6:00 AM</td>
+                            <td id="rsm-about-activities-name-2" class="rsm-about-activities-name-cell">Abhishekam</td>
+                            <td id="rsm-about-activities-desc-2" class="rsm-about-activities-desc-cell">Ritual bathing
+                                of the deity</td>
+                        </tr>
+                        <tr id="rsm-about-activities-row-3" class="rsm-about-activities-row">
+                            <td id="rsm-about-activities-time-3" class="rsm-about-activities-time-cell">7:00 AM</td>
+                            <td id="rsm-about-activities-name-3" class="rsm-about-activities-name-cell">Alankaram &
+                                Archana</td>
+                            <td id="rsm-about-activities-desc-3" class="rsm-about-activities-desc-cell">Decoration of
+                                the deity and offering of flowers</td>
+                        </tr>
+                        <tr id="rsm-about-activities-row-4" class="rsm-about-activities-row">
+                            <td id="rsm-about-activities-time-4" class="rsm-about-activities-time-cell">8:00 AM</td>
+                            <td id="rsm-about-activities-name-4" class="rsm-about-activities-name-cell">Naivedyam</td>
+                            <td id="rsm-about-activities-desc-4" class="rsm-about-activities-desc-cell">Offering of food
+                                to the deity</td>
+                        </tr>
+                        <tr id="rsm-about-activities-row-5" class="rsm-about-activities-row">
+                            <td id="rsm-about-activities-time-5" class="rsm-about-activities-time-cell">12:00 PM</td>
+                            <td id="rsm-about-activities-name-5" class="rsm-about-activities-name-cell">Madhyahnika
+                                Pooja</td>
+                            <td id="rsm-about-activities-desc-5" class="rsm-about-activities-desc-cell">Midday rituals
+                                and archana</td>
+                        </tr>
+                        <tr id="rsm-about-activities-row-6" class="rsm-about-activities-row">
+                            <td id="rsm-about-activities-time-6" class="rsm-about-activities-time-cell">1:00 PM</td>
+                            <td id="rsm-about-activities-name-6" class="rsm-about-activities-name-cell">Annadana</td>
+                            <td id="rsm-about-activities-desc-6" class="rsm-about-activities-desc-cell">Free food
+                                distribution to devotees</td>
+                        </tr>
+                        <tr id="rsm-about-activities-row-7" class="rsm-about-activities-row">
+                            <td id="rsm-about-activities-time-7" class="rsm-about-activities-time-cell">5:00 PM</td>
+                            <td id="rsm-about-activities-name-7" class="rsm-about-activities-name-cell">Sandhya Arati
+                            </td>
+                            <td id="rsm-about-activities-desc-7" class="rsm-about-activities-desc-cell">Evening lamp
+                                offering</td>
+                        </tr>
+                        <tr id="rsm-about-activities-row-8" class="rsm-about-activities-row">
+                            <td id="rsm-about-activities-time-8" class="rsm-about-activities-time-cell">7:00 PM</td>
+                            <td id="rsm-about-activities-name-8" class="rsm-about-activities-name-cell">Bhajans</td>
+                            <td id="rsm-about-activities-desc-8" class="rsm-about-activities-desc-cell">Devotional
+                                singing</td>
+                        </tr>
+                        <tr id="rsm-about-activities-row-9" class="rsm-about-activities-row">
+                            <td id="rsm-about-activities-time-9" class="rsm-about-activities-time-cell">8:00 PM</td>
+                            <td id="rsm-about-activities-name-9" class="rsm-about-activities-name-cell">Shayana Arati
+                            </td>
+                            <td id="rsm-about-activities-desc-9" class="rsm-about-activities-desc-cell">Final lamp
+                                offering before the deity rests</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p id="rsm-about-activities-note" class="rsm-about-activities-note">
+                <small id="rsm-about-activities-note-text" class="rsm-about-activities-note-text">* Schedule may vary on
+                    festival days and special occasions</small>
+            </p>
+        </div>
+    </section>
+</body>
+
+</html>
+
+{% endblock %}

@@ -1,0 +1,433 @@
+{% extends 'base.html' %}
+
+{% block title %}Seva Booking - Raghavendra Swami Math{% endblock %}
+
+{% block content %}
+<div id="rsm-booking-container">
+    <div id="rsm-booking-header-section">
+        <div id="rsm-booking-header-row">
+            <div id="rsm-booking-header-column">
+                <h1 id="rsm-booking-header-heading">Seva Booking</h1>
+                <div id="rsm-booking-header-divider">
+                    <div id="rsm-booking-header-divider-line"></div>
+                    <div id="rsm-booking-header-divider-icon">ॐ</div>
+                    <div id="rsm-booking-header-divider-line"></div>
+                </div>
+                <p id="rsm-booking-header-text">Book your sevas at Raghavendra Swami Math, Chhatrapati Sambhaji Nagar.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Available Sevas Section -->
+    <div id="rsm-booking-sevas-section">
+        <div id="rsm-booking-sevas-row">
+            <div id="rsm-booking-sevas-column">
+                <div id="rsm-booking-sevas-card">
+                    <div id="rsm-booking-sevas-card-header">
+                        <h3 id="rsm-booking-sevas-card-title">Available Sevas</h3>
+                    </div>
+                    <div id="rsm-booking-sevas-card-body">
+                        <div id="rsm-booking-sevas-table-container">
+                            <table id="rsm-booking-sevas-table">
+                                <thead>
+                                    <tr>
+                                        <th id="rsm-booking-sevas-header-cell-name">Seva Name</th>
+                                        <th id="rsm-booking-sevas-header-cell-description">Description</th>
+                                        <th id="rsm-booking-sevas-header-cell-duration">Duration</th>
+                                        <th id="rsm-booking-sevas-header-cell-contribution">Contribution (₹)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td id="rsm-booking-sevas-cell-name-abhishekam">Abhishekam</td>
+                                        <td id="rsm-booking-sevas-cell-description-abhishekam">Sacred bathing ritual for
+                                            the deity</td>
+                                        <td id="rsm-booking-sevas-cell-duration-abhishekam">1 hour</td>
+                                        <td id="rsm-booking-sevas-cell-contribution-abhishekam">1,001</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="rsm-booking-sevas-cell-name-archana">Archana</td>
+                                        <td id="rsm-booking-sevas-cell-description-archana">Worship with flowers and
+                                            mantras</td>
+                                        <td id="rsm-booking-sevas-cell-duration-archana">30 mins</td>
+                                        <td id="rsm-booking-sevas-cell-contribution-archana">251</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="rsm-booking-sevas-cell-name-sahasranama">Sahasranama Archana</td>
+                                        <td id="rsm-booking-sevas-cell-description-sahasranama">Recital of 1008 names
+                                            with flower offerings</td>
+                                        <td id="rsm-booking-sevas-cell-duration-sahasranama">1 hour</td>
+                                        <td id="rsm-booking-sevas-cell-contribution-sahasranama">501</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="rsm-booking-sevas-cell-name-satyanarayan">Satyanarayan Pooja</td>
+                                        <td id="rsm-booking-sevas-cell-description-satyanarayan">Complete ritual worship
+                                            for Lord Satyanarayan</td>
+                                        <td id="rsm-booking-sevas-cell-duration-satyanarayan">2 hours</td>
+                                        <td id="rsm-booking-sevas-cell-contribution-satyanarayan">2,001</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="rsm-booking-sevas-cell-name-annadhanam">Annadhanam</td>
+                                        <td id="rsm-booking-sevas-cell-description-annadhanam">Food offering for
+                                            devotees</td>
+                                        <td id="rsm-booking-sevas-cell-duration-annadhanam">Varies</td>
+                                        <td id="rsm-booking-sevas-cell-contribution-annadhanam">5,001</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="rsm-booking-sevas-cell-name-raghavendra">Raghavendra Pooja</td>
+                                        <td id="rsm-booking-sevas-cell-description-raghavendra">Special pooja for
+                                            Raghavendra Swami</td>
+                                        <td id="rsm-booking-sevas-cell-duration-raghavendra">1.5 hours</td>
+                                        <td id="rsm-booking-sevas-cell-contribution-raghavendra">1,501</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="rsm-booking-sevas-info">
+                            <p id="rsm-booking-sevas-info-text">Dates are subject to availability. Please book at least
+                                3 days in advance.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Booking Form Section -->
+    <div id="rsm-booking-form-section">
+        <div id="rsm-booking-form-row">
+            <div id="rsm-booking-form-column">
+                <div id="rsm-booking-form-card">
+                    <div id="rsm-booking-form-card-header">
+                        <h3 id="rsm-booking-form-card-title">Book Your Seva</h3>
+                    </div>
+                    <div id="rsm-booking-form-card-body">
+                        <form action="{{ url_for('seva.book_seva') }}" method="POST" id="rsm-booking-form">
+                            <div id="rsm-booking-form-row-1">
+                                <div id="rsm-booking-form-column-1">
+                                    <label for="rsm-booking-form-name" id="rsm-booking-form-label-name">Full
+                                        Name*</label>
+                                    <input type="text" id="rsm-booking-form-name" name="name" required>
+                                </div>
+                                <div id="rsm-booking-form-column-2">
+                                    <label for="rsm-booking-form-email" id="rsm-booking-form-label-email">Email
+                                        Address*</label>
+                                    <input type="email" id="rsm-booking-form-email" name="email" required>
+                                </div>
+                            </div>
+
+                            <div id="rsm-booking-form-row-2">
+                                <div id="rsm-booking-form-column-1">
+                                    <label for="rsm-booking-form-phone" id="rsm-booking-form-label-phone">Phone
+                                        Number*</label>
+                                    <input type="tel" id="rsm-booking-form-phone" name="phone" required>
+                                </div>
+                                <div id="rsm-booking-form-column-2">
+                                    <label for="rsm-booking-form-gothra"
+                                        id="rsm-booking-form-label-gothra">Gothra</label>
+                                    <input type="text" id="rsm-booking-form-gothra" name="gothra">
+                                </div>
+                            </div>
+
+                            <div id="rsm-booking-form-row-3">
+                                <div id="rsm-booking-form-column-1">
+                                    <label for="rsm-booking-form-sevaType" id="rsm-booking-form-label-sevaType">Select
+                                        Seva*</label>
+                                    <select id="rsm-booking-form-sevaType" name="sevaType" required>
+                                        <option value="">Choose Seva...</option>
+                                        <option value="Abhishekam">Abhishekam - ₹1,001</option>
+                                        <option value="Archana">Archana - ₹251</option>
+                                        <option value="Sahasranama Archana">Sahasranama Archana - ₹501</option>
+                                        <option value="Satyanarayan Pooja">Satyanarayan Pooja - ₹2,001</option>
+                                        <option value="Annadhanam">Annadhanam - ₹5,001</option>
+                                        <option value="Raghavendra Pooja">Raghavendra Pooja - ₹1,501</option>
+                                    </select>
+                                </div>
+                                <div id="rsm-booking-form-column-2">
+                                    <label for="rsm-booking-form-sevaDate"
+                                        id="rsm-booking-form-label-sevaDate">Preferred Date*</label>
+                                    <input type="date" id="rsm-booking-form-sevaDate" name="sevaDate" required>
+                                </div>
+                            </div>
+
+                            <div id="rsm-booking-form-row-time">
+                                <label for="rsm-booking-form-sevaTime" id="rsm-booking-form-label-sevaTime">Preferred
+                                    Time*</label>
+                                <select id="rsm-booking-form-sevaTime" name="sevaTime" required>
+                                    <option value="">Select Time...</option>
+                                    <option value="06:00">06:00 AM</option>
+                                    <option value="07:00">07:00 AM</option>
+                                    <option value="08:00">08:00 AM</option>
+                                    <option value="09:00">09:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="16:00">04:00 PM</option>
+                                    <option value="17:00">05:00 PM</option>
+                                    <option value="18:00">06:00 PM</option>
+                                    <option value="19:00">07:00 PM</option>
+                                </select>
+                            </div>
+
+                            <!-- Availability Section -->
+                            <div id="rsm-booking-availability-section" style="display: none;">
+                                <div id="rsm-booking-availability-row">
+                                    <div id="rsm-booking-availability-column">
+                                        <div id="rsm-booking-availability-card">
+                                            <div id="rsm-booking-availability-card-header">
+                                                <h3 id="rsm-booking-availability-card-title">Available Slots</h3>
+                                            </div>
+                                            <div id="rsm-booking-availability-card-body">
+                                                <div id="rsm-booking-availability-info">
+                                                    <p id="rsm-booking-availability-text"><span
+                                                            id="rsm-booking-availability-count">60/60</span> slots
+                                                        available for <span id="rsm-booking-selected-seva"></span> on
+                                                        <span id="rsm-booking-selected-date"></span> at <span
+                                                            id="rsm-booking-selected-time"></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="rsm-booking-form-row-4">
+                                <label for="rsm-booking-form-nakshatra" id="rsm-booking-form-label-nakshatra">Star
+                                    (Nakshatra)</label>
+                                <select id="rsm-booking-form-nakshatra" name="nakshatra">
+                                    <option value="">Select Nakshatra (Optional)</option>
+                                    <option value="Ashwini">Ashwini</option>
+                                    <option value="Bharani">Bharani</option>
+                                    <option value="Krittika">Krittika</option>
+                                    <option value="Rohini">Rohini</option>
+                                    <option value="Mrigashira">Mrigashira</option>
+                                    <option value="Ardra">Ardra</option>
+                                    <option value="Punarvasu">Punarvasu</option>
+                                    <option value="Pushya">Pushya</option>
+                                    <option value="Ashlesha">Ashlesha</option>
+                                    <option value="Magha">Magha</option>
+                                    <option value="Purva Phalguni">Purva Phalguni</option>
+                                    <option value="Uttara Phalguni">Uttara Phalguni</option>
+                                    <option value="Hasta">Hasta</option>
+                                    <option value="Chitra">Chitra</option>
+                                    <option value="Swati">Swati</option>
+                                    <option value="Vishakha">Vishakha</option>
+                                    <option value="Anuradha">Anuradha</option>
+                                    <option value="Jyeshtha">Jyeshtha</option>
+                                    <option value="Mula">Mula</option>
+                                    <option value="Purva Ashadha">Purva Ashadha</option>
+                                    <option value="Uttara Ashadha">Uttara Ashadha</option>
+                                    <option value="Shravana">Shravana</option>
+                                    <option value="Dhanishta">Dhanishta</option>
+                                    <option value="Shatabhisha">Shatabhisha</option>
+                                    <option value="Purva Bhadrapada">Purva Bhadrapada</option>
+                                    <option value="Uttara Bhadrapada">Uttara Bhadrapada</option>
+                                    <option value="Revati">Revati</option>
+                                </select>
+                            </div>
+
+                            <div id="rsm-booking-form-row-5">
+                                <label for="rsm-booking-form-message" id="rsm-booking-form-label-message">Special
+                                    Instructions (Optional)</label>
+                                <textarea id="rsm-booking-form-message" name="message" rows="3"></textarea>
+                            </div>
+
+                            <div id="rsm-booking-form-row-6">
+                                <label id="rsm-booking-form-label-family">Family Members (For whom the Seva is being
+                                    performed)</label>
+                                <div id="rsm-booking-form-family-container">
+                                    <div id="rsm-booking-form-family-row-1">
+                                        <div id="rsm-booking-form-family-column-1">
+                                            <input type="text" id="rsm-booking-form-family-name-1" name="familyName[]"
+                                                placeholder="Name">
+                                        </div>
+                                        <div id="rsm-booking-form-family-column-2">
+                                            <input type="text" id="rsm-booking-form-family-relation-1"
+                                                name="familyRelation[]" placeholder="Relation">
+                                        </div>
+                                        <div id="rsm-booking-form-family-column-3">
+                                            <button type="button" id="rsm-booking-form-family-add"
+                                                class="rsm-booking-form-family-add">Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="rsm-booking-form-row-7">
+                                <input type="checkbox" id="rsm-booking-form-terms" required>
+                                <label for="rsm-booking-form-terms" id="rsm-booking-form-label-terms">I agree to the
+                                    terms and conditions</label>
+                            </div>
+
+                            <div id="rsm-booking-form-row-8">
+                                <p id="rsm-booking-form-payment-method">Payment Method:</p>
+                                <div id="rsm-booking-form-payment-online">
+                                    <input type="radio" id="rsm-booking-form-pay-online" name="paymentMethod"
+                                        value="online" checked>
+                                    <label for="rsm-booking-form-pay-online">Pay Online</label>
+                                </div>
+                                <div id="rsm-booking-form-payment-math">
+                                    <input type="radio" id="rsm-booking-form-pay-math" name="paymentMethod"
+                                        value="math">
+                                    <label for="rsm-booking-form-pay-math">Pay at Math</label>
+                                </div>
+                            </div>
+
+                            <div id="rsm-booking-form-submit">
+                                <button type="submit" id="rsm-booking-form-submit-button">Book Seva</button>
+                            </div>
+                        </form>
+                    </div>
+
+
+                    <div id="rsm-booking-info-card">
+                        <div id="rsm-booking-info-card-body">
+                            <h4 id="rsm-booking-info-title">Important Information</h4>
+                            <ul id="rsm-booking-info-list">
+                                <li id="rsm-booking-info-item-1">Confirmation will be sent to your email after
+                                    successful
+                                    booking.</li>
+                                <li id="rsm-booking-info-item-2">Please arrive 30 minutes before your scheduled seva
+                                    time.
+                                </li>
+                                <li id="rsm-booking-info-item-3">For any changes or cancellations, please contact us at
+                                    least 24 hours in advance.</li>
+                                <li id="rsm-booking-info-item-4">For special arrangements or group sevas, please contact
+                                    the
+                                    temple office directly.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JavaScript for Adding More Family Members and Checking Availability -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Family members functionality
+        const container = document.getElementById('rsm-booking-form-family-container');
+
+        document.querySelector('.rsm-booking-form-family-add').addEventListener('click', function () {
+            const newRow = document.createElement('div');
+            newRow.className = 'rsm-booking-form-family-row';
+            newRow.innerHTML = `
+                <div class="rsm-booking-form-family-column-1">
+                    <input type="text" name="familyName[]" placeholder="Name">
+                </div>
+                <div class="rsm-booking-form-family-column-2">
+                    <input type="text" name="familyRelation[]" placeholder="Relation">
+                </div>
+                <div class="rsm-booking-form-family-column-3">
+                    <button type="button" class="rsm-booking-form-family-remove">Remove</button>
+                </div>
+            `;
+            container.appendChild(newRow);
+
+            // Add event listener to the new remove button
+            newRow.querySelector('.rsm-booking-form-family-remove').addEventListener('click', function () {
+                container.removeChild(newRow);
+            });
+        });
+
+        // Availability checking functionality
+        const sevaSelect = document.getElementById('rsm-booking-form-sevaType');
+        const dateInput = document.getElementById('rsm-booking-form-sevaDate');
+        const timeSelect = document.getElementById('rsm-booking-form-sevaTime');
+        const availabilitySection = document.getElementById('rsm-booking-availability-section');
+        const selectedSevaElem = document.getElementById('rsm-booking-selected-seva');
+        const selectedDateElem = document.getElementById('rsm-booking-selected-date');
+        const selectedTimeElem = document.getElementById('rsm-booking-selected-time');
+        const availabilityCountElem = document.getElementById('rsm-booking-availability-count');
+
+
+        function checkAvailability() {
+            const seva = sevaSelect.value;
+            const date = dateInput.value;
+            const time = timeSelect.value;
+
+            if (seva && date && time) {
+                // Format the date for display
+                const formattedDate = new Date(date).toLocaleDateString('en-IN', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                });
+
+
+                // Format the time for display (convert 24h to 12h format)
+                const timeHour = parseInt(time.split(':')[0]);
+                const formattedTime = (timeHour > 12 ? timeHour - 12 : timeHour) + ':00 ' + (timeHour >= 12 ? 'PM' : 'AM');
+
+                // Update the availability section
+                selectedSevaElem.textContent = seva;
+                selectedDateElem.textContent = formattedDate;
+                selectedTimeElem.textContent = formattedTime;
+
+
+
+                // Fetch real-time availability from the server
+                fetch('/seva/check-availability', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        sevaType: seva,
+                        sevaDate: date,
+                        sevaTime: time
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            console.error('Error checking availability:', data.error);
+                            availabilityCountElem.textContent = 'Error checking availability';
+                        } else {
+                            availabilityCountElem.textContent = data.available_slots + '/' + data.total_slots;
+
+                            // Disable submit button if no slots available
+                            const submitButton = document.getElementById('rsm-booking-form-submit-button');
+                            if (data.available_slots <= 0) {
+                                submitButton.disabled = true;
+                                submitButton.textContent = 'No Slots Available';
+                            } else {
+                                submitButton.disabled = false;
+                                submitButton.textContent = 'Book Seva';
+                            }
+                        }
+
+                        // Show the availability section
+                        availabilitySection.style.display = 'block';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        availabilityCountElem.textContent = 'Error checking availability';
+                        availabilitySection.style.display = 'block';
+                    });
+            } else {
+                availabilitySection.style.display = 'none';
+            }
+        }
+
+
+
+        sevaSelect.addEventListener('change', checkAvailability);
+        dateInput.addEventListener('change', checkAvailability);
+        timeSelect.addEventListener('change', checkAvailability);
+
+        // Set minimum date to today
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        const todayString = `${yyyy}-${mm}-${dd}`;
+        dateInput.min = todayString;
+
+    });
+</script>
+{% endblock %}
