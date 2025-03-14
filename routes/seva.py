@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify, render_template, redirect, url_fo
 from models.seva import SevaBooking
 import mysql.connector
 from config import get_db_connection,DB_HOST,DB_USER,DB_PASSWORD,DB_NAME,DB_PORT
-
+from datetime import datetime
 
 seva = Blueprint('seva', __name__, url_prefix='/seva')
 
@@ -12,6 +12,7 @@ def check_availability():
     seva_type = data.get('sevaType')
     seva_date = data.get('sevaDate')
     seva_time = data.get('sevaTime')
+    seva_time = datetime.strptime(seva_time, "%I:%M %p").strftime("%H:%M:%S")
     
     if not all([seva_type, seva_date, seva_time]):
         return jsonify({'error': 'Missing required fields'}), 400
