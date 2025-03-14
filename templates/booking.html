@@ -308,126 +308,130 @@
 </div>
 <!-- JavaScript for Adding More Family Members and Checking Availability -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Family members functionality
-        const container = document.getElementById('rsm-booking-form-family-container');
+document.addEventListener('DOMContentLoaded', function () {
+    // Family members functionality
+    const container = document.getElementById('rsm-booking-form-family-container');
 
-        document.querySelector('.rsm-booking-form-family-add').addEventListener('click', function () {
-            const newRow = document.createElement('div');
-            newRow.className = 'rsm-booking-form-family-row';
-            newRow.innerHTML = `
-                <div class="rsm-booking-form-family-column-1">
-                    <input type="text" name="familyName[]" placeholder="Name">
-                </div>
-                <div class="rsm-booking-form-family-column-2">
-                    <input type="text" name="familyRelation[]" placeholder="Relation">
-                </div>
-                <div class="rsm-booking-form-family-column-3">
-                    <button type="button" class="rsm-booking-form-family-remove">Remove</button>
-                </div>
-            `;
-            container.appendChild(newRow);
+    document.querySelector('.rsm-booking-form-family-add').addEventListener('click', function () {
+        const newRow = document.createElement('div');
+        newRow.className = 'rsm-booking-form-family-row';
+        newRow.innerHTML = `
+            <div class="rsm-booking-form-family-column-1">
+                <input type="text" name="familyName[]" placeholder="Name">
+            </div>
+            <div class="rsm-booking-form-family-column-2">
+                <input type="text" name="familyRelation[]" placeholder="Relation">
+            </div>
+            <div class="rsm-booking-form-family-column-3">
+                <button type="button" class="rsm-booking-form-family-remove">Remove</button>
+            </div>
+        `;
+        container.appendChild(newRow);
 
-            // Add event listener to the new remove button
-            newRow.querySelector('.rsm-booking-form-family-remove').addEventListener('click', function () {
-                container.removeChild(newRow);
-            });
+        // Add event listener to the new remove button
+        newRow.querySelector('.rsm-booking-form-family-remove').addEventListener('click', function () {
+            container.removeChild(newRow);
         });
-
-        // Availability checking functionality
-        const sevaSelect = document.getElementById('rsm-booking-form-sevaType');
-        const dateInput = document.getElementById('rsm-booking-form-sevaDate');
-        const timeSelect = document.getElementById('rsm-booking-form-sevaTime');
-        const availabilitySection = document.getElementById('rsm-booking-availability-section');
-        const selectedSevaElem = document.getElementById('rsm-booking-selected-seva');
-        const selectedDateElem = document.getElementById('rsm-booking-selected-date');
-        const selectedTimeElem = document.getElementById('rsm-booking-selected-time');
-        const availabilityCountElem = document.getElementById('rsm-booking-availability-count');
-
-
-        function checkAvailability() {
-            const seva = sevaSelect.value;
-            const date = dateInput.value;
-            const time = timeSelect.value;
-
-            if (seva && date && time) {
-                // Format the date for display
-                const formattedDate = new Date(date).toLocaleDateString('en-IN', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                });
-
-
-                // Format the time for display (convert 24h to 12h format)
-                const timeHour = parseInt(time.split(':')[0]);
-                const formattedTime = (timeHour > 12 ? timeHour - 12 : timeHour) + ':00 ' + (timeHour >= 12 ? 'PM' : 'AM');
-
-                // Update the availability section
-                selectedSevaElem.textContent = seva;
-                selectedDateElem.textContent = formattedDate;
-                selectedTimeElem.textContent = formattedTime;
-
-
-
-                // Fetch real-time availability from the server
-                fetch('/seva/check-availability', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        sevaType: seva,
-                        sevaDate: date,
-                        sevaTime: time
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            console.error('Error checking availability:', data.error);
-                            availabilityCountElem.textContent = 'Error checking availability';
-                        } else {
-                            availabilityCountElem.textContent = data.available_slots + '/' + data.total_slots;
-
-                            // Disable submit button if no slots available
-                            const submitButton = document.getElementById('rsm-booking-form-submit-button');
-                            if (data.available_slots <= 0) {
-                                submitButton.disabled = true;
-                                submitButton.textContent = 'No Slots Available';
-                            } else {
-                                submitButton.disabled = false;
-                                submitButton.textContent = 'Book Seva';
-                            }
-                        }
-
-                        // Show the availability section
-                        availabilitySection.style.display = 'block';
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        availabilityCountElem.textContent = 'Error checking availability';
-                        availabilitySection.style.display = 'block';
-                    });
-            } else {
-                availabilitySection.style.display = 'none';
-            }
-        }
-
-
-
-        sevaSelect.addEventListener('change', checkAvailability);
-        dateInput.addEventListener('change', checkAvailability);
-        timeSelect.addEventListener('change', checkAvailability);
-
-        // Set minimum date to today
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const dd = String(today.getDate()).padStart(2, '0');
-        const todayString = `${yyyy}-${mm}-${dd}`;
-        dateInput.min = todayString;
-
     });
+
+    // Availability checking functionality
+    const sevaSelect = document.getElementById('rsm-booking-form-sevaType');
+    const dateInput = document.getElementById('rsm-booking-form-sevaDate');
+    const timeSelect = document.getElementById('rsm-booking-form-sevaTime');
+    const availabilitySection = document.getElementById('rsm-booking-availability-section');
+    const selectedSevaElem = document.getElementById('rsm-booking-selected-seva');
+    const selectedDateElem = document.getElementById('rsm-booking-selected-date');
+    const selectedTimeElem = document.getElementById('rsm-booking-selected-time');
+    const availabilityCountElem = document.getElementById('rsm-booking-availability-count');
+
+    function checkAvailability() {
+        const seva = sevaSelect.value;
+        const date = dateInput.value;
+        const time = timeSelect.value;
+
+        if (seva && date && time) {
+            // Format the date for display
+            const formattedDate = new Date(date).toLocaleDateString('en-IN', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+
+            // Format the time for display (convert 24h to 12h format with AM/PM)
+            let formattedTime;
+            if (time.includes('AM') || time.includes('PM')) {
+                formattedTime = time; // Already in 12-hour format
+            } else {
+                // Convert 24-hour format to 12-hour format
+                const timeHour = parseInt(time.split(':')[0]);
+                formattedTime = (timeHour > 12 ? timeHour - 12 : timeHour) + ':00 ' + (timeHour >= 12 ? 'PM' : 'AM');
+            }
+
+            // Update the availability section
+            selectedSevaElem.textContent = seva;
+            selectedDateElem.textContent = formattedDate;
+            selectedTimeElem.textContent = formattedTime;
+
+            // Show loading state
+            availabilityCountElem.textContent = 'Checking...';
+            availabilitySection.style.display = 'block';
+
+            // Fetch real-time availability from the server
+            fetch('/seva/check-availability', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    sevaType: seva,
+                    sevaDate: date,
+                    sevaTime: time
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    console.error('Error checking availability:', data.error);
+                    availabilityCountElem.textContent = 'Error checking availability';
+                } else {
+                    availabilityCountElem.textContent = data.available_slots + '/' + data.total_slots;
+
+                    // Disable submit button if no slots available
+                    const submitButton = document.getElementById('rsm-booking-form-submit-button');
+                    if (data.available_slots <= 0) {
+                        submitButton.disabled = true;
+                        submitButton.textContent = 'No Slots Available';
+                    } else {
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Book Seva';
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                availabilityCountElem.textContent = 'Error checking availability';
+            });
+        } else {
+            availabilitySection.style.display = 'none';
+        }
+    }
+
+    sevaSelect.addEventListener('change', checkAvailability);
+    dateInput.addEventListener('change', checkAvailability);
+    timeSelect.addEventListener('change', checkAvailability);
+
+    // Set minimum date to today
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const todayString = `${yyyy}-${mm}-${dd}`;
+    dateInput.min = todayString;
+});
 </script>
 {% endblock %}
