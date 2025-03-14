@@ -12,9 +12,9 @@ def check_availability():
     seva_type = data.get('sevaType')
     seva_date = data.get('sevaDate')
     seva_time = data.get('sevaTime')
-    seva_time = datetime.strptime(seva_time, "%I:%M %p").strftime("%H:%M:%S")
-    
-    if not all([seva_type, seva_date, seva_time]):
+    print(f"🛠️ Raw seva_time received: '{seva_time}'")  # Print the raw time value
+    if not seva_type or not seva_date or not seva_time:
+        print("❌ Missing required fields")
         return jsonify({'error': 'Missing required fields'}), 400
     
     try:
