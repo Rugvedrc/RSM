@@ -64,22 +64,34 @@ def book_seva():
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        # First check if slots are available
+        # Convert time format if needed
+        try:
+            if "AM" in seva_time or "PM" in seva_time:
+                time_obj = datetime.strptime(seva_time, "%I:%M %p")
+                seva_time = time_obj.strftime("%H:%M:%S")
+            else:
+                # Ensure time has seconds
+                if len(seva_time.split(':')) == 2:
+                    seva_time = f"{seva_time}:00"
+        except ValueError as ve:
+            flash(f'Invalid time format: {ve}')
+            return redirect(url_for('seva.booking'))
+        
+        # First check if slots are available using FOR UPDATE to lock the row
         cursor.execute("""
-            SELECT available_slots FROM seva_slots 
-            WHERE seva_name = %s AND seva_date = %s
+            SELECT available_slots, total_slots FROM seva_slots 
+            WHERE seva_type = %s AND seva_date = %s AND seva_time = %s
             FOR UPDATE
-        """, (seva_type, seva_date))
+        """, (seva_type, seva_date, seva_time))
         
         result = cursor.fetchone()
         
         if not result:
             # No entry exists yet, create one with default values and decrement
             cursor.execute("""
-                INSERT INTO seva_slots (seva_name, seva_date, available_slots)
-                VALUES (%s, %s, 59)
-            """, (seva_type, seva_date))
-            available_slots = 59
+                INSERT INTO seva_slots (seva_type, seva_date, seva_time, total_slots, available_slots)
+                VALUES (%s, %s, %s, 60, 59)
+            """, (seva_type, seva_date, seva_time))
         else:
             available_slots = result[0]
             if available_slots <= 0:
@@ -90,8 +102,8 @@ def book_seva():
             cursor.execute("""
                 UPDATE seva_slots 
                 SET available_slots = available_slots - 1 
-                WHERE seva_name = %s AND seva_date = %s
-            """, (seva_type, seva_date))
+                WHERE seva_type = %s AND seva_date = %s AND seva_time = %s
+            """, (seva_type, seva_date, seva_time))
         
         # Check if the seva_bookings table exists, if not create it
         cursor.execute("""
