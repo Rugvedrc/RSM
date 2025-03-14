@@ -10,6 +10,8 @@ class SevaBooking:
 
             from datetime import datetime
             
+            print(f"🔎 Raw Input Time: '{seva_time}'")  # Debug log
+
             # Detect and convert time format
             try:
                 if "AM" in seva_time or "PM" in seva_time:
@@ -19,14 +21,13 @@ class SevaBooking:
                     # Convert 24-hour format (06:00 → 06:00:00)
                     seva_time = datetime.strptime(seva_time, "%H:%M").strftime("%H:%M:%S")
                 
-                print(f"🔄 Converted time → {seva_time}")
+                print(f"🔄 Converted Time: {seva_time}")
             except ValueError as ve:
-                print(f"❌ Time format error: {ve}")
-                return {'error': 'Invalid time format'}
+                print(f"❌ Time Format Error: {ve}")
+                return {'error': f'Invalid time format: {ve}'}
 
             print(f"🔎 Checking availability for {seva_type} on {seva_date} at {seva_time}")
 
-            # Run query
             cursor.execute("""
                 SELECT available_slots, total_slots 
                 FROM seva_slots 
