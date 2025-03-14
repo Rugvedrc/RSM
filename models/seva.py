@@ -1,40 +1,32 @@
 import mysql.connector
-from config import get_db_connection, DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT
+from config import get_db_connection
 
 class SevaBooking:
-    @staticmethod
-    def get_all_bookings():
-        try:
-            conn = get_db_connection()  # ✅ Correct import
-            cursor = conn.cursor(dictionary=True)
-            cursor.execute("""
-                SELECT * FROM seva_bookings 
-                ORDER BY booking_timestamp DESC
-            """)
-            bookings = cursor.fetchall()
-            cursor.close()
-            conn.close()
-            return bookings
-        except Exception as e:
-            print(f"❌ Error getting bookings: {str(e)}")  # Debug log
-            return []
-    
     @staticmethod
     def get_slot_availability(seva_type, seva_date, seva_time):
         try:
             conn = get_db_connection()
             cursor = conn.cursor(dictionary=True)
 
-            # Convert time format if needed
             from datetime import datetime
+            
+            # Detect and convert time format
             try:
-                seva_time = datetime.strptime(seva_time, "%I:%M %p").strftime("%H:%M:%S")
+                if "AM" in seva_time or "PM" in seva_time:
+                    # Convert 12-hour format (06:00 AM → 06:00:00)
+                    seva_time = datetime.strptime(seva_time, "%I:%M %p").strftime("%H:%M:%S")
+                else:
+                    # Convert 24-hour format (06:00 → 06:00:00)
+                    seva_time = datetime.strptime(seva_time, "%H:%M").strftime("%H:%M:%S")
+                
+                print(f"🔄 Converted time → {seva_time}")
             except ValueError as ve:
                 print(f"❌ Time format error: {ve}")
                 return {'error': 'Invalid time format'}
 
-            print(f"🔎 Checking availability for {seva_type} on {seva_date} at {seva_time}")  # Debug log
+            print(f"🔎 Checking availability for {seva_type} on {seva_date} at {seva_time}")
 
+            # Run query
             cursor.execute("""
                 SELECT available_slots, total_slots 
                 FROM seva_slots 
@@ -42,15 +34,25 @@ class SevaBooking:
             """, (seva_type, seva_date, seva_time))
             
             result = cursor.fetchone()
-            print(f"📌 Database Response: {result}")  # Debug log
+            print(f"📌 Database Response: {result}")
 
             if not result:
-                print("⚠️ No slot found, returning default slots (60)")
-                return {'available_slots': 60, 'total_slots': 60}
-            
+                print("⚠️ No slot found, inserting default slots (60)")
+                cursor.execute("""
+                    INSERT INTO seva_slots (seva_type, seva_date, seva_time, total_slots, available_slots)
+                    VALUES (%s, %s, %s, 60, 60)
+                """, (seva_type, seva_date, seva_time))
+                conn.commit()
+                available_slots = 60
+                total_slots = 60
+            else:
+                available_slots = result['available_slots']
+                total_slots = result['total_slots']
+
             cursor.close()
             conn.close()
-            return result
+            return {'available_slots': available_slots, 'total_slots': total_slots}
+
         except Exception as e:
-            print(f"❌ Error getting slot availability: {str(e)}")  # Debug log
+            print(f"❌ Error checking availability: {str(e)}")
             return {'available_slots': 0, 'total_slots': 0, 'error': str(e)}
