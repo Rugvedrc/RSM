@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for,jsonify
 from routes.seva import seva  # Import seva routes
 from routes.donation import donation  # Import donation routes
 from gemini_ai import get_gemini_response  # Import AI function
+from config import get_db_connection
+# import mysql.connector
 app = Flask(__name__)
 
 
