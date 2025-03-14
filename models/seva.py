@@ -1,14 +1,15 @@
-import mysql.connector
 from config import get_db_connection
+from datetime import datetime
 
 class SevaBooking:
     @staticmethod
     def get_slot_availability(seva_type, seva_date, seva_time):
         try:
             conn = get_db_connection()
+            if not conn:
+                return {'error': 'Database connection failed'}
+                
             cursor = conn.cursor(dictionary=True)
-
-            from datetime import datetime
             
             print(f"🔎 Raw Input Time: '{seva_time}'")  # Debug log
 
@@ -18,8 +19,10 @@ class SevaBooking:
                     # Convert 12-hour format (06:00 AM → 06:00:00)
                     seva_time = datetime.strptime(seva_time, "%I:%M %p").strftime("%H:%M:%S")
                 else:
-                    # Convert 24-hour format (06:00 → 06:00:00)
-                    seva_time = datetime.strptime(seva_time, "%H:%M").strftime("%H:%M:%S")
+                    # Handle 24-hour format (06:00 → 06:00:00)
+                    # If time is just HH:MM, add seconds
+                    if len(seva_time.split(':')) == 2:
+                        seva_time = f"{seva_time}:00"
                 
                 print(f"🔄 Converted Time: {seva_time}")
             except ValueError as ve:
@@ -56,4 +59,4 @@ class SevaBooking:
 
         except Exception as e:
             print(f"❌ Error checking availability: {str(e)}")
-            return {'available_slots': 0, 'total_slots': 0, 'error': str(e)}
+            return {'error': str(e)}
