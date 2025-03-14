@@ -376,8 +376,8 @@ document.addEventListener('DOMContentLoaded', function () {
             availabilityCountElem.textContent = 'Checking...';
             availabilitySection.style.display = 'block';
 
-            // Fetch real-time availability from the server
-            fetch('/seva/check-availability', {
+            // Fetch real-time availability from the server - with cache busting to prevent stale data
+            fetch('/seva/check-availability?cacheBust=' + new Date().getTime(), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -432,6 +432,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const dd = String(today.getDate()).padStart(2, '0');
     const todayString = `${yyyy}-${mm}-${dd}`;
     dateInput.min = todayString;
+    
+    // Add event listener for form submission to refresh availability after successful booking
+    const bookingForm = document.getElementById('rsm-booking-form');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function() {
+            // Check availability again after a short delay
+            setTimeout(checkAvailability, 3000);
+        });
+    }
 });
 </script>
 {% endblock %}
