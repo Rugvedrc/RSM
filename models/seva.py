@@ -1,5 +1,6 @@
 import mysql.connector
-from config import mysql_config
+from config import DB_CONFIG, get_db_connection  # ✅ CORRECT
+
 
 class SevaBooking:
     @staticmethod
