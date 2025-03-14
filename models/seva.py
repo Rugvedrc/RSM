@@ -32,10 +32,10 @@ class SevaBooking:
             print(f"🔎 Checking availability for {seva_type} on {seva_date} at {seva_time}")
 
             cursor.execute("""
-                SELECT available_slots, total_slots 
+                SELECT available_slots 
                 FROM seva_slots 
-                WHERE seva_type = %s AND seva_date = %s AND seva_time = %s
-            """, (seva_type, seva_date, seva_time))
+                WHERE seva_name = %s AND seva_date = %s
+            """, (seva_type, seva_date))
             
             result = cursor.fetchone()
             print(f"📌 Database Response: {result}")
@@ -43,15 +43,15 @@ class SevaBooking:
             if not result:
                 print("⚠️ No slot found, inserting default slots (60)")
                 cursor.execute("""
-                    INSERT INTO seva_slots (seva_type, seva_date, seva_time, total_slots, available_slots)
-                    VALUES (%s, %s, %s, 60, 60)
-                """, (seva_type, seva_date, seva_time))
+                    INSERT INTO seva_slots (seva_name, seva_date, available_slots)
+                    VALUES (%s, %s, 60)
+                """, (seva_type, seva_date))
                 conn.commit()
                 available_slots = 60
                 total_slots = 60
             else:
                 available_slots = result['available_slots']
-                total_slots = result['total_slots']
+                total_slots = 60  # We're setting a fixed total
 
             cursor.close()
             conn.close()
