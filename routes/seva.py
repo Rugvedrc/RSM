@@ -65,33 +65,21 @@ def book_seva():
         cursor = conn.cursor()
         
         # First check if slots are available
-        # Convert time format if needed
-        try:
-            if "AM" in seva_time or "PM" in seva_time:
-                time_obj = datetime.strptime(seva_time, "%I:%M %p")
-                seva_time = time_obj.strftime("%H:%M:%S")
-            else:
-                # Ensure time has seconds
-                if len(seva_time.split(':')) == 2:
-                    seva_time = f"{seva_time}:00"
-        except ValueError as ve:
-            flash(f'Invalid time format: {ve}')
-            return redirect(url_for('seva.booking'))
-        
         cursor.execute("""
             SELECT available_slots FROM seva_slots 
-            WHERE seva_type = %s AND seva_date = %s AND seva_time = %s
+            WHERE seva_name = %s AND seva_date = %s
             FOR UPDATE
-        """, (seva_type, seva_date, seva_time))
+        """, (seva_type, seva_date))
         
         result = cursor.fetchone()
         
         if not result:
             # No entry exists yet, create one with default values and decrement
             cursor.execute("""
-                INSERT INTO seva_slots (seva_type, seva_date, seva_time, total_slots, available_slots)
-                VALUES (%s, %s, %s, 60, 59)
-            """, (seva_type, seva_date, seva_time))
+                INSERT INTO seva_slots (seva_name, seva_date, available_slots)
+                VALUES (%s, %s, 59)
+            """, (seva_type, seva_date))
+            available_slots = 59
         else:
             available_slots = result[0]
             if available_slots <= 0:
@@ -102,8 +90,27 @@ def book_seva():
             cursor.execute("""
                 UPDATE seva_slots 
                 SET available_slots = available_slots - 1 
-                WHERE seva_type = %s AND seva_date = %s AND seva_time = %s
-            """, (seva_type, seva_date, seva_time))
+                WHERE seva_name = %s AND seva_date = %s
+            """, (seva_type, seva_date))
+        
+        # Check if the seva_bookings table exists, if not create it
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS seva_bookings (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                phone VARCHAR(20) NOT NULL,
+                gothra VARCHAR(100),
+                nakshatra VARCHAR(100),
+                seva_type VARCHAR(100) NOT NULL,
+                seva_date DATE NOT NULL,
+                seva_time VARCHAR(20) NOT NULL,
+                special_instructions TEXT,
+                payment_method VARCHAR(50) NOT NULL,
+                family_members JSON,
+                booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
         
         # Insert booking details
         cursor.execute("""
