@@ -1,7 +1,8 @@
 from flask import Blueprint, request, jsonify, render_template, redirect, url_for, flash
 from models.seva import SevaBooking
 import mysql.connector
-from config import mysql_config
+from config import DB_CONFIG, get_db_connection  # ✅ CORRECT
+
 
 seva = Blueprint('seva', __name__, url_prefix='/seva')
 
