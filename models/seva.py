@@ -6,7 +6,7 @@ class SevaBooking:
     @staticmethod
     def get_all_bookings():
         try:
-            conn = mysql.connector.connect(**mysql_config)
+            conn = get_db_connection()  # ✅ Correct import
             cursor = conn.cursor(dictionary=True)
             cursor.execute("""
                 SELECT * FROM seva_bookings 
@@ -23,7 +23,7 @@ class SevaBooking:
     @staticmethod
     def get_slot_availability(seva_type, seva_date, seva_time):
         try:
-            conn = mysql.connector.connect(**mysql_config)
+            conn = get_db_connection()
             cursor = conn.cursor(dictionary=True)
             cursor.execute("""
                 SELECT available_slots, total_slots 
