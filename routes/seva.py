@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, render_template, redirect, url_for, flash
 from models.seva import SevaBooking
-import mysql.connector
-from config import mysql_config
+from config import get_db_connection
+from datetime import datetime
 
 seva = Blueprint('seva', __name__, url_prefix='/seva')
 
@@ -12,45 +12,22 @@ def check_availability():
     seva_date = data.get('sevaDate')
     seva_time = data.get('sevaTime')
     
-    if not all([seva_type, seva_date, seva_time]):
+    print(f"🛠️ Raw seva_time received: '{seva_time}'")  # Print the raw time value
+    
+    if not seva_type or not seva_date or not seva_time:
+        print("❌ Missing required fields")
         return jsonify({'error': 'Missing required fields'}), 400
     
-    try:
-        conn = mysql.connector.connect(**mysql_config)
-        cursor = conn.cursor(dictionary=True)
-        
-        # Check if slots entry exists for this seva, date and time
-        cursor.execute("""
-            SELECT available_slots, total_slots 
-            FROM seva_slots 
-            WHERE seva_type = %s AND seva_date = %s AND seva_time = %s
-        """, (seva_type, seva_date, seva_time))
-        
-        slot = cursor.fetchone()
-        
-        if not slot:
-            # No entry exists yet, create one with default values
-            cursor.execute("""
-                INSERT INTO seva_slots (seva_type, seva_date, seva_time, total_slots, available_slots)
-                VALUES (%s, %s, %s, 60, 60)
-            """, (seva_type, seva_date, seva_time))
-            conn.commit()
-            available_slots = 60
-            total_slots = 60
-        else:
-            available_slots = slot['available_slots']
-            total_slots = slot['total_slots']
-        
-        cursor.close()
-        conn.close()
-        
-        return jsonify({
-            'available_slots': available_slots,
-            'total_slots': total_slots
-        })
-        
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    # Use the SevaBooking model to check availability
+    availability = SevaBooking.get_slot_availability(seva_type, seva_date, seva_time)
+    
+    if 'error' in availability:
+        return jsonify({'error': availability['error']}), 500
+    
+    return jsonify({
+        'available_slots': availability['available_slots'],
+        'total_slots': availability['total_slots']
+    })
 
 @seva.route('/book-seva', methods=['POST'])
 def book_seva():
@@ -84,12 +61,25 @@ def book_seva():
         family_members_json = json.dumps(family_members)
         
         # Connect to database
-        conn = mysql.connector.connect(**mysql_config)
+        conn = get_db_connection()
         cursor = conn.cursor()
         
-        # First check if slots are available
+        # Convert time format if needed
+        try:
+            if "AM" in seva_time or "PM" in seva_time:
+                time_obj = datetime.strptime(seva_time, "%I:%M %p")
+                seva_time = time_obj.strftime("%H:%M:%S")
+            else:
+                # Ensure time has seconds
+                if len(seva_time.split(':')) == 2:
+                    seva_time = f"{seva_time}:00"
+        except ValueError as ve:
+            flash(f'Invalid time format: {ve}')
+            return redirect(url_for('seva.booking'))
+        
+        # First check if slots are available using FOR UPDATE to lock the row
         cursor.execute("""
-            SELECT available_slots FROM seva_slots 
+            SELECT available_slots, total_slots FROM seva_slots 
             WHERE seva_type = %s AND seva_date = %s AND seva_time = %s
             FOR UPDATE
         """, (seva_type, seva_date, seva_time))
@@ -114,6 +104,25 @@ def book_seva():
                 SET available_slots = available_slots - 1 
                 WHERE seva_type = %s AND seva_date = %s AND seva_time = %s
             """, (seva_type, seva_date, seva_time))
+        
+        # Check if the seva_bookings table exists, if not create it
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS seva_bookings (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
+                phone VARCHAR(20) NOT NULL,
+                gothra VARCHAR(100),
+                nakshatra VARCHAR(100),
+                seva_type VARCHAR(100) NOT NULL,
+                seva_date DATE NOT NULL,
+                seva_time VARCHAR(20) NOT NULL,
+                special_instructions TEXT,
+                payment_method VARCHAR(50) NOT NULL,
+                family_members JSON,
+                booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
         
         # Insert booking details
         cursor.execute("""

@@ -2,8 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for,jsonify
 from routes.seva import seva  # Import seva routes
 from routes.donation import donation  # Import donation routes
 from gemini_ai import get_gemini_response  # Import AI function
-from config import get_db_connection
-# import mysql.connector
+import os
 app = Flask(__name__)
 
 
@@ -67,4 +66,5 @@ def contact_submit():
 
 # Run the Flask app
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)

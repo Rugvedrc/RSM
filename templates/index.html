@@ -22,13 +22,58 @@
     <div id="rsm-index-welcome-container">
         <div id="rsm-index-welcome-row">
             <div id="rsm-index-welcome-column-1">
-                <h2 id="rsm-index-welcome-heading">Welcome to Raghavendra Swami Math</h2>
-                <p id="rsm-index-welcome-lead">A spiritual haven dedicated to Sri Raghavendra Swami's teachings and service.</p>
-                <p id="rsm-index-welcome-text">Established with the divine blessings of Sri Raghavendra Swami, our Math serves as a spiritual center for devotees seeking peace, guidance, and blessings. We invite you to participate in sevas, attend our events, and be part of our spiritual community.</p>
+                <h2 id="rsm-index-welcome-heading">सुस्वागतम</h2>
+                <p id="rsm-index-welcome-lead">श्री राघवेंद्र स्वामी आणि श्री सत्यध्यानतीर्थ स्वामी यांचे वृंदावन वैशाख
+                    पौर्णिमा श्रीशालिवाहनशक १९१४ मधे श्री श्री १००८ सत्यप्रमोदतीर्थस्वामींच्या हस्ते प्राणप्रतिष्ठापना
+                    करण्यात आली. वैशाख पौर्णिमा हा दिवस वर्धापनदिन म्हणून उत्साहात दर वर्षी साजरा केला जातो.
+                </p>
+                <p id="rsm-index-welcome-text">Established with the divine blessings of Sri Raghavendra Swami, our Math
+                    serves as a spiritual center for devotees seeking peace, guidance, and blessings. We invite you to
+                    participate in sevas, attend our events, and be part of our spiritual community.</p>
                 <a href="{{ url_for('about') }}" id="rsm-index-welcome-learn-more-button">Learn More About Us</a>
             </div>
             <div id="rsm-index-welcome-column-2">
-                <img src="{{ url_for('static', filename='images/math-main.jpg') }}" alt="Raghavendra Swami Math" id="rsm-index-welcome-image">
+                <div class="carousel-container">
+                    <div class="carousel-slides">
+                        <div class="carousel-slide active">
+                            <img src="{{ url_for('static', filename='images/math-main.jpg') }}"
+                                alt="Raghavendra Swami Math 1">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="{{ url_for('static', filename='images/math-image-2.jpg') }}"
+                                alt="Raghavendra Swami Math 2">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="{{ url_for('static', filename='images/math-image-3.jpg') }}"
+                                alt="Raghavendra Swami Math 3">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="{{ url_for('static', filename='/images/gallery8.jpg') }}"
+                                alt="Raghavendra Swami Math 3">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="{{ url_for('static', filename='/images/gallery7.jpg') }}"
+                                alt="Raghavendra Swami Math 3">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="{{ url_for('static', filename='/images/gallery4.jpg') }}"
+                                alt="Raghavendra Swami Math 3">
+                        </div>
+                    </div>
+
+                    <div class="carousel-controls">
+                        <button class="carousel-prev">&lt;</button>
+                        <div class="carousel-dots">
+                            <span class="carousel-dot active" data-index="0"></span>
+                            <span class="carousel-dot" data-index="1"></span>
+                            <span class="carousel-dot" data-index="2"></span>
+                            <span class="carousel-dot" data-index="3"></span>
+                            <span class="carousel-dot" data-index="4"></span>
+                            <span class="carousel-dot" data-index="5"></span>
+                        </div>
+                        <button class="carousel-next">&gt;</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -42,57 +87,47 @@
             <div id="rsm-index-announcements-column-1">
                 <div id="rsm-index-announcements-card-1">
                     <div id="rsm-index-announcements-card-body-1">
-                        <h5 id="rsm-index-announcements-card-title-1">Aradhana Mahotsava</h5>
-                        <h6 id="rsm-index-announcements-card-subtitle-1">March 18-20, 2025</h6>
-                        <p id="rsm-index-announcements-card-text-1">Join us for the annual Aradhana Mahotsava celebrations with special poojas, prasada, and cultural programs.</p>
+                        <h5 id="rsm-index-announcements-card-title-1">स्पर्धा</h5>
+                        <h6 id="rsm-index-announcements-card-subtitle-1">जुन/जुलै</h6>
+                        <p id="rsm-index-announcements-card-text-1">राघवेंद्र सेवा संघ तर्फे जुन/जुलै मधे स्पर्धा होणार
+                            आहेत.
+                            १. स्तोत्र पठण
+                            २. भारतीय नृत्य (भरतनाट्यम/कथ्थक)
+                            ३. तबला
+                            ४. बासरी
+                            ५. भक्ती गीत
+
+                            सर्व स्पर्धा एकल असतील आणि विषय हिंदू देवता, राष्ट्रभक्ती असेल.
+                            गुगल फाॅम ची लिंक प्रत्येक स्पर्धे करता दिली जाईल.
+                        </p>
                     </div>
                     <div id="rsm-index-announcements-card-footer-1">
-                        <a href="{{ url_for('announcements') }}" id="rsm-index-announcements-read-more-button-1">Read More</a>
-                    </div>
-                </div>
-            </div>
-            <div id="rsm-index-announcements-column-2">
-                <div id="rsm-index-announcements-card-2">
-                    <div id="rsm-index-announcements-card-body-2">
-                        <h5 id="rsm-index-announcements-card-title-2">Guru Purnima</h5>
-                        <h6 id="rsm-index-announcements-card-subtitle-2">April 5, 2025</h6>
-                        <p id="rsm-index-announcements-card-text-2">Special celebrations for Guru Purnima with Guru Puja, Sahasranama, and discourse on the importance of Guru.</p>
-                    </div>
-                    <div id="rsm-index-announcements-card-footer-2">
-                        <a href="{{ url_for('announcements') }}" id="rsm-index-announcements-read-more-button-2">Read More</a>
-                    </div>
-                </div>
-            </div>
-            <div id="rsm-index-announcements-column-3">
-                <div id="rsm-index-announcements-card-3">
-                    <div id="rsm-index-announcements-card-body-3">
-                        <h5 id="rsm-index-announcements-card-title-3">New Online Seva Booking</h5>
-                        <h6 id="rsm-index-announcements-card-subtitle-3">Now Available</h6>
-                        <p id="rsm-index-announcements-card-text-3">We are pleased to announce our new online seva booking system for your convenience.</p>
-                    </div>
-                    <div id="rsm-index-announcements-card-footer-3">
-                        <a href="{{ url_for('booking') }}" id="rsm-index-announcements-book-now-button-3">Book Now</a>
+                        <a href="{{ url_for('announcements') }}" id="rsm-index-announcements-read-more-button-1">Read
+                            More</a>
                     </div>
                 </div>
             </div>
         </div>
         <div id="rsm-index-announcements-view-all">
-            <a href="{{ url_for('announcements') }}" id="rsm-index-announcements-view-all-button">View All Announcements</a>
+            <a href="{{ url_for('announcements') }}" id="rsm-index-announcements-view-all-button">View All
+                Announcements</a>
         </div>
     </div>
 </section>
 
 <!-- Featured Sevas -->
-<section id="rsm-index-featured-sevas-section">
+<!-- <section id="rsm-index-featured-sevas-section">
     <div id="rsm-index-featured-sevas-container">
         <h2 id="rsm-index-featured-sevas-heading">Featured Sevas</h2>
         <div id="rsm-index-featured-sevas-row">
             <div id="rsm-index-featured-sevas-column-1">
                 <div id="rsm-index-featured-sevas-card-1">
                     <div id="rsm-index-featured-sevas-card-body-1">
-                        <img src="{{ url_for('static', filename='images/abhisheka.jpg') }}" alt="Abhisheka" id="rsm-index-featured-sevas-image-1">
+                        <img src="{{ url_for('static', filename='images/abhisheka.jpg') }}" alt="Abhisheka"
+                            id="rsm-index-featured-sevas-image-1">
                         <h5 id="rsm-index-featured-sevas-card-title-1">Abhisheka</h5>
-                        <p id="rsm-index-featured-sevas-card-text-1">Sacred bathing ritual for the deity with various substances like milk, curd, honey.</p>
+                        <p id="rsm-index-featured-sevas-card-text-1">Sacred bathing ritual for the deity with various
+                            substances like milk, curd, honey.</p>
                         <p id="rsm-index-featured-sevas-card-price-1">₹ 501/-</p>
                     </div>
                     <div id="rsm-index-featured-sevas-card-footer-1">
@@ -103,9 +138,11 @@
             <div id="rsm-index-featured-sevas-column-2">
                 <div id="rsm-index-featured-sevas-card-2">
                     <div id="rsm-index-featured-sevas-card-body-2">
-                        <img src="{{ url_for('static', filename='images/archana.jpg') }}" alt="Archana" id="rsm-index-featured-sevas-image-2">
+                        <img src="{{ url_for('static', filename='images/archana.jpg') }}" alt="Archana"
+                            id="rsm-index-featured-sevas-image-2">
                         <h5 id="rsm-index-featured-sevas-card-title-2">Archana</h5>
-                        <p id="rsm-index-featured-sevas-card-text-2">Offering of flowers and chanting of names of the deity seeking divine blessings.</p>
+                        <p id="rsm-index-featured-sevas-card-text-2">Offering of flowers and chanting of names of the
+                            deity seeking divine blessings.</p>
                         <p id="rsm-index-featured-sevas-card-price-2">₹ 151/-</p>
                     </div>
                     <div id="rsm-index-featured-sevas-card-footer-2">
@@ -116,9 +153,11 @@
             <div id="rsm-index-featured-sevas-column-3">
                 <div id="rsm-index-featured-sevas-card-3">
                     <div id="rsm-index-featured-sevas-card-body-3">
-                        <img src="{{ url_for('static', filename='images/satyanarayana-puja.jpg') }}" alt="Satyanarayana Puja" id="rsm-index-featured-sevas-image-3">
+                        <img src="{{ url_for('static', filename='images/satyanarayana-puja.jpg') }}"
+                            alt="Satyanarayana Puja" id="rsm-index-featured-sevas-image-3">
                         <h5 id="rsm-index-featured-sevas-card-title-3">Satyanarayana Puja</h5>
-                        <p id="rsm-index-featured-sevas-card-text-3">Special puja performed for prosperity, well-being and to fulfill wishes.</p>
+                        <p id="rsm-index-featured-sevas-card-text-3">Special puja performed for prosperity, well-being
+                            and to fulfill wishes.</p>
                         <p id="rsm-index-featured-sevas-card-price-3">₹ 1,001/-</p>
                     </div>
                     <div id="rsm-index-featured-sevas-card-footer-3">
@@ -129,9 +168,11 @@
             <div id="rsm-index-featured-sevas-column-4">
                 <div id="rsm-index-featured-sevas-card-4">
                     <div id="rsm-index-featured-sevas-card-body-4">
-                        <img src="{{ url_for('static', filename='images/anna-dana.jpg') }}" alt="Anna Dana" id="rsm-index-featured-sevas-image-4">
+                        <img src="{{ url_for('static', filename='images/anna-dana.jpg') }}" alt="Anna Dana"
+                            id="rsm-index-featured-sevas-image-4">
                         <h5 id="rsm-index-featured-sevas-card-title-4">Anna Dana</h5>
-                        <p id="rsm-index-featured-sevas-card-text-4">Sponsoring meals for devotees and the needy, considered highly meritorious.</p>
+                        <p id="rsm-index-featured-sevas-card-text-4">Sponsoring meals for devotees and the needy,
+                            considered highly meritorious.</p>
                         <p id="rsm-index-featured-sevas-card-price-4">₹ 5,001/-</p>
                     </div>
                     <div id="rsm-index-featured-sevas-card-footer-4">
@@ -144,7 +185,7 @@
             <a href="{{ url_for('booking') }}" id="rsm-index-featured-sevas-view-all-button">View All Sevas</a>
         </div>
     </div>
-</section>
+</section> -->
 
 <!-- Donation Section -->
 <section id="rsm-index-donation-section">
@@ -152,7 +193,8 @@
         <div id="rsm-index-donation-row">
             <div id="rsm-index-donation-column-1">
                 <h2 id="rsm-index-donation-heading">Support Our Mission</h2>
-                <p id="rsm-index-donation-lead">Your generous donations help us maintain the Math and continue our spiritual and charitable activities.</p>
+                <p id="rsm-index-donation-lead">Your generous donations help us maintain the Math and continue our
+                    spiritual and charitable activities.</p>
                 <p id="rsm-index-donation-text">Contributions to Raghavendra Swami Math are used for:</p>
                 <ul id="rsm-index-donation-list">
                     <li id="rsm-index-donation-list-item-1">Daily poojas and rituals</li>
@@ -164,7 +206,8 @@
                 <a href="{{ url_for('donation') }}" id="rsm-index-donation-button">Make a Donation</a>
             </div>
             <div id="rsm-index-donation-column-2">
-                <img src="{{ url_for('static', filename='images/donation.jpg') }}" alt="Donation" id="rsm-index-donation-image">
+                <img src="{{ url_for('static', filename='images/donation.jpg') }}" alt="Donation"
+                    id="rsm-index-donation-image">
             </div>
         </div>
     </div>
@@ -187,13 +230,16 @@
                             India
                         </p>
                         <p id="rsm-index-contact-phone"><strong>Phone:</strong> +91 240 XXXXXXXX</p>
-                        <p id="rsm-index-contact-email"><strong>Email:</strong> info@raghavendramath.org</p>
+                        <p id="rsm-index-contact-email"><strong>Email:</strong>raghavendrasewasangh@gmail.com</p>
                         <p id="rsm-index-contact-hours"><strong>Hours:</strong> Open daily 6:00 AM - 8:00 PM</p>
-                                                    
+
                         <h5 id="rsm-index-contact-card-title-2">Location Map</h5>
                         <!-- Google Maps Embed -->
                         <div id="rsm-index-contact-map-container">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3752.0527805796037!2d75.32441437527068!3d19.87999308149723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdb986d03093ea9%3A0xe6f6254a3bbed62f!2sRaghavendra%20Swami%20Math%20(Seva%20Sangh)!5e0!3m2!1sen!2sin!4v1741795789910!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" id="rsm-index-contact-map"></iframe>
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3752.0527805796037!2d75.32441437527068!3d19.87999308149723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdb986d03093ea9%3A0xe6f6254a3bbed62f!2sRaghavendra%20Swami%20Math%20(Seva%20Sangh)!5e0!3m2!1sen!2sin!4v1741795789910!5m2!1sen!2sin"
+                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade" id="rsm-index-contact-map"></iframe>
                         </div>
                     </div>
                 </div>
@@ -237,7 +283,8 @@
     <div id="rsm-index-guru-dedication-container">
         <div id="rsm-index-guru-dedication-row">
             <div id="rsm-index-guru-dedication-column-1">
-                <img src="{{ url_for('static', filename='images/guru.jpg') }}" alt="Guru Maharaj" id="rsm-index-guru-dedication-image">
+                <img src="{{ url_for('static', filename='images/guru.jpg') }}" alt="Guru Maharaj"
+                    id="rsm-index-guru-dedication-image">
             </div>
             <div id="rsm-index-guru-dedication-column-2">
                 <h2 id="rsm-index-guru-dedication-heading">At the Lotus Feet of My Guru</h2>
@@ -247,5 +294,98 @@
         </div>
     </div>
 </section>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const prevBtn = document.querySelector('.carousel-prev');
+        const nextBtn = document.querySelector('.carousel-next');
+        let currentIndex = 0;
+        let interval;
+
+        // Function to show slide by index
+        function showSlide(index) {
+            // Handle wraparound
+            if (index < 0) index = slides.length - 1;
+            if (index >= slides.length) index = 0;
+
+            // Update current index
+            currentIndex = index;
+
+            // Update slide visibility
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === currentIndex);
+            });
+
+            // Update dot status
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        // Initialize auto-scroll
+        function startAutoScroll() {
+            interval = setInterval(() => {
+                showSlide(currentIndex + 1);
+            }, 5000); // Change image every 5 seconds
+        }
+
+        // Stop auto-scroll when user interacts
+        function stopAutoScroll() {
+            clearInterval(interval);
+        }
+
+        // Restart auto-scroll after interaction
+        function restartAutoScroll() {
+            stopAutoScroll();
+            startAutoScroll();
+        }
+
+
+        function setContainerHeight() {
+            const activeSlide = document.querySelector('.carousel-slide.active');
+            if (activeSlide && activeSlide.querySelector('img')) {
+                const img = activeSlide.querySelector('img');
+                img.onload = function () {
+                    const container = document.querySelector('.carousel-container');
+                    // Add some padding to ensure controls are visible
+                    container.style.height = (img.offsetHeight + 40) + 'px';
+                };
+                // Set height immediately if image is already loaded
+                if (img.complete) {
+                    const container = document.querySelector('.carousel-container');
+                    container.style.height = (img.offsetHeight + 40) + 'px';
+                }
+            }
+        }
+
+        // Event listeners for navigation buttons
+        prevBtn.addEventListener('click', () => {
+            showSlide(currentIndex - 1);
+            restartAutoScroll();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            showSlide(currentIndex + 1);
+            restartAutoScroll();
+        });
+
+        // Event listeners for dots
+        dots.forEach((dot) => {
+            dot.addEventListener('click', () => {
+                const index = parseInt(dot.getAttribute('data-index'));
+                showSlide(index);
+                restartAutoScroll();
+            });
+        });
+
+        // Start auto-scroll initially
+        startAutoScroll();
+    });
+</script>
+
+
 
 {% endblock %}
