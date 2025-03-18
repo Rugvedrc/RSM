@@ -2833,167 +2833,104 @@ body {
 #rsm-announcements-festival-calendar-table-header-row{
 	display: revert-layer;
 }
+
+
 /* Carousel styles */
 .carousel-container {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	min-height:100px;
-	/*Add minimum height to ensure visibility*/
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    overflow: hidden;
 }
+
 .carousel-slides {
-	position: relative;
-	width: 100%;
-	height: 100%;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
+
 .carousel-slide {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	opacity: 0;
-	transition: opacity 0.5s ease-in-out;
-	display: none;
-	/* Hide all slides by default */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: none;
+    /* Hide all slides by default */
 }
+
 .carousel-slide.active {
-	opacity: 1;
-	z-index: 1;
-	display: block;
-	/* Show only active slide */
+    opacity: 1;
+    z-index: 1;
+    display: block;
+    /* Show only active slide */
 }
+
 .carousel-slide img {
-	width: 100%;
-	max-width: 100%;
-	height: auto;
-	object-fit: contain;
-	display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
 }
+
 .carousel-controls {
-	position: absolute;
-	bottom: 15px;
-	left: 0;
-	right: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 2;
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
 }
+
 .carousel-prev, .carousel-next {
-	background: rgba(0, 0, 0, 0.5);
-	color: white;
-	border: none;
-	border-radius: 50%;
-	width: 30px;
-	height: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	margin: 0 10px;
-	font-size: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 0 10px;
+    font-size: 16px;
 }
+
 .carousel-dots {
-	display: flex;
-	justify-content: center;
-	margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    margin: 0 10px;
 }
+
 .carousel-dot {
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background: rgba(255, 255, 255, 0.5);
-	margin: 0 5px;
-	cursor: pointer;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    margin: 0 5px;
+    cursor: pointer;
 }
+
 .carousel-dot.active {
-	background: white;
+    background: white;
 }
-/* Carousel styles */
-.carousel-container {
-	position: relative;
-	width: 100%;
-	min-height: 400px;
-	/* Ensures full height visibility */
-	overflow: hidden;
-}
-.carousel-slides {
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-.carousel-slide {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	opacity: 0;
-	transition: opacity 0.5s ease-in-out;
-	display: none;
-}
-.carousel-slide.active {
-	opacity: 1;
-	z-index: 1;
-	display: block;
-}
-/* Ensure images take full height while maintaining aspect ratio */
-.carousel-slide img {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-	/* or 'contain' if you want no cropping */
-	display: block;
-}
-/* Carousel Controls */
-.carousel-controls {
-	position: absolute;
-	bottom: 15px;
-	left: 0;
-	right: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 2;
-}
-.carousel-prev, .carousel-next {
-	background: rgba(0, 0, 0, 0.5);
-	color: white;
-	border: none;
-	border-radius: 50%;
-	width: 30px;
-	height: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	margin: 0 10px;
-	font-size: 16px;
-}
-.carousel-dots {
-	display: flex;
-	justify-content: center;
-	margin: 0 10px;
-}
-.carousel-dot {
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background: rgba(255, 255, 255, 0.5);
-	margin: 0 5px;
-	cursor: pointer;
-}
-.carousel-dot.active {
-	background: white;
-}
-.rsm-about-activities-weekly-activities-heading{
-	font-size: 1.5rem;
-	margin: 0 0 15px;
-	color: #5e3517;
-	text-align: center;
-	vertical-align: middle;
-	display: table-cell;
-	background-color: #ff6a00;
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    .carousel-container {
+        min-height: 250px; /* Smaller height for mobile */
+    }
+    
+    .carousel-slide img {
+        min-height: 200px;
+        width: 100%;
+        object-fit: contain;
+        object-position: center;
+    }
 }
