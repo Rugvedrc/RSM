@@ -663,7 +663,7 @@ input:focus,textarea:focus,select:focus {
 	background-position: center;
 	color: white;
 	text-align: center;
-	padding: 8rem 0;
+	padding: 1.5rem 0;
 	position: relative;
 }
 #rsm-index-hero-container {
@@ -858,7 +858,7 @@ input:focus,textarea:focus,select:focus {
 		padding: 3rem 0;
 	}
 	#rsm-index-hero-section {
-		padding: 6rem 0;
+		padding: 1.5rem 0;
 	}
 }
 @media (max-width: 576px) {
@@ -2833,167 +2833,327 @@ body {
 #rsm-announcements-festival-calendar-table-header-row{
 	display: revert-layer;
 }
+
 /* Carousel styles */
 .carousel-container {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	min-height:100px;
-	/*Add minimum height to ensure visibility*/
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    overflow: hidden;
 }
+
 .carousel-slides {
-	position: relative;
-	width: 100%;
-	height: 100%;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
+
 .carousel-slide {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	opacity: 0;
-	transition: opacity 0.5s ease-in-out;
-	display: none;
-	/* Hide all slides by default */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    display: none;
+    text-align: center; /* Center image horizontally */
 }
+
 .carousel-slide.active {
-	opacity: 1;
-	z-index: 1;
-	display: block;
-	/* Show only active slide */
+    opacity: 1;
+    z-index: 1;
+    display: block;
+	width: 100%;
 }
+
+/* This is the critical part for showing uncropped images */
 .carousel-slide img {
-	width: 100%;
-	max-width: 100%;
-	height: auto;
-	object-fit: contain;
-	display: block;
+    max-width: 100%;
+    max-height: 400px; /* Match container min-height or adjust as needed */
+    width: auto;
+    height: auto;
+    object-fit: contain; /* This ensures the image is never cropped */
+    display: inline-block; /* Works better with text-align: center */
+    margin: 0 auto;
 }
+
 .carousel-controls {
-	position: absolute;
-	bottom: 15px;
-	left: 0;
-	right: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 2;
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
 }
+
 .carousel-prev, .carousel-next {
-	background: rgba(0, 0, 0, 0.5);
-	color: white;
-	border: none;
-	border-radius: 50%;
-	width: 30px;
-	height: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	margin: 0 10px;
-	font-size: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 0 10px;
+    font-size: 16px;
 }
+
 .carousel-dots {
-	display: flex;
-	justify-content: center;
-	margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    margin: 0 10px;
 }
+
 .carousel-dot {
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background: rgba(255, 255, 255, 0.5);
-	margin: 0 5px;
-	cursor: pointer;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    margin: 0 5px;
+    cursor: pointer;
 }
+
 .carousel-dot.active {
-	background: white;
+    background: white;
 }
-/* Carousel styles */
-.carousel-container {
-	position: relative;
-	width: 100%;
-	min-height: 400px;
-	/* Ensures full height visibility */
-	overflow: hidden;
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    .carousel-container {
+        min-height: 250px;
+    }
+    
+    .carousel-slide img {
+        max-height: 230px; /* Smaller height for mobile */
+		width: 100%;
+    }
 }
-.carousel-slides {
-	position: relative;
-	width: 100%;
-	height: 100%;
+
+#rsm-index-hero-carousel .carousel-slide img {
+    width: 100%;
+    height: auto; /*To maintain the aspect ratio */
+	width: auto;
+	object-fit:contain; /*Optional: ensures the image covers the entire container area */
 }
-.carousel-slide {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	opacity: 0;
-	transition: opacity 0.5s ease-in-out;
-	display: none;
+
+#rsm-index-hero-carousel {
+    margin: 0;
+    padding: 0;
 }
-.carousel-slide.active {
-	opacity: 1;
-	z-index: 1;
-	display: block;
+
+
+
+
+
+
+
+
+
+.rsm-index-hero-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-/* Ensure images take full height while maintaining aspect ratio */
-.carousel-slide img {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-	/* or 'contain' if you want no cropping */
-	display: block;
+
+.rsm-index-hero-carousel-slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 500px; /* Adjust height as needed */
 }
-/* Carousel Controls */
-.carousel-controls {
-	position: absolute;
-	bottom: 15px;
-	left: 0;
-	right: 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 2;
+
+.rsm-index-hero-carousel-slide {
+    min-width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
 }
-.carousel-prev, .carousel-next {
-	background: rgba(0, 0, 0, 0.5);
-	color: white;
-	border: none;
-	border-radius: 50%;
-	width: 30px;
-	height: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	margin: 0 10px;
-	font-size: 16px;
+
+.rsm-index-hero-carousel-slide.active {
+    opacity: 1;
+    display: block;
 }
-.carousel-dots {
-	display: flex;
-	justify-content: center;
-	margin: 0 10px;
+
+.rsm-index-hero-carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
-.carousel-dot {
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background: rgba(255, 255, 255, 0.5);
-	margin: 0 5px;
-	cursor: pointer;
+
+.rsm-index-hero-carousel-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
-.carousel-dot.active {
-	background: white;
+
+.rsm-index-hero-carousel-prev,
+.rsm-index-hero-carousel-next {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
 }
-.rsm-about-activities-weekly-activities-heading{
-	font-size: 1.5rem;
-	margin: 0 0 15px;
-	color: #5e3517;
-	text-align: center;
-	vertical-align: middle;
-	display: table-cell;
-	background-color: #ff6a00;
+
+.rsm-index-hero-carousel-prev:hover,
+.rsm-index-hero-carousel-next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.rsm-index-hero-carousel-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.rsm-index-hero-carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.rsm-index-hero-carousel-dot.active {
+    background-color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Container for the carousel */
+#rsm-index-hero-carousel {
+    width: 100%;
+    overflow: hidden; /* Hide overflow to prevent scrollbars */
+}
+
+.rsm-index-hero-carousel-container {
+    position: relative;
+    width: 100%;
+}
+
+.rsm-index-hero-carousel-slides {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.rsm-index-hero-carousel-slide {
+    flex: 0 0 100%;
+}
+
+.rsm-index-hero-carousel-slide img {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* Ensure the image adjusts without cropping */
+}
+
+/* Carousel controls (previous, next buttons and dots) */
+.rsm-index-hero-carousel-controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.rsm-index-hero-carousel-prev,
+.rsm-index-hero-carousel-next {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.rsm-index-hero-carousel-prev:hover,
+.rsm-index-hero-carousel-next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Dots for the carousel */
+.rsm-index-hero-carousel-dots {
+    display: flex;
+    gap: 5px;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.rsm-index-hero-carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+}
+
+.rsm-index-hero-carousel-dot.active {
+    background-color: white;
+}
+
+
+
+
+
+
+/* Ensure the image takes up the entire width of its container without being cropped */
+#rsm-index-hero-carousel .rsm-index-hero-carousel-slide {
+    position: relative; /* Positioning context for the image */
+    width: 100%; /* Full width of the container */
+    overflow: hidden; /* Hide any overflow if needed */
+}
+
+#rsm-index-hero-carousel .rsm-index-hero-carousel-slide img {
+    position: absolute; /* Allow for absolute positioning of the image */
+    top: 0;
+    left: 0;
+    width: 100%; /* Make the image take up the full width */
+    height: 100%; /* Make the image take up the full height */
+    object-fit: contain; /* Ensure the whole image is visible without cropping */
+}
+
+/* Optional: Reset other parent styles to prevent interference */
+#rsm-index-hero-carousel {
+    width: 100%; /* Ensure the carousel is full-width */
+    overflow: hidden; /* Hide overflow if any */
+}
+
+.rsm-index-hero-carousel-container {
+    width: 100%;
+    position: relative;
 }

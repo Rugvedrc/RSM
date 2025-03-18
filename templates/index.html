@@ -5,79 +5,138 @@
 {% block content %}
 
 <!-- Hero Section -->
+<!-- Hero Section -->
 <section id="rsm-index-hero-section">
     <div id="rsm-index-hero-container">
-        <h1 id="rsm-index-hero-heading">श्री रघवेंद्र स्वामी मठ</h1>
-        <h2 id="rsm-index-hero-subheading">Raghavendra Swami Math</h2>
-        <p id="rsm-index-hero-text">Chhatrapati Sambhaji Nagar, Maharashtra</p>
-        <div id="rsm-index-hero-buttons">
-            <a href="{{ url_for('booking') }}" id="rsm-index-hero-booking-button">Book Seva</a>
-            <a href="{{ url_for('donation') }}" id="rsm-index-hero-donation-button">Make Donation</a>
+        <div id="rsm-index-hero-content">
+            <h1 id="rsm-index-hero-heading">श्री रघवेंद्र स्वामी मठ</h1>
+            <h2 id="rsm-index-hero-welcome-heading">सुस्वागतम</h2>
+            <p id="rsm-index-hero-welcome-lead">श्री राघवेंद्र स्वामी आणि श्री सत्यध्यानतीर्थ स्वामी यांचे वृंदावन वैशाख
+                पौर्णिमा श्रीशालिवाहनशक १९१४ मधे श्री श्री १००८ सत्यप्रमोदतीर्थस्वामींच्या हस्ते प्राणप्रतिष्ठापना
+                करण्यात आली. वैशाख पौर्णिमा हा दिवस वर्धापनदिन म्हणून उत्साहात दर वर्षी साजरा केला जातो.</p>
         </div>
-    </div>
-</section>
-
-<!-- Welcome Message -->
-<section id="rsm-index-welcome-section">
-    <div id="rsm-index-welcome-container">
-        <div id="rsm-index-welcome-row">
-            <div id="rsm-index-welcome-column-1">
-                <h2 id="rsm-index-welcome-heading">सुस्वागतम</h2>
-                <p id="rsm-index-welcome-lead">श्री राघवेंद्र स्वामी आणि श्री सत्यध्यानतीर्थ स्वामी यांचे वृंदावन वैशाख
-                    पौर्णिमा श्रीशालिवाहनशक १९१४ मधे श्री श्री १००८ सत्यप्रमोदतीर्थस्वामींच्या हस्ते प्राणप्रतिष्ठापना
-                    करण्यात आली. वैशाख पौर्णिमा हा दिवस वर्धापनदिन म्हणून उत्साहात दर वर्षी साजरा केला जातो.
-                </p>
-                <p id="rsm-index-welcome-text">Established with the divine blessings of Sri Raghavendra Swami, our Math
-                    serves as a spiritual center for devotees seeking peace, guidance, and blessings. We invite you to
-                    participate in sevas, attend our events, and be part of our spiritual community.</p>
-                <a href="{{ url_for('about') }}" id="rsm-index-welcome-learn-more-button">Learn More About Us</a>
-            </div>
-            <div id="rsm-index-welcome-column-2">
-                <div class="carousel-container">
-                    <div class="carousel-slides">
-                        <div class="carousel-slide active">
-                            <img src="{{ url_for('static', filename='images/math-main.jpg') }}"
-                                alt="Raghavendra Swami Math 1">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="{{ url_for('static', filename='images/math-image-2.jpg') }}"
-                                alt="Raghavendra Swami Math 2">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="{{ url_for('static', filename='images/math-image-3.jpg') }}"
-                                alt="Raghavendra Swami Math 3">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="{{ url_for('static', filename='/images/gallery8.jpg') }}"
-                                alt="Raghavendra Swami Math 3">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="{{ url_for('static', filename='/images/gallery7.jpg') }}"
-                                alt="Raghavendra Swami Math 3">
-                        </div>
-                        <div class="carousel-slide">
-                            <img src="{{ url_for('static', filename='/images/gallery4.jpg') }}"
-                                alt="Raghavendra Swami Math 3">
-                        </div>
+        <div id="rsm-index-hero-carousel">
+            <div class="rsm-index-hero-carousel-container">
+                <div class="rsm-index-hero-carousel-slides">
+                    <div class="rsm-index-hero-carousel-slide active">
+                        <img src="{{ url_for('static', filename='images/math-main.jpg') }}"
+                            alt="Raghavendra Swami Math 1">
                     </div>
-
-                    <div class="carousel-controls">
-                        <button class="carousel-prev">&lt;</button>
-                        <div class="carousel-dots">
-                            <span class="carousel-dot active" data-index="0"></span>
-                            <span class="carousel-dot" data-index="1"></span>
-                            <span class="carousel-dot" data-index="2"></span>
-                            <span class="carousel-dot" data-index="3"></span>
-                            <span class="carousel-dot" data-index="4"></span>
-                            <span class="carousel-dot" data-index="5"></span>
-                        </div>
-                        <button class="carousel-next">&gt;</button>
+                    <div class="rsm-index-hero-carousel-slide">
+                        <img src="{{ url_for('static', filename='images/math-image-2.jpg') }}"
+                            alt="Raghavendra Swami Math 2">
                     </div>
+                    <div class="rsm-index-hero-carousel-slide">
+                        <img src="{{ url_for('static', filename='images/math-image-3.jpg') }}"
+                            alt="Raghavendra Swami Math 3">
+                    </div>
+                </div>
+                <div class="rsm-index-hero-carousel-controls">
+                    <button class="rsm-index-hero-carousel-prev">&lt;</button>
+                    <div class="rsm-index-hero-carousel-dots">
+                        <span class="rsm-index-hero-carousel-dot active" data-index="0"></span>
+                        <span class="rsm-index-hero-carousel-dot" data-index="1"></span>
+                        <span class="rsm-index-hero-carousel-dot" data-index="2"></span>
+                    </div>
+                    <button class="rsm-index-hero-carousel-next">&gt;</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<script>document.addEventListener('DOMContentLoaded', function() {
+    const carouselSlides = document.querySelectorAll('.rsm-index-hero-carousel-slide');
+    const dots = document.querySelectorAll('.rsm-index-hero-carousel-dot');
+    const prevButton = document.querySelector('.rsm-index-hero-carousel-prev');
+    const nextButton = document.querySelector('.rsm-index-hero-carousel-next');
+    let currentSlide = 0;
+    let interval;
+    const intervalTime = 5000; // Time between automatic slides (5 seconds)
+
+    // Function to show a specific slide
+    function showSlide(index) {
+        // Hide all slides
+        carouselSlides.forEach(slide => {
+            slide.classList.remove('active');
+        });
+        
+        // Hide all active dots
+        dots.forEach(dot => {
+            dot.classList.remove('active');
+        });
+        
+        // Show the current slide and dot
+        carouselSlides[index].classList.add('active');
+        dots[index].classList.add('active');
+        
+        currentSlide = index;
+    }
+    
+    // Function to show the next slide
+    function nextSlide() {
+        let nextIndex = currentSlide + 1;
+        if (nextIndex >= carouselSlides.length) {
+            nextIndex = 0;
+        }
+        showSlide(nextIndex);
+    }
+    
+    // Function to show the previous slide
+    function prevSlide() {
+        let prevIndex = currentSlide - 1;
+        if (prevIndex < 0) {
+            prevIndex = carouselSlides.length - 1;
+        }
+        showSlide(prevIndex);
+    }
+    
+    // Set up automatic slideshow
+    function startAutoSlide() {
+        interval = setInterval(nextSlide, intervalTime);
+    }
+    
+    // Stop the automatic slideshow (when user interacts)
+    function stopAutoSlide() {
+        clearInterval(interval);
+    }
+    
+    // Reset the timer when user interacts
+    function resetTimer() {
+        stopAutoSlide();
+        startAutoSlide();
+    }
+    
+    // Event listeners for manual controls
+    prevButton.addEventListener('click', function() {
+        prevSlide();
+        resetTimer();
+    });
+    
+    nextButton.addEventListener('click', function() {
+        nextSlide();
+        resetTimer();
+    });
+    
+    // Event listeners for dot navigation
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+            showSlide(index);
+            resetTimer();
+        });
+    });
+    
+    // Start the automatic slideshow
+    startAutoSlide();
+    
+    // Optional: Pause slideshow on hover
+    const carouselContainer = document.querySelector('.rsm-index-hero-carousel-container');
+    carouselContainer.addEventListener('mouseenter', stopAutoSlide);
+    carouselContainer.addEventListener('mouseleave', startAutoSlide);
+});</script>
+
+<!-- Welcome Message -->
+
 
 <!-- Latest Announcements -->
 <section id="rsm-index-announcements-section">
