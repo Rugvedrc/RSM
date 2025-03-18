@@ -2835,7 +2835,6 @@ body {
 }
 
 /* Carousel styles */
-/* Carousel styles */
 .carousel-container {
     position: relative;
     width: 100%;
@@ -2858,21 +2857,23 @@ body {
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
     display: none;
-    /* Hide all slides by default */
+    text-align: center; /* Center image horizontally */
 }
 
 .carousel-slide.active {
     opacity: 1;
     z-index: 1;
     display: block;
-    /* Show only active slide */
 }
 
-/* This is the key part for images */
+/* This is the critical part for showing uncropped images */
 .carousel-slide img {
-    display: block;
     max-width: 100%;
+    max-height: 400px; /* Match container min-height or adjust as needed */
+    width: auto;
     height: auto;
+    object-fit: contain; /* This ensures the image is never cropped */
+    display: inline-block; /* Works better with text-align: center */
     margin: 0 auto;
 }
 
@@ -2925,5 +2926,9 @@ body {
 @media (max-width: 768px) {
     .carousel-container {
         min-height: 250px;
+    }
+    
+    .carousel-slide img {
+        max-height: 230px; /* Smaller height for mobile */
     }
 }
