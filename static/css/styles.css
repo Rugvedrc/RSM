@@ -2835,6 +2835,7 @@ body {
 }
 
 /* Carousel styles */
+/* Carousel styles */
 .carousel-container {
     position: relative;
     width: 100%;
@@ -2863,22 +2864,18 @@ body {
 .carousel-slide.active {
     opacity: 1;
     z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
     /* Show only active slide */
 }
 
+/* This is the key part for images */
 .carousel-slide img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;  /* Allow width to adjust automatically */
-    height: auto;  /* Allow height to adjust automatically */
-    object-fit: contain;  /* Ensure entire image is visible */
     display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
 }
 
-/* Rest of the carousel styles remain the same */
 .carousel-controls {
     position: absolute;
     bottom: 15px;
@@ -2928,12 +2925,5 @@ body {
 @media (max-width: 768px) {
     .carousel-container {
         min-height: 250px;
-    }
-    
-    .carousel-slide img {
-        max-width: 100%;
-        max-height: 230px;  /* Leave space for controls */
-        width: auto;
-        height: auto;
     }
 }
