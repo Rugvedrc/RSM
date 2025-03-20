@@ -38,6 +38,17 @@ def about():
 def announcements():
     return render_template('announcements.html')
 
+# login Route
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+# members route
+@app.route('/members')
+def members():
+    return render_template('members.html')
+
+
 # Seva Booking Route (Handled in Blueprint)
 @app.route('/booking')
 def booking():
