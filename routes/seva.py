@@ -12,7 +12,8 @@ def check_availability():
     seva_date = data.get('sevaDate')
     seva_time = data.get('sevaTime')
     
-    print(f"🛠️ Raw seva_time received: '{seva_time}'")  # Print the raw time value
+    print(f"🛠️ Raw seva_time received: '{seva_time}'") 
+    print(f"🛠️ Raw seva_date received: '{seva_date}'") # Print the raw time value
     
     if not seva_type or not seva_date or not seva_time:
         print("❌ Missing required fields")

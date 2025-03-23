@@ -139,43 +139,6 @@ function removeLastBotMessage() {
 
 
 
-function toggleTimeSlot() {
-    const sevaType = document.getElementById('rsm-booking-form-sevaType').value;
-    const timeRow = document.getElementById('rsm-booking-form-row-time');
-    const timeSelect = document.getElementById('rsm-booking-form-sevaTime');
-    const defaultTimeInput = document.getElementById('rsm-booking-form-sevaTime-default');
-
-    // Show time slot only for Shradha or Pakshapandharwada
-    if (sevaType === 'Pakshapandharwada') {
-        timeRow.style.display = 'block';
-        timeSelect.required = true;
-        defaultTimeInput.disabled = true;
-    } else {
-        timeRow.style.display = 'none';
-        timeSelect.required = false;
-        timeSelect.value = '';
-        defaultTimeInput.disabled = false;
-    }
-}
-
-// Initialize the form state on page load
-// document.addEventListener('DOMContentLoaded', function() {
-// Hide time slot by default
-document.getElementById('rsm-booking-form-row-time').style.display = 'none';
-toggleTimeSlot();
-
-// Handle form submission
-document.getElementById('rsm-booking-form').addEventListener('submit', function (event) {
-    const sevaType = document.getElementById('rsm-booking-form-sevaType').value;
-    const timeSelect = document.getElementById('rsm-booking-form-sevaTime');
-    const defaultTimeInput = document.getElementById('rsm-booking-form-sevaTime-default');
-
-    // If time slot is not visible, use the default time value
-    if (sevaType !== 'Shradha' && sevaType !== 'Pakshapandharwada') {
-        timeSelect.value = defaultTimeInput.value;
-    }
-});
-
 
 
 

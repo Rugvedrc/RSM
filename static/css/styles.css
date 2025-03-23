@@ -826,7 +826,8 @@ input:focus,textarea:focus,select:focus {
 }
 #rsm-index-guru-dedication-text {
 	margin-bottom: 1.5rem;
-	font-style: italic;
+	color:var(--accent);
+	/* font-style: italic; */
 }
 #rsm-index-guru-dedication-verse {
 	font-size: 1.8rem;
