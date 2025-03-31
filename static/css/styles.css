@@ -120,7 +120,7 @@ body {
 /* Main Content */
 #rsm-base-main-section {
 	min-height: calc(100vh - 70px - 250px);
-	padding: 2rem 0;
+	/* padding: 2rem 0; */
 	padding-top: 0px;
 }
 /* Footer Styles */
@@ -4658,3 +4658,27 @@ img {
 	  grid-template-columns: 1fr;
 	}
   }
+
+
+
+
+
+
+
+
+
+  .rsm-booking-book-button {
+    display: block;
+    margin: 10px auto;
+    padding: 8px 15px;
+    background-color: #f0c14b;
+    border: none;
+    border-radius: 4px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.rsm-booking-book-button:hover {
+    background-color: #e6b94d;
+}

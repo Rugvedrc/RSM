@@ -320,17 +320,43 @@ function toggleCategory(element) {
 
 // Function to toggle individual seva details
 function toggleSeva(element) {
-    // Find the details associated with this seva header
-    const sevaDetails = element.nextElementSibling;
-    const toggleIcon = element.querySelector('.rsm-booking-seva-toggle');
+    const details = element.nextElementSibling;
+    const toggleSpan = element.querySelector('.rsm-booking-seva-toggle');
     
-    // Toggle visibility
-    if (sevaDetails.style.display === 'block') {
-        sevaDetails.style.display = 'none';
-        toggleIcon.textContent = '+';
+    if (details.style.display === 'block') {
+        details.style.display = 'none';
+        toggleSpan.textContent = '+';
     } else {
-        sevaDetails.style.display = 'block';
-        toggleIcon.textContent = '-';
+        details.style.display = 'block';
+        toggleSpan.textContent = '-';
+        
+        // Add Book Seva button if it doesn't exist
+        if (!details.querySelector('.rsm-booking-book-button')) {
+            const bookButton = document.createElement('button');
+            bookButton.className = 'rsm-booking-book-button';
+            bookButton.textContent = 'Book Seva';
+            
+            // Get the seva name from the parent element
+            const sevaName = element.querySelector('.rsm-booking-seva-name').textContent;
+            
+            bookButton.addEventListener('click', function() {
+                // Scroll to booking form
+                document.getElementById('rsm-booking-form-section').scrollIntoView({ behavior: 'smooth' });
+                
+                // Set the selected seva in the dropdown
+                const sevaSelect = document.getElementById('rsm-booking-form-sevaType');
+                for (let i = 0; i < sevaSelect.options.length; i++) {
+                    if (sevaSelect.options[i].text.includes(sevaName)) {
+                        sevaSelect.selectedIndex = i;
+                        // Trigger the change event to update any dependent fields
+                        sevaSelect.dispatchEvent(new Event('change'));
+                        break;
+                    }
+                }
+            });
+            
+            details.appendChild(bookButton);
+        }
     }
 }
 

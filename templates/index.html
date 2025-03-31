@@ -59,6 +59,170 @@
     </div>
 </section>
 
+
+<style>
+    /* Hero Section Responsive Styles */
+#rsm-index-hero-section {
+    padding: 2rem 1rem;
+    background-color: #f8f8f8;
+}
+
+#rsm-index-hero-heading {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    /* color: #333; */
+}
+
+#rsm-index-hero-welcome-heading {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    /* color: #555; */
+}
+
+#rsm-index-hero-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#rsm-index-hero-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+#rsm-index-hero-welcome-lead {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+#rsm-index-hero-carousel {
+    flex: 1;
+    min-width: 300px;
+}
+
+.rsm-index-hero-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rsm-index-hero-carousel-slides {
+    width: 100%;
+}
+
+.rsm-index-hero-carousel-slide {
+    display: none;
+    width: 100%;
+}
+
+.rsm-index-hero-carousel-slide.active {
+    display: block;
+}
+
+.rsm-index-hero-carousel-slide img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.rsm-index-hero-carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+.rsm-index-hero-carousel-caption p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.rsm-index-hero-carousel-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.rsm-index-hero-carousel-prev,
+.rsm-index-hero-carousel-next {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rsm-index-hero-carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.rsm-index-hero-carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+.rsm-index-hero-carousel-dot.active {
+    background-color: #fff;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    #rsm-index-hero-container {
+        flex-direction: row;
+    }
+    
+    #rsm-index-hero-heading {
+        font-size: 3rem;
+    }
+    
+    #rsm-index-hero-welcome-heading {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 767px) {
+    #rsm-index-hero-heading {
+        font-size: 2rem;
+    }
+    
+    #rsm-index-hero-welcome-heading {
+        font-size: 1.5rem;
+    }
+    
+    #rsm-index-hero-welcome-lead {
+        font-size: 1rem;
+    }
+}
+</style>
+
+
+
 <script>document.addEventListener('DOMContentLoaded', function() {
     const carouselSlides = document.querySelectorAll('.rsm-index-hero-carousel-slide');
     const dots = document.querySelectorAll('.rsm-index-hero-carousel-dot');
@@ -187,78 +351,6 @@
         </div>
     </div>
 </section>
-
-<!-- Featured Sevas -->
-<!-- <section id="rsm-index-featured-sevas-section">
-    <div id="rsm-index-featured-sevas-container">
-        <h2 id="rsm-index-featured-sevas-heading">Featured Sevas</h2>
-        <div id="rsm-index-featured-sevas-row">
-            <div id="rsm-index-featured-sevas-column-1">
-                <div id="rsm-index-featured-sevas-card-1">
-                    <div id="rsm-index-featured-sevas-card-body-1">
-                        <img src="{{ url_for('static', filename='images/abhisheka.jpg') }}" alt="Abhisheka"
-                            id="rsm-index-featured-sevas-image-1">
-                        <h5 id="rsm-index-featured-sevas-card-title-1">Abhisheka</h5>
-                        <p id="rsm-index-featured-sevas-card-text-1">Sacred bathing ritual for the deity with various
-                            substances like milk, curd, honey.</p>
-                        <p id="rsm-index-featured-sevas-card-price-1">₹ 501/-</p>
-                    </div>
-                    <div id="rsm-index-featured-sevas-card-footer-1">
-                        <a href="{{ url_for('booking') }}" id="rsm-index-featured-sevas-book-now-button-1">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <div id="rsm-index-featured-sevas-column-2">
-                <div id="rsm-index-featured-sevas-card-2">
-                    <div id="rsm-index-featured-sevas-card-body-2">
-                        <img src="{{ url_for('static', filename='images/archana.jpg') }}" alt="Archana"
-                            id="rsm-index-featured-sevas-image-2">
-                        <h5 id="rsm-index-featured-sevas-card-title-2">Archana</h5>
-                        <p id="rsm-index-featured-sevas-card-text-2">Offering of flowers and chanting of names of the
-                            deity seeking divine blessings.</p>
-                        <p id="rsm-index-featured-sevas-card-price-2">₹ 151/-</p>
-                    </div>
-                    <div id="rsm-index-featured-sevas-card-footer-2">
-                        <a href="{{ url_for('booking') }}" id="rsm-index-featured-sevas-book-now-button-2">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <div id="rsm-index-featured-sevas-column-3">
-                <div id="rsm-index-featured-sevas-card-3">
-                    <div id="rsm-index-featured-sevas-card-body-3">
-                        <img src="{{ url_for('static', filename='images/satyanarayana-puja.jpg') }}"
-                            alt="Satyanarayana Puja" id="rsm-index-featured-sevas-image-3">
-                        <h5 id="rsm-index-featured-sevas-card-title-3">Satyanarayana Puja</h5>
-                        <p id="rsm-index-featured-sevas-card-text-3">Special puja performed for prosperity, well-being
-                            and to fulfill wishes.</p>
-                        <p id="rsm-index-featured-sevas-card-price-3">₹ 1,001/-</p>
-                    </div>
-                    <div id="rsm-index-featured-sevas-card-footer-3">
-                        <a href="{{ url_for('booking') }}" id="rsm-index-featured-sevas-book-now-button-3">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <div id="rsm-index-featured-sevas-column-4">
-                <div id="rsm-index-featured-sevas-card-4">
-                    <div id="rsm-index-featured-sevas-card-body-4">
-                        <img src="{{ url_for('static', filename='images/anna-dana.jpg') }}" alt="Anna Dana"
-                            id="rsm-index-featured-sevas-image-4">
-                        <h5 id="rsm-index-featured-sevas-card-title-4">Anna Dana</h5>
-                        <p id="rsm-index-featured-sevas-card-text-4">Sponsoring meals for devotees and the needy,
-                            considered highly meritorious.</p>
-                        <p id="rsm-index-featured-sevas-card-price-4">₹ 5,001/-</p>
-                    </div>
-                    <div id="rsm-index-featured-sevas-card-footer-4">
-                        <a href="{{ url_for('booking') }}" id="rsm-index-featured-sevas-book-now-button-4">Book Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="rsm-index-featured-sevas-view-all">
-            <a href="{{ url_for('booking') }}" id="rsm-index-featured-sevas-view-all-button">View All Sevas</a>
-        </div>
-    </div>
-</section> -->
 
 <!-- Donation Section -->
 <section id="rsm-index-donation-section">
