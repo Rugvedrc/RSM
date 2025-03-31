@@ -3,8 +3,6 @@
 {% block title %}About Us - Raghavendra Swami Math{% endblock %}
 
 {% block content %}
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,21 +16,16 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 </head>
 
 <body>
-    <!-- About Hero Section -->
     <section id="rsm-about-page-header" class="rsm-about-page-header">
         <div id="rsm-about-header-container" class="rsm-about-header-container">
             <h1 id="rsm-about-main-heading" class="rsm-about-main-heading">राघवेन्द्र सेवा संघ</h1>
-            <!-- <p id="rsm-about-lead-text" class="rsm-about-lead-text">Learn about our history, mission, and spiritual -->
-                <!-- heritage</p> -->
         </div>
     </section>
 
-    <!-- History Section -->
     <section id="rsm-about-history-section" class="rsm-about-history-section">
         <div id="rsm-about-history-container" class="rsm-about-history-container">
             <div id="rsm-about-history-row" class="rsm-about-history-row">
@@ -59,100 +52,6 @@
         </div>
     </section>
 
-    <!-- Guru Parampara Section -->
-    <!-- <section id="rsm-about-guru-parampara-section" class="rsm-about-guru-parampara-section">
-        <div id="rsm-about-guru-parampara-container" class="rsm-about-guru-parampara-container">
-            <h2 id="rsm-about-guru-parampara-heading" class="rsm-about-guru-parampara-heading">Guru Parampara</h2>
-            <div id="rsm-about-guru-parampara-timeline" class="rsm-about-guru-parampara-timeline">
-                <div id="rsm-about-guru-row-1" class="rsm-about-guru-row">
-                    <div id="rsm-about-guru-column-1a" class="rsm-about-guru-column">
-                        <div id="rsm-about-guru-card-madhvacharya" class="rsm-about-guru-card">
-                            <div id="rsm-about-guru-card-body-madhvacharya" class="rsm-about-guru-card-body">
-                                <h5 id="rsm-about-guru-card-title-madhvacharya" class="rsm-about-guru-card-title">Sri
-                                    Madhvacharya (1238-1317)</h5>
-                                <p id="rsm-about-guru-card-text-madhvacharya" class="rsm-about-guru-card-text">The
-                                    founder of Dvaita (dualistic) philosophy, who established the Ashtamathas (eight
-                                    monasteries) in Udupi.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="rsm-about-guru-column-1b" class="rsm-about-guru-column">
-                        <div id="rsm-about-guru-card-empty-1" class="rsm-about-guru-card-empty"></div>
-                    </div>
-                </div>
-
-                <div id="rsm-about-guru-row-2" class="rsm-about-guru-row">
-                    <div id="rsm-about-guru-column-2a" class="rsm-about-guru-column">
-                        <div id="rsm-about-guru-card-empty-2" class="rsm-about-guru-card-empty"></div>
-                    </div>
-                    <div id="rsm-about-guru-column-2b" class="rsm-about-guru-column">
-                        <div id="rsm-about-guru-card-jayatirtha" class="rsm-about-guru-card">
-                            <div id="rsm-about-guru-card-body-jayatirtha" class="rsm-about-guru-card-body">
-                                <h5 id="rsm-about-guru-card-title-jayatirtha" class="rsm-about-guru-card-title">Sri
-                                    Jayatirtha (1365-1388)</h5>
-                                <p id="rsm-about-guru-card-text-jayatirtha" class="rsm-about-guru-card-text">Known as
-                                    Tikacharya, who wrote extensive commentaries on Madhvacharya's works, making them
-                                    more accessible.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="rsm-about-guru-row-3" class="rsm-about-guru-row">
-                    <div id="rsm-about-guru-column-3a" class="rsm-about-guru-column">
-                        <div id="rsm-about-guru-card-vyasatirtha" class="rsm-about-guru-card">
-                            <div id="rsm-about-guru-card-body-vyasatirtha" class="rsm-about-guru-card-body">
-                                <h5 id="rsm-about-guru-card-title-vyasatirtha" class="rsm-about-guru-card-title">Sri
-                                    Vyasatirtha (1460-1539)</h5>
-                                <p id="rsm-about-guru-card-text-vyasatirtha" class="rsm-about-guru-card-text">A
-                                    prominent philosopher and court scholar of the Vijayanagara Empire who greatly
-                                    expanded the influence of Dvaita philosophy.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="rsm-about-guru-column-3b" class="rsm-about-guru-column">
-                        <div id="rsm-about-guru-card-empty-3" class="rsm-about-guru-card-empty"></div>
-                    </div>
-                </div>
-
-                <div id="rsm-about-guru-row-4" class="rsm-about-guru-row">
-                    <div id="rsm-about-guru-column-4a" class="rsm-about-guru-column">
-                        <div id="rsm-about-guru-card-empty-4" class="rsm-about-guru-card-empty"></div>
-                    </div>
-                    <div id="rsm-about-guru-column-4b" class="rsm-about-guru-column">
-                        <div id="rsm-about-guru-card-raghavendra" class="rsm-about-guru-card">
-                            <div id="rsm-about-guru-card-body-raghavendra" class="rsm-about-guru-card-body">
-                                <h5 id="rsm-about-guru-card-title-raghavendra" class="rsm-about-guru-card-title">Sri
-                                    Raghavendra Swami (1595-1671)</h5>
-                                <p id="rsm-about-guru-card-text-raghavendra" class="rsm-about-guru-card-text">The
-                                    pontiff of Mantralayam Math, known for his miracles, scholarly works, and compassion
-                                    for all beings. His brindavana at Mantralayam continues to be a source of solace and
-                                    miracles for devotees.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="rsm-about-guru-row-5" class="rsm-about-guru-row">
-                    <div id="rsm-about-guru-column-5a" class="rsm-about-guru-column">
-                        <div id="rsm-about-guru-card-current" class="rsm-about-guru-card">
-                            <div id="rsm-about-guru-card-body-current" class="rsm-about-guru-card-body">
-                                <h5 id="rsm-about-guru-card-title-current" class="rsm-about-guru-card-title">Current
-                                    Pontiff of Our Math</h5>
-                                <p id="rsm-about-guru-card-text-current" class="rsm-about-guru-card-text">[Name and
-                                    brief history of the current head of the Math in Chhatrapati Sambhaji Nagar]</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="rsm-about-guru-column-5b" class="rsm-about-guru-column">
-                        <div id="rsm-about-guru-card-empty-5" class="rsm-about-guru-card-empty"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- Mission & Vision Section -->
     <section id="rsm-about-mission-vision-section" class="rsm-about-mission-vision-section">
         <div id="rsm-about-mission-vision-container" class="rsm-about-mission-vision-container">
             <div id="rsm-about-mission-vision-row" class="rsm-about-mission-vision-row">
@@ -207,7 +106,6 @@
         </div>
     </section>
 
-    <!-- Daily Activities Section -->
     <section id="rsm-about-activities-section" class="rsm-about-activities-section">
         <div id="rsm-about-activities-container" class="rsm-about-activities-container">
             <h2 id="rsm-about-activities-heading" class="rsm-about-activities-heading">दैनंदिनी </h2>
@@ -218,38 +116,22 @@
                             <th id="rsm-about-activities-header-time" class="rsm-about-activities-header-cell">Time</th>
                             <th id="rsm-about-activities-header-activity" class="rsm-about-activities-header-cell">
                                 Activity</th>
-                            <!-- <th id="rsm-about-activities-header-description" class="rsm-about-activities-header-cell">
-                                Description</th> -->
                         </tr>
                     </thead>
                     <tbody id="rsm-about-activities-tbody" class="rsm-about-activities-tbody">
                         <tr id="rsm-about-activities-row-1" class="rsm-about-activities-row">
-                            
                             <td id="rsm-about-activities-time-1" class="rsm-about-activities-time-cell">सकाळी ६ ते ९</td>
                             <td id="rsm-about-activities-name-1" class="rsm-about-activities-name-cell">पुजा</td>
-                            <!-- <td id="rsm-about-activities-desc-1" class="rsm-about-activities-desc-cell">शालीग्राम, मुख्यप्राण आणि वृंदावन पुजा, नैवेद्य, आरती, वैश्र्वदेव, बलिहणम्, भूतयज्ञ, हस्तोदक.</td> -->
-                        </tr>
-                        <tr id="rsm-about-activities-row-2" class="rsm-about-activities-row">
-                            <!-- <td id="rsm-about-activities-time-2" class="rsm-about-activities-time-cell">सकाळी १०:००</td> -->
-                            <!-- <td id="rsm-about-activities-name-2" class="rsm-about-activities-name-cell">श्राद्ध सेवा</td> -->
-                            <!-- <td id="rsm-about-activities-desc-2" class="rsm-about-activities-desc-cell"> -</td> -->
                         </tr>
                         <tr id="rsm-about-activities-row-3" class="rsm-about-activities-row">
                             <td id="rsm-about-activities-time-3" class="rsm-about-activities-time-cell">संध्याकाळी ७:००</td>
                             <td id="rsm-about-activities-name-3" class="rsm-about-activities-name-cell">उत्तर पूजा, आरती</td>
-                            <!-- <td id="rsm-about-activities-desc-3" class="rsm-about-activities-desc-cell">-</td> -->
                         </tr>
-
                         <th colspan="3" id="rsm-about-activities-weekly-activities-heading" class="rsm-about-activities-weekly-activities-heading">साप्ताहिक सेवा</th>
-
                         <tr id="rsm-about-activities-row-5" class="rsm-about-activities-row">
                             <td id="rsm-about-activities-time-5" class="rsm-about-activities-time-cell">सकाळी ९ ते ११</td>
                             <td id="rsm-about-activities-name-5" class="rsm-about-activities-name-cell">अष्टोत्तर, पालखी सेवा आणि आरती.</td>
-                            <!-- <td id="rsm-about-activities-desc-5" class="rsm-about-activities-desc-cell">-</td> -->
                         </tr>
-
-                        <!-- <th colspan="3" id="rsm-about-activities-weekly-activities-heading" class="rsm-about-activities-weekly-activities-heading">साप्ताहिक सेवा</th> -->
-                        
                     </tbody>
                 </table>
             </div>
@@ -259,7 +141,7 @@
             </p>
         </div>
     </section>
-    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
 </body>
 
 </html>

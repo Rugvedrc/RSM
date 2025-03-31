@@ -826,8 +826,7 @@ input:focus,textarea:focus,select:focus {
 }
 #rsm-index-guru-dedication-text {
 	margin-bottom: 1.5rem;
-	color:var(--accent);
-	/* font-style: italic; */
+	font-style: italic;
 }
 #rsm-index-guru-dedication-verse {
 	font-size: 1.8rem;
@@ -1285,7 +1284,7 @@ a:hover {
 	background-position: center;
 	color: var(--text-light);
 	text-align: center;
-	padding: 120px 0;
+	padding: 40px 0;
 }
 #rsm-announcements-upcoming-events-section,#rsm-announcements-festival-calendar-section {
 	background-color: var(--bg-light);
@@ -1568,7 +1567,7 @@ a:hover {
 }
 @media (max-width: 576px) {
 	#rsm-announcements-hero-section {
-		padding: 80px 0;
+		padding: 40px 0;
 	}
 	#rsm-announcements-hero-heading {
 		font-size: 2rem;
@@ -3422,3 +3421,1240 @@ body {
     height: auto;
     border-radius: 10px; /* Optional for rounded corners */
 }
+
+
+
+
+
+
+
+
+
+/* Mobile-friendly CSS for Raghavendra Swami Math */
+
+/* Base responsive settings */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Hero Section */
+#rsm-index-hero-section {
+    padding: 20px 10px;
+    text-align: center;
+}
+
+#rsm-index-hero-heading {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+#rsm-index-hero-welcome-heading {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+#rsm-index-hero-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#rsm-index-hero-content {
+    padding: 0 10px;
+}
+
+#rsm-index-hero-welcome-lead {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* Hero Carousel */
+#rsm-index-hero-carousel {
+    margin-top: 20px;
+}
+
+.rsm-index-hero-carousel-container {
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.rsm-index-hero-carousel-slides {
+    position: relative;
+    width: 100%;
+}
+
+.rsm-index-hero-carousel-slide {
+    display: none;
+    width: 100%;
+}
+
+.rsm-index-hero-carousel-slide.active {
+    display: block;
+}
+
+.rsm-index-hero-carousel-slide img {
+    width: 100%;
+    height: auto;
+}
+
+.rsm-index-hero-carousel-caption {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.rsm-index-hero-carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.rsm-index-hero-carousel-prev,
+.rsm-index-hero-carousel-next {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.rsm-index-hero-carousel-dots {
+    display: flex;
+    margin: 0 10px;
+}
+
+.rsm-index-hero-carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.rsm-index-hero-carousel-dot.active {
+    background-color: #333;
+}
+
+/* Announcements Section */
+#rsm-index-announcements-section {
+    padding: 20px 10px;
+}
+
+#rsm-index-announcements-container {
+    width: 100%;
+}
+
+#rsm-index-announcements-heading {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#rsm-index-announcements-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#rsm-index-announcements-column-1 {
+    width: 100%;
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+#rsm-index-announcements-card-1 {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 100%;
+}
+
+#rsm-index-announcements-card-body-1 {
+    padding: 15px;
+}
+
+#rsm-index-announcements-card-title-1 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+#rsm-index-announcements-card-subtitle-1 {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+#rsm-index-announcements-card-text-1 {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+#rsm-index-announcements-card-footer-1 {
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #ddd;
+}
+
+#rsm-index-announcements-read-more-button-1 {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+#rsm-index-announcements-view-all {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#rsm-index-announcements-view-all-button {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+/* Donation Section */
+#rsm-index-donation-section {
+    padding: 20px 10px;
+    background-color: #f8f9fa;
+}
+
+#rsm-index-donation-container {
+    width: 100%;
+}
+
+#rsm-index-donation-row {
+    display: flex;
+    flex-direction: column;
+}
+
+#rsm-index-donation-column-1 {
+    width: 100%;
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+#rsm-index-donation-column-2 {
+    width: 100%;
+    padding: 0 10px;
+}
+
+#rsm-index-donation-heading {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+#rsm-index-donation-lead {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+#rsm-index-donation-text {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#rsm-index-donation-list {
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+#rsm-index-donation-list li {
+    margin-bottom: 5px;
+}
+
+#rsm-index-donation-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Contact Section */
+#rsm-index-contact-section {
+    padding: 20px 10px;
+}
+
+#rsm-index-contact-container {
+    width: 100%;
+}
+
+#rsm-index-contact-heading {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#rsm-index-contact-row {
+    display: flex;
+    flex-direction: column;
+}
+
+#rsm-index-contact-column-1,
+#rsm-index-contact-column-2 {
+    width: 100%;
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+#rsm-index-contact-card-1,
+#rsm-index-contact-card-3 {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 100%;
+}
+
+#rsm-index-contact-card-body-1,
+#rsm-index-contact-card-body-3 {
+    padding: 15px;
+}
+
+#rsm-index-contact-card-title-1,
+#rsm-index-contact-card-title-2,
+#rsm-index-contact-card-title-3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+#rsm-index-contact-card-text-1 {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+#rsm-index-contact-phone,
+#rsm-index-contact-email,
+#rsm-index-contact-hours {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#rsm-index-contact-map-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 75%; /* 4:3 Aspect Ratio */
+    overflow: hidden;
+}
+
+#rsm-index-contact-map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#rsm-index-contact-form-group-1,
+#rsm-index-contact-form-group-2,
+#rsm-index-contact-form-group-3,
+#rsm-index-contact-form-group-4,
+#rsm-index-contact-form-group-5 {
+    margin-bottom: 15px;
+}
+
+#rsm-index-contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#rsm-index-contact-form input,
+#rsm-index-contact-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+#rsm-index-contact-submit-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/* Guru Dedication Section */
+#rsm-index-guru-dedication-section {
+    padding: 20px 10px;
+    background-color: #f8f9fa;
+}
+
+#rsm-index-guru-dedication-container {
+    width: 100%;
+}
+
+#rsm-index-guru-dedication-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#rsm-index-guru-dedication-column-1 {
+    width: 100%;
+    padding: 0 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#rsm-index-guru-dedication-column-2 {
+    width: 100%;
+    padding: 0 10px;
+    text-align: center;
+}
+
+#rsm-index-guru-dedication-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+#rsm-index-guru-dedication-heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#rsm-index-guru-dedication-text {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#rsm-index-guru-dedication-verse {
+    font-size: 20px;
+    font-style: italic;
+}
+
+/* Media Queries for larger screens */
+@media (min-width: 768px) {
+    #rsm-index-hero-container {
+        flex-direction: row;
+    }
+    
+    #rsm-index-hero-content {
+        width: 40%;
+        padding-right: 20px;
+    }
+    
+    #rsm-index-hero-carousel {
+        width: 60%;
+        margin-top: 0;
+    }
+    
+    #rsm-index-donation-row {
+        flex-direction: row;
+    }
+    
+    #rsm-index-donation-column-1 {
+        width: 50%;
+    }
+    
+    #rsm-index-donation-column-2 {
+        width: 50%;
+    }
+    
+    #rsm-index-contact-row {
+        flex-direction: row;
+    }
+    
+    #rsm-index-contact-column-1 {
+        width: 50%;
+    }
+    
+    #rsm-index-contact-column-2 {
+        width: 50%;
+    }
+    
+    #rsm-index-guru-dedication-row {
+        flex-direction: row;
+    }
+    
+    #rsm-index-guru-dedication-column-1 {
+        width: 40%;
+    }
+    
+    #rsm-index-guru-dedication-column-2 {
+        width: 60%;
+        /* text-align: left; */
+    }
+}
+
+/* Additional mobile-specific adjustments */
+@media (max-width: 767px) {
+    #rsm-index-hero-heading {
+        font-size: 24px;
+    }
+    
+    #rsm-index-hero-welcome-heading {
+        font-size: 20px;
+    }
+    
+    #rsm-index-hero-welcome-lead {
+        font-size: 14px;
+    }
+    
+    .rsm-index-hero-carousel-caption p {
+        font-size: 12px;
+    }
+    
+    #rsm-index-announcements-card-title-1 {
+        font-size: 18px;
+    }
+    
+    #rsm-index-announcements-card-text-1 {
+        font-size: 14px;
+    }
+    
+    #rsm-index-donation-heading,
+    #rsm-index-contact-heading,
+    #rsm-index-guru-dedication-heading {
+        font-size: 22px;
+    }
+    
+    #rsm-index-donation-lead {
+        font-size: 14px;
+    }
+    
+    #rsm-index-donation-text {
+        font-size: 14px;
+    }
+    
+    #rsm-index-donation-list {
+        font-size: 14px;
+    }
+    
+    #rsm-index-contact-card-title-1,
+    #rsm-index-contact-card-title-2,
+    #rsm-index-contact-card-title-3 {
+        font-size: 18px;
+    }
+    
+    #rsm-index-guru-dedication-text {
+        font-size: 16px;
+    }
+    
+    #rsm-index-guru-dedication-verse {
+        font-size: 18px;
+    }
+}
+
+
+
+
+/* Base mobile responsiveness */
+@media (max-width: 768px) {
+	/* General container adjustments */
+	html, body {
+	  overflow-x: hidden;
+	  width: 100%;
+	  position: relative;
+	}
+	
+	/* Navigation styles */
+	#rsm-base-nav-section {
+	  width: 100%;
+	  position: relative;
+	}
+	
+	#rsm-base-nav-container {
+	  padding: 10px 15px;
+	  display: flex;
+	  flex-wrap: wrap;
+	  align-items: center;
+	  justify-content: space-between;
+	  width: 100%;
+	}
+	
+	/* Logo section */
+	#rsm-base-nav-logo {
+	  display: flex;
+	  align-items: center;
+	  margin-right: auto;
+	  max-width: 75%;
+	}
+	
+	#rsm-base-nav-logo-img {
+	  height: 30px;
+	  width: auto;
+	}
+	
+	#rsm-base-nav-logo-text {
+	  font-size: 1rem;
+	  margin-left: 5px;
+	  white-space: nowrap;
+	}
+	
+	/* Mobile toggler button */
+	#rsm-base-nav-toggler {
+	  display: block !important;
+	  background: transparent;
+	  border: 1px solid rgba(0,0,0,0.1);
+	  border-radius: 4px;
+	  width: 40px;
+	  height: 34px;
+	  position: relative;
+	  padding: 0;
+	  cursor: pointer;
+	}
+	
+	#rsm-base-nav-toggler-icon {
+	  display: block;
+	  width: 22px;
+	  height: 2px;
+	  background-color: #333;
+	  margin: 0 auto;
+	  position: relative;
+	  transition: background-color 0.3s;
+	}
+	
+	#rsm-base-nav-toggler-icon::before,
+	#rsm-base-nav-toggler-icon::after {
+	  content: '';
+	  position: absolute;
+	  width: 100%;
+	  height: 100%;
+	  background-color: #333;
+	  left: 0;
+	  transition: all 0.3s;
+	}
+	
+	#rsm-base-nav-toggler-icon::before {
+	  top: -6px;
+	}
+	
+	#rsm-base-nav-toggler-icon::after {
+	  top: 6px;
+	}
+	
+	/* Navigation menu */
+	#rsm-base-nav-menu {
+	  flex-basis: 100%;
+	  display: none;
+	  width: 100%;
+	  margin-top: 10px;
+	  transition: all 0.3s;
+	  overflow: hidden;
+	}
+	
+	#rsm-base-nav-menu.active {
+	  display: block;
+	}
+	
+	#rsm-base-nav-menu-list {
+	  display: flex;
+	  flex-direction: column;
+	  margin: 0;
+	  padding: 0;
+	  list-style: none;
+	  width: 100%;
+	}
+	
+	#rsm-base-nav-menu-list li {
+	  margin: 0;
+	  text-align: left;
+	  border-bottom: 1px solid rgba(0,0,0,0.05);
+	}
+	
+	#rsm-base-nav-menu-list li a {
+	  display: block;
+	  padding: 12px 15px;
+	  text-decoration: none;
+	  color: #333;
+	  font-size: 1rem;
+	}
+	
+	/* Main content area */
+	#rsm-base-main-section {
+	  /* padding: 15px; */
+	  width: 100%;
+	  box-sizing: border-box;
+	}
+	
+	/* Footer styles */
+	#rsm-base-footer-section {
+	  padding: 15px;
+	  width: 100%;
+	}
+	
+	#rsm-base-footer-container {
+	  width: 100%;
+	  padding: 0;
+	}
+	
+	#rsm-base-footer-row-1 {
+	  display: flex;
+	  flex-direction: column;
+	  gap: 20px;
+	}
+	
+	#rsm-base-footer-column-1,
+	#rsm-base-footer-column-2,
+	#rsm-base-footer-column-3 {
+	  width: 100%;
+	  text-align: center;
+	}
+	
+	#rsm-base-footer-quick-links-list {
+	  padding-left: 0;
+	  list-style: none;
+	  text-align: center;
+	}
+	
+	#rsm-base-footer-quick-links-list li {
+	  margin-bottom: 8px;
+	}
+	
+	#rsm-base-footer-social-icons {
+	  display: flex;
+	  justify-content: center;
+	  gap: 15px;
+	  margin-top: 10px;
+	}
+	
+	#rsm-base-footer-social-icons a {
+	  font-size: 1.5rem;
+	}
+	
+	#rsm-base-footer-divider {
+	  margin: 15px 0;
+	}
+	
+	#rsm-base-footer-copyright {
+	  text-align: center;
+	  font-size: 0.875rem;
+	}
+	
+	/* Chatbot adjustments */
+	#rsm-base-chatbot-icon {
+	  position: fixed;
+	  bottom: 15px;
+	  right: 15px;
+	  z-index: 1000;
+	}
+	
+	#rsm-base-chatbot-icon img {
+	  width: 50px;
+	  height: 50px;
+	  cursor: pointer;
+	}
+	
+	#rsm-base-chatbot-container {
+	  position: fixed;
+	  bottom: 75px;
+	  right: 15px;
+	  width: 90%;
+	  max-width: 300px;
+	  height: 400px;
+	  background-color: white;
+	  border-radius: 10px;
+	  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+	  display: none;
+	  flex-direction: column;
+	  z-index: 999;
+	}
+	
+	#rsm-base-chatbot-header {
+	  padding: 10px;
+	  background-color: #f0f0f0;
+	  border-top-left-radius: 10px;
+	  border-top-right-radius: 10px;
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	}
+	
+	#rsm-base-chatbot-messages {
+	  flex: 1;
+	  overflow-y: auto;
+	  padding: 10px;
+	}
+	
+	#rsm-base-chatbot-input-container {
+	  padding: 10px;
+	  border-top: 1px solid #f0f0f0;
+	}
+	
+	#rsm-base-chatbot-input {
+	  width: 100%;
+	  padding: 8px;
+	  border: 1px solid #ddd;
+	  border-radius: 5px;
+	}
+  }
+  
+  /* Smaller mobile devices */
+  @media (max-width: 480px) {
+	#rsm-base-nav-logo-text {
+	  font-size: 0.875rem;
+	}
+	
+	#rsm-base-nav-logo-img {
+	  height: 25px;
+	}
+	
+	#rsm-base-footer-social-icons a {
+	  font-size: 1.25rem;
+	}
+	
+	#rsm-base-chatbot-container {
+	  height: 350px;
+	  max-width: 280px;
+	}
+  }
+
+
+
+
+
+
+
+
+/* Mobile Responsiveness for Announcements Page */
+@media only screen and (max-width: 768px) {
+	/* General container adjustments */
+	#rsm-announcements-hero-container,
+	#rsm-announcements-upcoming-events-container,
+	#rsm-announcements-recent-announcements-container,
+	#rsm-announcements-festival-calendar-container {
+	  width: 100%;
+	  padding: 15px;
+	}
+	
+	/* Hero section */
+	#rsm-announcements-hero-heading {
+	  font-size: 28px;
+	  text-align: center;
+	}
+	
+	#rsm-announcements-hero-text {
+	  font-size: 16px;
+	  text-align: center;
+	}
+	
+	/* Upcoming events section */
+	#rsm-announcements-upcoming-events-heading,
+	#rsm-announcements-recent-announcements-heading,
+	#rsm-announcements-festival-calendar-heading {
+	  font-size: 24px;
+	  text-align: center;
+	  margin-bottom: 20px;
+	}
+	
+	#rsm-announcements-upcoming-events-row-1 {
+	  display: flex;
+	  flex-direction: column;
+	}
+	
+	#rsm-announcements-upcoming-events-column-1 {
+	  width: 100%;
+	  margin-bottom: 20px;
+	}
+	
+	#rsm-announcements-upcoming-events-card-1 {
+	  width: 100%;
+	}
+	
+	/* Festival calendar table */
+	#rsm-announcements-festival-calendar-table-container {
+	  overflow-x: auto;
+	}
+	
+	#rsm-announcements-festival-calendar-table {
+	  min-width: 100%;
+	  font-size: 14px;
+	}
+	
+	#rsm-announcements-festival-calendar-table th,
+	#rsm-announcements-festival-calendar-table td {
+	  padding: 8px;
+	}
+	
+	/* Modal adjustments */
+	#rsm-announcements-event-modal-dialog-1 {
+	  margin: 10px;
+	  width: auto;
+	}
+	
+	#rsm-announcements-event-modal-schedule-table-1 {
+	  font-size: 14px;
+	}
+	
+	#rsm-announcements-event-modal-schedule-table-1 th,
+	#rsm-announcements-event-modal-schedule-table-1 td {
+	  padding: 6px;
+	}
+	
+	/* Fix for modal content overflow */
+	#rsm-announcements-event-modal-schedule-table-container-1 {
+	  overflow-x: auto;
+	}
+	
+	/* Announcement list items */
+	#rsm-announcements-recent-announcements-item-1 {
+	  padding: 15px;
+	  margin-bottom: 15px;
+	}
+	
+	/* List adjustments */
+	#rsm-announcements-upcoming-events-card-list-1 {
+	  padding-left: 20px;
+	}
+	
+	#rsm-announcements-upcoming-events-card-list-1 li {
+	  margin-bottom: 5px;
+	}
+	
+	/* Card text and title adjustments */
+	#rsm-announcements-upcoming-events-card-title-1 {
+	  font-size: 20px;
+	}
+	
+	#rsm-announcements-upcoming-events-card-text-1,
+	#rsm-announcements-upcoming-events-card-note-1 {
+	  font-size: 14px;
+	}
+	
+	/* Modal title and content */
+	#rsm-announcements-event-modal-title-1 {
+	  font-size: 22px;
+	}
+	
+	#rsm-announcements-event-modal-date-time-1 {
+	  font-size: 16px;
+	}
+	
+	#rsm-announcements-event-modal-description-1 {
+	  font-size: 14px;
+	}
+  }
+  
+  /* Extra small devices */
+  @media only screen and (max-width: 480px) {
+	#rsm-announcements-hero-heading {
+	  font-size: 24px;
+	}
+	
+	#rsm-announcements-hero-text {
+	  font-size: 14px;
+	}
+	
+	#rsm-announcements-upcoming-events-heading,
+	#rsm-announcements-recent-announcements-heading,
+	#rsm-announcements-festival-calendar-heading {
+	  font-size: 20px;
+	}
+	
+	#rsm-announcements-festival-calendar-table {
+	  font-size: 12px;
+	}
+	
+	#rsm-announcements-festival-calendar-table th,
+	#rsm-announcements-festival-calendar-table td {
+	  padding: 6px;
+	}
+	
+	/* Modal content for very small screens */
+	#rsm-announcements-event-modal-title-1 {
+	  font-size: 18px;
+	}
+	
+	#rsm-announcements-event-modal-schedule-table-1 {
+	  font-size: 12px;
+	}
+	
+	#rsm-announcements-event-modal-schedule-table-1 td {
+	  padding: 4px;
+	}
+  }
+
+
+
+
+/* Fix for the '+' character issue */
+.rsm-booking-seva-toggle,
+.rsm-booking-category-toggle {
+  margin-left: 10px;
+  display: inline-block;
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 768px) {
+  /* General container styles */
+  #rsm-booking-container {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Header section */
+  #rsm-booking-header-heading {
+    font-size: 24px;
+  }
+  
+  /* Booking form layout */
+  #rsm-booking-form-row-1,
+  #rsm-booking-form-row-2,
+  #rsm-booking-form-row-3 {
+    flex-direction: column;
+  }
+  
+  #rsm-booking-form-column-1,
+  #rsm-booking-form-column-2 {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+  
+  /* Input fields */
+  #rsm-booking-form input[type="text"],
+  #rsm-booking-form input[type="email"],
+  #rsm-booking-form input[type="tel"],
+  #rsm-booking-form select,
+  #rsm-booking-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Family members section */
+  .rsm-booking-form-family-row,
+  #rsm-booking-form-family-row-1 {
+    flex-direction: column;
+  }
+  
+  .rsm-booking-form-family-column-1,
+  .rsm-booking-form-family-column-2,
+  .rsm-booking-form-family-column-3,
+  #rsm-booking-form-family-column-1,
+  #rsm-booking-form-family-column-2,
+  #rsm-booking-form-family-column-3 {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  /* Seva categories and items */
+  .rsm-booking-seva-category {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .rsm-booking-category-header,
+  .rsm-booking-seva-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .rsm-booking-seva-name,
+  .rsm-booking-category-title {
+    width: 80%;
+    word-break: break-word;
+  }
+  
+  /* Seva table improvements */
+  #rsm-booking-sevas-table-container {
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .rsm-booking-seva-details {
+    padding: 10px;
+  }
+  
+  .rsm-booking-seva-description,
+  .rsm-booking-seva-contribution {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  /* Payment method options */
+  #rsm-booking-form-row-8 {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  #rsm-booking-form-payment-online,
+  #rsm-booking-form-payment-math {
+    margin-bottom: 10px;
+  }
+  
+  /* Submit button */
+  #rsm-booking-form-submit-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+  }
+  
+  /* Info card */
+  #rsm-booking-info-card {
+    margin-top: 20px;
+  }
+  
+  /* Availability section */
+  #rsm-booking-availability-section {
+    width: 100%;
+  }
+}
+
+/* Improvements for both mobile and desktop */
+#rsm-booking-sevas-table-container {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.rsm-booking-category-header,
+.rsm-booking-seva-header {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.rsm-booking-category-header:hover,
+.rsm-booking-seva-header:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.rsm-booking-seva-name {
+  font-weight: 500;
+}
+
+.rsm-booking-seva-details {
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 0 0 8px 8px;
+}
+
+/* Make sure the form looks clean on all devices */
+#rsm-booking-form input,
+#rsm-booking-form select,
+#rsm-booking-form textarea {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s;
+}
+
+#rsm-booking-form input:focus,
+#rsm-booking-form select:focus,
+#rsm-booking-form textarea:focus {
+  outline: none;
+  border-color: #8e44ad;
+}
+
+/* Make sure family member rows are properly displayed */
+.rsm-booking-form-family-row,
+#rsm-booking-form-family-row-1 {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+/* Enhance visibility of buttons */
+.rsm-booking-form-family-add,
+.rsm-booking-form-family-remove {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #8e44ad;
+  color: white;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.rsm-booking-form-family-add:hover,
+.rsm-booking-form-family-remove:hover {
+  background-color: #6c3483;
+}
+
+.rsm-booking-seva-name,
+.rsm-booking-category-title {
+  display: inline-block;
+  width: calc(100% - 30px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+
+
+
+/* Mobile responsiveness for photo gallery */
+@media screen and (max-width: 768px) {
+	#rsm-announcements-photo-gallery-container {
+	  padding: 10px;
+	}
+	
+	#rsm-announcements-photo-gallery-heading {
+	  font-size: 1.5rem;
+	  margin-bottom: 15px;
+	}
+	
+	#rsm-announcements-photo-gallery-row-1 {
+	  display: grid;
+	  grid-template-columns: repeat(2, 1fr);
+	  gap: 10px;
+	}
+	
+	#rsm-announcements-photo-gallery-column-1,
+	#rsm-announcements-photo-gallery-column-2,
+	#rsm-announcements-photo-gallery-column-3,
+	#rsm-announcements-photo-gallery-column-4,
+	#rsm-announcements-photo-gallery-column-5,
+	#rsm-announcements-photo-gallery-column-6 {
+	  width: 100%;
+	  margin-bottom: 10px;
+	}
+	
+	#rsm-announcements-photo-gallery-img-1,
+	#rsm-announcements-photo-gallery-img-2,
+	#rsm-announcements-photo-gallery-img-3,
+	#rsm-announcements-photo-gallery-img-4,
+	#rsm-announcements-photo-gallery-img-5,
+	#rsm-announcements-photo-gallery-img-6 {
+	  width: 100%;
+	  height: auto;
+	  object-fit: cover;
+	}
+	
+	#rsm-announcements-photo-gallery-footer {
+	  margin-top: 15px;
+	  text-align: center;
+	}
+	
+	#rsm-announcements-photo-gallery-link-all {
+	  display: inline-block;
+	  padding: 8px 15px;
+	  font-size: 0.9rem;
+	}
+  }
+  
+  /* For very small screens */
+  @media screen and (max-width: 480px) {
+	#rsm-announcements-photo-gallery-row-1 {
+	  grid-template-columns: 1fr;
+	}
+  }
