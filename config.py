@@ -1,10 +1,8 @@
-YOUR_GEMINI_API_KEY='AIzaSyDx9VnS8zuUnPm76ns9B_h6VazTttROhtI'
-
 import os
-import mysql.connector
+import pymysql  # Use pymysql instead of mysql-connector
 from dotenv import load_dotenv
 
-# Load environment variables from Render
+# Load environment variables
 load_dotenv()
 
 DB_HOST = os.getenv("DB_HOST", "bue7t3xueljqxlmfqadr-mysql.services.clever-cloud.com")
@@ -13,10 +11,14 @@ DB_USER = os.getenv("DB_USER", "uef1g3etyo0zh2t2")
 DB_PASSWORD = os.getenv("DB_PASSWORD", "jeqdOKkYpHHrYYNf2n0R")
 DB_PORT = os.getenv("DB_PORT", "3306")
 
+# Ensure pymysql is used as MySQLdb (if needed for compatibility with other libraries)
+pymysql.install_as_MySQLdb()
+
 def get_db_connection():
     try:
         print(f"Connecting to {DB_HOST}:{DB_PORT} as {DB_USER}")
-        conn = mysql.connector.connect(
+        # Use pymysql here instead of mysql-connector
+        conn = pymysql.connect(
             host=DB_HOST,
             user=DB_USER,
             password=DB_PASSWORD,
@@ -25,6 +27,6 @@ def get_db_connection():
         )
         print("✅ Database connection successful!")
         return conn
-    except mysql.connector.Error as e:
+    except pymysql.MySQLError as e:
         print(f"❌ Database connection failed: {e}")
         return None

@@ -21,9 +21,7 @@ idna==3.10
 itsdangerous==2.2.0
 Jinja2==3.1.6
 MarkupSafe==3.0.2
-mysql-connector==2.2.9
-mysql-connector-python==9.2.0
-mysqlclient==2.2.7
+pymysql==1.0.3  # Replaced mysql-connector with pymysql
 proto-plus==1.26.1
 protobuf==5.29.3
 pyasn1==0.6.1
