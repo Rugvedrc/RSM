@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="rsm-admin-container">
+    <div class="rsm-admin-header">
+        <h1 class="rsm-admin-heading">Seva Slots Management</h1>
+        <div class="rsm-admin-user-info">
+            <a href="{{ url_for('admin_dashboard') }}" class="rsm-admin-back-btn">Back to Dashboard</a>
+        </div>
+    </div>
+    
+    <div class="rsm-admin-content">
+        <div class="rsm-table-wrapper">
+            <h2>Available Seva Slots</h2>
+            
+            <div class="rsm-search-filter">
+                <input type="text" id="sevaSlotSearch" placeholder="Search by seva name..." onkeyup="filterSlots()">
+                <select id="dateFilter" onchange="filterSlots()">
+                    <option value="">All Dates</option>
+                    {% set dates = [] %}
+                    {% for slot in slots %}
+                        {% if slot.seva_date.strftime('%Y-%m-%d') not in dates %}
+                            {% set _ = dates.append(slot.seva_date.strftime('%Y-%m-%d')) %}
+                            <option value="{{ slot.seva_date.strftime('%Y-%m-%d') }}">{{ slot.seva_date.strftime('%d %b, %Y') }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <table class="rsm-table" id="sevaSlotTable">
+                <thead>
+                    <tr>
+                        <th>Seva Name</th>
+                        <th>Date</th>
+                        <th>Available Slots</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for slot in slots %}
+                    <tr>
+                        <td>{{ slot.seva_name }}</td>
+                        <td>{{ slot.seva_date.strftime('%d %b, %Y') }}</td>
+                        <td>{{ slot.available_slots }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            {% if not slots %}
+            <div class="rsm-no-data">
+                No seva slots available at the moment.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+function filterSlots() {
+    const searchInput = document.getElementById('sevaSlotSearch').value.toLowerCase();
+    const dateFilter = document.getElementById('dateFilter').value;
+    const table = document.getElementById('sevaSlotTable');
+    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+    
+    for (let i = 0; i < rows.length; i++) {
+        const sevaNameCell = rows[i].getElementsByTagName('td')[0];
+        const dateCell = rows[i].getElementsByTagName('td')[1];
+        
+        if (sevaNameCell && dateCell) {
+            const sevaName = sevaNameCell.textContent.toLowerCase();
+            const date = new Date(dateCell.textContent).toISOString().split('T')[0];
+            
+            const nameMatch = sevaName.includes(searchInput);
+            const dateMatch = !dateFilter || date === dateFilter;
+            
+            if (nameMatch && dateMatch) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    }
+}
+</script>
+
+<style>
+    .rsm-admin-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    
+    .rsm-admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .rsm-admin-heading {
+        margin: 0;
+        color: #333;
+    }
+    
+    .rsm-admin-back-btn {
+        padding: 0.5rem 1rem;
+        background-color: #6c757d;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 0.9rem;
+    }
+    
+    .rsm-admin-back-btn:hover {
+        background-color: #5a6268;
+    }
+    
+    .rsm-table-wrapper {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .rsm-search-filter {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .rsm-search-filter input, 
+    .rsm-search-filter select {
+        padding: 0.5rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        flex-grow: 1;
+    }
+    
+    .rsm-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+    
+    .rsm-table th, 
+    .rsm-table td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .rsm-table th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+    }
+    
+    .rsm-table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .rsm-no-data {
+        text-align: center;
+        padding: 2rem;
+        color: #6c757d;
+    }
+</style>
+{% endblock %}

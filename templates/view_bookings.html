@@ -1,0 +1,904 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="rsm-admin-container">
+    <div class="rsm-admin-header">
+        <h1 class="rsm-admin-heading">Seva Bookings</h1>
+        <div class="rsm-admin-user-info">
+            <a href="{{ url_for('admin_dashboard') }}" class="rsm-admin-back-btn">Back to Dashboard</a>
+        </div>
+    </div>
+    
+    <div class="rsm-admin-content">
+        <div class="rsm-table-wrapper">
+            <h2>All Bookings</h2>
+            
+            <div class="rsm-search-filter">
+                <input type="text" id="bookingSearch" placeholder="Search by name, email, phone..." onkeyup="filterBookings()">
+                <select id="sevaTypeFilter" onchange="filterBookings()">
+                    <option value="">All Seva Types</option>
+                    {% set seva_types = [] %}
+                    {% for booking in bookings %}
+                        {% if booking.seva_type not in seva_types %}
+                            {% set _ = seva_types.append(booking.seva_type) %}
+                            <option value="{{ booking.seva_type }}">{{ booking.seva_type }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <select id="dateFilter" onchange="filterBookings()">
+                    <option value="">All Dates</option>
+                    {% set dates = [] %}
+                    {% for booking in bookings %}
+                        {% if booking.seva_date.strftime('%Y-%m-%d') not in dates %}
+                            {% set _ = dates.append(booking.seva_date.strftime('%Y-%m-%d')) %}
+                            <option value="{{ booking.seva_date.strftime('%Y-%m-%d') }}">{{ booking.seva_date.strftime('%d %b, %Y') }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <select id="statusFilter" onchange="filterBookings()">
+                    <option value="">All Statuses</option>
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="completed">Completed</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+                <button id="resetFilters" class="rsm-reset-btn" onclick="resetFilters()">Reset Filters</button>
+            </div>
+            
+            <div class="rsm-table-controls">
+                <div class="rsm-record-count">
+                    <span id="recordCount">Showing <span id="visibleRecords">0</span> of <span id="totalRecords">0</span> records</span>
+                </div>
+                <div class="rsm-export-controls">
+                    <button class="rsm-export-btn" onclick="exportData('csv')">Export CSV</button>
+                    <button class="rsm-export-btn" onclick="exportData('pdf')">Export PDF</button>
+                </div>
+            </div>
+            
+            <div class="rsm-table-container">
+                <table class="rsm-table" id="bookingsTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Name <span class="sort-icon">⇕</span></th>
+                            <th>Contact</th>
+                            <th onclick="sortTable(2)">Seva Type <span class="sort-icon">⇕</span></th>
+                            <th onclick="sortTable(3)">Date <span class="sort-icon">⇕</span></th>
+                            <th onclick="sortTable(4)">Time <span class="sort-icon">⇕</span></th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr data-seva-date="{{ booking.seva_date.strftime('%Y-%m-%d') }}" data-seva-type="{{ booking.seva_type }}" 
+                            data-status="{{ booking.status|default('pending') }}">
+                            <td>{{ booking.name }}</td>
+                            <td>
+                                <div>📧 {{ booking.email }}</div>
+                                <div>📱 {{ booking.phone }}</div>
+                            </td>
+                            <td>{{ booking.seva_type }}</td>
+                            <td>{{ booking.seva_date.strftime('%d %b, %Y') }}</td>
+                            <td>{{ booking.seva_time }}</td>
+                            <td>
+                                <span class="rsm-status-badge status-{{ booking.status|default('pending') }}">
+                                    {{ booking.status|default('pending')|capitalize }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="rsm-action-buttons">
+                                    <button class="rsm-view-details-btn" onclick="showDetails('{{ loop.index }}')">View</button>
+                                    <div class="rsm-dropdown">
+                                        <button class="rsm-dropdown-btn">⋮</button>
+                                        <div class="rsm-dropdown-content">
+                                            <a href="#" onclick="updateStatus('{{ booking.id }}', 'confirmed')">Confirm</a>
+                                            <a href="#" onclick="updateStatus('{{ booking.id }}', 'cancelled')">Cancel</a>
+                                            <a href="#" onclick="updateStatus('{{ booking.id }}', 'completed')">Complete</a>
+                                            <a href="#" onclick="sendReminder('{{ booking.id }}')">Send Reminder</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Booking Details Modal -->
+                                <div id="details-{{ loop.index }}" class="rsm-booking-details" style="display:none;">
+                                    <div class="rsm-details-content">
+                                        <h3>Booking Details</h3>
+                                        
+                                        <div class="rsm-detail-grid">
+                                            <div class="rsm-detail-item">
+                                                <span class="rsm-detail-label">Name:</span>
+                                                <span class="rsm-detail-value">{{ booking.name }}</span>
+                                            </div>
+                                            
+                                            <div class="rsm-detail-item">
+                                                <span class="rsm-detail-label">Email:</span>
+                                                <span class="rsm-detail-value">{{ booking.email }}</span>
+                                            </div>
+                                            
+                                            <div class="rsm-detail-item">
+                                                <span class="rsm-detail-label">Phone:</span>
+                                                <span class="rsm-detail-value">{{ booking.phone }}</span>
+                                            </div>
+                                            
+                                            <div class="rsm-detail-item">
+                                                <span class="rsm-detail-label">Seva Type:</span>
+                                                <span class="rsm-detail-value">{{ booking.seva_type }}</span>
+                                            </div>
+                                            
+                                            <div class="rsm-detail-item">
+                                                <span class="rsm-detail-label">Date:</span>
+                                                <span class="rsm-detail-value">{{ booking.seva_date.strftime('%d %b, %Y') }}</span>
+                                            </div>
+                                            
+                                            <div class="rsm-detail-item">
+                                                <span class="rsm-detail-label">Time:</span>
+                                                <span class="rsm-detail-value">{{ booking.seva_time }}</span>
+                                            </div>
+                                            
+                                            <div class="rsm-detail-item">
+                                                <span class="rsm-detail-label">Gothra:</span>
+                                                <span class="rsm-detail-value">{{ booking.gothra or 'Not provided' }}</span>
+                                            </div>
+                                            
+                                            <div class="rsm-detail-item">
+                                                <span class="rsm-detail-label">Nakshatra:</span>
+                                                <span class="rsm-detail-value">{{ booking.nakshatra or 'Not provided' }}</span>
+                                            </div>
+                                            
+                                            <div class="rsm-detail-item">
+                                                <span class="rsm-detail-label">Payment Method:</span>
+                                                <span class="rsm-detail-value">{{ booking.payment_method }}</span>
+                                            </div>
+                                            
+                                            <div class="rsm-detail-item">
+                                                <span class="rsm-detail-label">Status:</span>
+                                                <span class="rsm-detail-value">{{ booking.status|default('pending')|capitalize }}</span>
+                                            </div>
+                                            
+                                            <div class="rsm-detail-item">
+                                                <span class="rsm-detail-label">Booking Time:</span>
+                                                <span class="rsm-detail-value">{{ booking.booking_time.strftime('%d %b, %Y %H:%M') }}</span>
+                                            </div>
+                                        </div>
+                                        
+                                        {% if booking.special_instructions %}
+                                        <div class="rsm-detail-item full-width">
+                                            <span class="rsm-detail-label">Special Instructions:</span>
+                                            <span class="rsm-detail-value">{{ booking.special_instructions }}</span>
+                                        </div>
+                                        {% endif %}
+                                        
+                                        {% if booking.family_members %}
+                                        <div class="rsm-detail-item full-width">
+                                            <span class="rsm-detail-label">Family Members:</span>
+                                            <div class="rsm-detail-value">
+                                                <ul class="rsm-family-list" id="family-members-{{ loop.index }}">
+                                                    <!-- Family members will be populated via JavaScript -->
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                try {
+                                                    let familyData = {{ booking.family_members|tojson }};
+                                                    const familyList = document.getElementById('family-members-{{ loop.index }}');
+                                                    
+                                                    if(familyData && familyList) {
+                                                        // If already JSON, no need to parse again
+                                                        if (typeof familyData === 'string') {
+                                                            familyData = JSON.parse(familyData);
+                                                        }
+                                                        
+                                                        familyData.forEach(function(member) {
+                                                            const li = document.createElement('li');
+                                                            li.textContent = `${member.name} (${member.relation})`;
+                                                            familyList.appendChild(li);
+                                                        });
+                                                    }
+                                                } catch(e) {
+                                                    console.error('Error parsing family members:', e);
+                                                    document.getElementById('family-members-{{ loop.index }}').innerHTML = 
+                                                        '<li class="error">Error displaying family members</li>';
+                                                }
+                                            });
+                                        </script>
+                                        {% endif %}
+                                        
+                                        <div class="rsm-detail-actions">
+                                            <button class="rsm-status-btn confirm" onclick="updateStatus('{{ booking.id }}', 'confirmed')">Confirm</button>
+                                            <button class="rsm-status-btn cancel" onclick="updateStatus('{{ booking.id }}', 'cancelled')">Cancel</button>
+                                            <button class="rsm-status-btn complete" onclick="updateStatus('{{ booking.id }}', 'completed')">Complete</button>
+                                            <button class="rsm-close-details-btn" onclick="hideDetails('{{ loop.index }}')">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            {% if not bookings %}
+            <div class="rsm-no-data">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#6c757d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 6L9 17l-5-5"></path>
+                </svg>
+                <p>No bookings available at the moment.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+// Initialize counters on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateRecordCount();
+    
+    // Fix date display and data attributes for filtering
+    const table = document.getElementById('bookingsTable');
+    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+    for (let i = 0; i < rows.length; i++) {
+        const dateCell = rows[i].getElementsByTagName('td')[3];
+        if (dateCell) {
+            try {
+                // Ensure the displayed date is properly formatted while keeping the data attribute intact
+                const displayDate = new Date(rows[i].getAttribute('data-seva-date'));
+                if (!isNaN(displayDate)) {
+                    const options = { day: '2-digit', month: 'short', year: 'numeric' };
+                    dateCell.textContent = displayDate.toLocaleDateString('en-US', options);
+                }
+            } catch (e) {
+                console.error('Error formatting date:', e);
+            }
+        }
+    }
+});
+
+function showDetails(index) {
+    document.getElementById('details-' + index).style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+}
+
+function hideDetails(index) {
+    document.getElementById('details-' + index).style.display = 'none';
+    document.body.style.overflow = ''; // Restore scrolling
+}
+
+function filterBookings() {
+    const searchInput = document.getElementById('bookingSearch').value.toLowerCase();
+    const sevaTypeFilter = document.getElementById('sevaTypeFilter').value;
+    const dateFilter = document.getElementById('dateFilter').value;
+    const statusFilter = document.getElementById('statusFilter').value;
+    const table = document.getElementById('bookingsTable');
+    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+    
+    let visibleCount = 0;
+    
+    for (let i = 0; i < rows.length; i++) {
+        const nameCell = rows[i].getElementsByTagName('td')[0];
+        const contactCell = rows[i].getElementsByTagName('td')[1];
+        
+        // Get values from data attributes for exact matching
+        const sevaType = rows[i].getAttribute('data-seva-type');
+        const sevaDate = rows[i].getAttribute('data-seva-date');
+        const status = rows[i].getAttribute('data-status');
+        
+        if (nameCell && contactCell) {
+            const name = nameCell.textContent.toLowerCase();
+            const contact = contactCell.textContent.toLowerCase();
+            
+            const searchMatch = name.includes(searchInput) || contact.includes(searchInput);
+            const sevaTypeMatch = !sevaTypeFilter || sevaType === sevaTypeFilter;
+            const dateMatch = !dateFilter || sevaDate === dateFilter;
+            const statusMatch = !statusFilter || status === statusFilter;
+            
+            if (searchMatch && sevaTypeMatch && dateMatch && statusMatch) {
+                rows[i].style.display = '';
+                visibleCount++;
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    }
+    
+    // Update the record count
+    document.getElementById('visibleRecords').textContent = visibleCount;
+}
+
+function resetFilters() {
+    document.getElementById('bookingSearch').value = '';
+    document.getElementById('sevaTypeFilter').value = '';
+    document.getElementById('dateFilter').value = '';
+    document.getElementById('statusFilter').value = '';
+    
+    // Reset the table view
+    const table = document.getElementById('bookingsTable');
+    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+    
+    for (let i = 0; i < rows.length; i++) {
+        rows[i].style.display = '';
+    }
+    
+    updateRecordCount();
+}
+
+function updateRecordCount() {
+    const table = document.getElementById('bookingsTable');
+    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+    const totalRecords = rows.length;
+    
+    let visibleRecords = 0;
+    for (let i = 0; i < rows.length; i++) {
+        if (rows[i].style.display !== 'none') {
+            visibleRecords++;
+        }
+    }
+    
+    document.getElementById('visibleRecords').textContent = visibleRecords;
+    document.getElementById('totalRecords').textContent = totalRecords;
+}
+
+function sortTable(columnIndex) {
+    const table = document.getElementById('bookingsTable');
+    const tbody = table.getElementsByTagName('tbody')[0];
+    const rows = Array.from(tbody.getElementsByTagName('tr'));
+    
+    // Get the current sort direction
+    const th = table.getElementsByTagName('th')[columnIndex];
+    const currentDirection = th.getAttribute('data-sort') === 'asc' ? 'desc' : 'asc';
+    
+    // Update the sort direction
+    const allTh = table.getElementsByTagName('th');
+    for (let i = 0; i < allTh.length; i++) {
+        allTh[i].removeAttribute('data-sort');
+    }
+    th.setAttribute('data-sort', currentDirection);
+    
+    // Sort the rows
+    rows.sort((a, b) => {
+        let aValue = a.getElementsByTagName('td')[columnIndex].textContent.trim();
+        let bValue = b.getElementsByTagName('td')[columnIndex].textContent.trim();
+        
+        // Special handling for date column
+        if (columnIndex === 3) {
+            aValue = new Date(a.getAttribute('data-seva-date'));
+            bValue = new Date(b.getAttribute('data-seva-date'));
+        }
+        
+        if (aValue < bValue) {
+            return currentDirection === 'asc' ? -1 : 1;
+        }
+        if (aValue > bValue) {
+            return currentDirection === 'asc' ? 1 : -1;
+        }
+        return 0;
+    });
+    
+    // Re-append rows in sorted order
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+function updateStatus(bookingId, status) {
+    // In a real application, this would send an AJAX request to update the status
+    // For demonstration purposes, we'll just show an alert
+    alert(`Status of booking #${bookingId} updated to ${status}`);
+    
+    // In a production environment, you would use fetch or XMLHttpRequest:
+    /*
+    fetch('/api/bookings/' + bookingId + '/status', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: status })
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Update the UI with the new status
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+    */
+}
+
+function sendReminder(bookingId) {
+    // In a real application, this would send an AJAX request to send a reminder
+    alert(`Reminder sent for booking #${bookingId}`);
+}
+
+function exportData(format) {
+    // In a real application, this would generate and download the export
+    alert(`Exporting data in ${format.toUpperCase()} format`);
+    
+    // Example implementation for a real application:
+    /*
+    fetch('/api/bookings/export/' + format)
+    .then(response => response.blob())
+    .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = `seva_bookings_${new Date().toISOString().split('T')[0]}.${format}`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    })
+    .catch(error => console.error('Error exporting data:', error));
+    */
+}
+</script>
+
+<style>
+    .rsm-admin-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem; 
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .rsm-admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .rsm-admin-heading {
+        margin: 0;
+        color: #333;
+        font-weight: 600;
+    }
+    
+    .rsm-admin-back-btn {
+        padding: 0.5rem 1rem;
+        background-color: #6c757d;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        transition: background-color 0.2s;
+    }
+    
+    .rsm-admin-back-btn:hover {
+        background-color: #5a6268;
+        text-decoration: none;
+        color: white;
+    }
+    
+    .rsm-table-wrapper {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .rsm-search-filter {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    
+    .rsm-search-filter input, 
+    .rsm-search-filter select {
+        padding: 0.6rem 0.8rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        flex-grow: 1;
+        min-width: 150px;
+        font-size: 0.95rem;
+    }
+    
+    .rsm-search-filter input:focus, 
+    .rsm-search-filter select:focus {
+        outline: none;
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    
+    .rsm-reset-btn {
+        padding: 0.6rem 1rem;
+        background-color: #e9ecef;
+        color: #495057;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    
+    .rsm-reset-btn:hover {
+        background-color: #dee2e6;
+    }
+    
+    .rsm-table-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    
+    .rsm-record-count {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+    
+    .rsm-export-controls {
+        display: flex;
+        gap: 0.5rem;
+    }
+    
+    .rsm-export-btn {
+        padding: 0.4rem 0.8rem;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: background-color 0.2s;
+    }
+    
+    .rsm-export-btn:hover {
+        background-color: #218838;
+    }
+    
+    .rsm-table-container {
+        overflow-x: auto;
+        margin-bottom: 1.5rem;
+    }
+    
+    .rsm-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+    }
+    
+    .rsm-table th, 
+    .rsm-table td {
+        padding: 0.85rem;
+        text-align: left;
+        border-bottom: 1px solid #e9ecef;
+        vertical-align: middle;
+    }
+    
+    .rsm-table th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+    }
+    
+    .rsm-table th[data-sort] .sort-icon {
+        color: #007bff;
+    }
+    
+    .rsm-table th[data-sort="asc"] .sort-icon::after {
+        content: "↑";
+    }
+    
+    .rsm-table th[data-sort="desc"] .sort-icon::after {
+        content: "↓";
+    }
+    
+    .rsm-table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .rsm-status-badge {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .status-pending {
+        background-color: #ffeeba;
+        color: #856404;
+    }
+    
+    .status-confirmed {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    
+    .status-completed {
+        background-color: #cce5ff;
+        color: #004085;
+    }
+    
+    .status-cancelled {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+    
+    .rsm-action-buttons {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+    
+    .rsm-view-details-btn {
+        padding: 0.35rem 0.8rem;
+        background-color: #17a2b8;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: background-color 0.2s;
+    }
+    
+    .rsm-view-details-btn:hover {
+        background-color: #138496;
+    }
+    
+    .rsm-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .rsm-dropdown-btn {
+        padding: 0.35rem 0.6rem;
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .rsm-dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #fff;
+        min-width: 160px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        z-index: 1;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    
+    .rsm-dropdown-content a {
+        color: #212529;
+        padding: 0.7rem 1rem;
+        text-decoration: none;
+        display: block;
+        font-size: 0.9rem;
+        transition: background-color 0.2s;
+    }
+    
+    .rsm-dropdown-content a:hover {
+        background-color: #f8f9fa;
+        text-decoration: none;
+    }
+    
+    .rsm-dropdown:hover .rsm-dropdown-content {
+        display: block;
+    }
+    
+    .rsm-booking-details {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(3px);
+    }
+    
+    .rsm-details-content {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 700px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    .rsm-details-content h3 {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        color: #343a40;
+        font-weight: 600;
+        border-bottom: 1px solid #e9ecef;
+        padding-bottom: 0.8rem;
+    }
+    
+    .rsm-detail-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .rsm-detail-item {
+        margin-bottom: 0.8rem;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .rsm-detail-item.full-width {
+        grid-column: 1 / -1;
+    }
+    
+    .rsm-detail-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 0.3rem;
+        font-size: 0.9rem;
+    }
+    
+    .rsm-detail-value {
+        color: #212529;
+        word-break: break-word;
+    }
+    
+    .rsm-detail-actions {
+        display: flex;
+        gap: 0.8rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+    
+    .rsm-status-btn {
+        padding: 0.5rem 1rem;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background-color 0.2s;
+    }
+    
+    .rsm-status-btn.confirm {
+        background-color: #28a745;
+    }
+    
+    .rsm-status-btn.confirm:hover {
+        background-color: #218838;
+    }
+    
+    .rsm-status-btn.cancel {
+        background-color: #dc3545;
+    }
+    
+    .rsm-status-btn.cancel:hover {
+        background-color: #c82333;
+    }
+    
+    .rsm-status-btn.complete {
+        background-color: #007bff;
+    }
+    
+    .rsm-status-btn.complete:hover {
+        background-color: #0069d9;
+    }
+    
+    .rsm-close-details-btn {
+        padding: 0.5rem 1rem;
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    
+    .rsm-close-details-btn:hover {
+        background-color: #5a6268;
+    }
+    
+    .rsm-family-list {
+        margin: 0;
+        padding-left: 1.5rem;
+    }
+    
+    .rsm-family-list li {
+        margin-bottom: 0.5rem;
+    }
+    
+    .rsm-family-list li.error {
+        color: #dc3545;
+        font-style: italic;
+    }
+    
+    .rsm-no-data {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: #6c757d;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .rsm-no-data p {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+    
+    @media (max-width: 768px) {
+        .rsm-search-filter {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        
+        .rsm-search-filter input,
+        .rsm-search-filter select,
+        .rsm-reset-btn {
+            width: 100%;
+        }
+        
+        .rsm-table-controls {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .rsm-export-controls {
+            width: 100%;
+            justify-content: space-between;
+        }
+        
+        .rsm-detail-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .rsm-detail-actions {
+            justify-content: center;
+        }
+    }
+    
+    /* Animation for modal */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    .rsm-booking-details {
+        animation: fadeIn 0.3s ease-out;
+    }
+    
+    /* Print styles */
+    @media print {
+        .rsm-admin-header, 
+        .rsm-search-filter, 
+        .rsm-table-controls, 
+        .rsm-action-buttons, 
+        .rsm-close-details-btn {
+            display: none !important;
+        }
+        
+        .rsm-table-wrapper {
+            box-shadow: none;
+            padding: 0;
+        }
+        
+        .rsm-table th, 
+        .rsm-table td {
+            padding: 0.5rem;
+        }
+    }
+</style>
+{% endblock %}

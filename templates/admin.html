@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="rsm-admin-container">
+    <div class="rsm-admin-header">
+        <h1 class="rsm-admin-heading">Admin Dashboard</h1>
+        <div class="rsm-admin-user-info">
+            Welcome, {{ session.username }}! 
+            <a href="{{ url_for('logout') }}" class="rsm-admin-logout-btn">Logout</a>
+        </div>
+    </div>
+    
+    <div class="rsm-admin-content">
+        <div class="rsm-admin-section">
+            <h2 class="rsm-admin-section-title">Seva Management</h2>
+            <div class="rsm-admin-controls">
+                <!-- <a href="{{ url_for('view_seva_slots') }}" class="rsm-admin-button">View Seva Slots</a> -->
+                <a href="{{ url_for('view_bookings') }}" class="rsm-admin-button">View Bookings</a>
+            </div>
+        </div>
+        
+        
+        <div class="rsm-admin-section">
+            <h2 class="rsm-admin-section-title">User Management</h2>
+            <div class="rsm-admin-controls">
+                <a href="{{ url_for('change_password') }}" class="rsm-admin-button">Change Password</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rsm-admin-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    
+    .rsm-admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .rsm-admin-heading {
+        margin: 0;
+        color: #333;
+    }
+    
+    .rsm-admin-user-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .rsm-admin-logout-btn {
+        padding: 0.5rem 1rem;
+        background-color: #dc3545;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 0.9rem;
+    }
+    
+    .rsm-admin-logout-btn:hover {
+        background-color: #c82333;
+    }
+    
+    .rsm-admin-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+    
+    .rsm-admin-section {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .rsm-admin-section-title {
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        color: #333;
+        font-size: 1.5rem;
+    }
+    
+    .rsm-admin-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .rsm-admin-button {
+        display: block;
+        padding: 0.75rem 1rem;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        text-align: center;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+    }
+    
+    .rsm-admin-button:hover {
+        background-color: #0069d9;
+    }
+</style>
+{% endblock %}

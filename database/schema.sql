@@ -21,3 +21,8 @@ CREATE TABLE IF NOT EXISTS seva_bookings (
     family_members JSON,
     booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE login_credentials (
+    username VARCHAR(255) PRIMARY KEY,
+    password VARCHAR(255) NOT NULL
+);
