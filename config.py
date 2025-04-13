@@ -1,7 +1,7 @@
 import os
 import pymysql  # Use pymysql instead of mysql-connector
 from dotenv import load_dotenv
-
+YOUR_GEMINI_API_KEY='AIzaSyDx9VnS8zuUnPm76ns9B_h6VazTttROhtI'
 # Load environment variables
 load_dotenv()
 
