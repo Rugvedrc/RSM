@@ -3,8 +3,8 @@ YOUR_GEMINI_API_KEY='AIzaSyDx9VnS8zuUnPm76ns9B_h6VazTttROhtI'
 import os
 import mysql.connector
 from dotenv import load_dotenv
-
-# Load environment variables from Render
+YOUR_GEMINI_API_KEY='AIzaSyDx9VnS8zuUnPm76ns9B_h6VazTttROhtI'
+# Load environment variables
 load_dotenv()
 
 DB_HOST = os.getenv("DB_HOST", "bue7t3xueljqxlmfqadr-mysql.services.clever-cloud.com")
