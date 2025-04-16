@@ -4682,3 +4682,81 @@ img {
 .rsm-booking-book-button:hover {
     background-color: #e6b94d;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive styling for history section */
+.rsm-about-history-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.rsm-about-history-text-column {
+    flex: 1;
+    min-width: 300px;
+}
+
+.rsm-about-history-image-column {
+    flex: 1;
+    min-width: 300px;
+}
+
+.rsm-about-history-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    max-height: 400px;
+}
+
+/* Responsive table styles */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.rsm-about-activities-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rsm-about-activities-section-heading th {
+    background-color: #f5f5f5;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Make cards in mission/vision section responsive */
+.rsm-about-mission-vision-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.rsm-about-mission-column,
+.rsm-about-vision-column {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    .rsm-about-history-row {
+        flex-direction: column;
+    }
+    
+    .rsm-about-mission-vision-row {
+        flex-direction: column;
+    }
+}
