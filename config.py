@@ -1,5 +1,3 @@
-YOUR_GEMINI_API_KEY='AIzaSyDx9VnS8zuUnPm76ns9B_h6VazTttROhtI'
-
 import os
 import mysql.connector
 from dotenv import load_dotenv
@@ -7,11 +5,11 @@ from dotenv import load_dotenv
 # Load environment variables from Render
 load_dotenv()
 
-DB_HOST = os.getenv("DB_HOST", "bue7t3xueljqxlmfqadr-mysql.services.clever-cloud.com")
-DB_NAME = os.getenv("DB_NAME", "bue7t3xueljqxlmfqadr")
-DB_USER = os.getenv("DB_USER", "uef1g3etyo0zh2t2")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "jeqdOKkYpHHrYYNf2n0R")
-DB_PORT = os.getenv("DB_PORT", "3306")
+DB_HOST = os.getenv("DB_HOST")
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_PORT = os.getenv("DB_PORT", "3306")  # default to 3306 if not set
 
 def get_db_connection():
     try:

@@ -1,5 +1,9 @@
 import google.generativeai as genai
-from config import YOUR_GEMINI_API_KEY
+import os
+from dotenv import load_dotenv
+load_dotenv()
+YOUR_GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
 # Configure Gemini API
 genai.configure(api_key=YOUR_GEMINI_API_KEY)
 def get_gemini_response(user_input):

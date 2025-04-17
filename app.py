@@ -6,10 +6,15 @@ from routes.donation import donation  # Import donation routes
 from gemini_ai import get_gemini_response  # Import AI function
 from config import get_db_connection  # Import database connection function
 import os
+import mysql.connector
+from dotenv import load_dotenv
+# Load environment variables from Render
+load_dotenv()
 app = Flask(__name__)
 
 
-app.secret_key = 'supersecretkey12345' 
+app.secret_key = os.getenv("FLASK_SECRET_KEY")
+
 
 @app.route('/get_gemini_response', methods=['POST'])
 def handle_gemini():

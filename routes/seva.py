@@ -2,6 +2,8 @@ from flask import Blueprint, request, jsonify, render_template, redirect, url_fo
 from models.seva import SevaBooking
 from config import get_db_connection
 from datetime import datetime
+from send_sms import send_booking_confirmation
+import json
 
 seva = Blueprint('seva', __name__, url_prefix='/seva')
 
@@ -45,6 +47,9 @@ def book_seva():
         special_instructions = request.form.get('message')
         payment_method = request.form.get('paymentMethod')
         
+        # Add debugging prints
+        print(f"DEBUG: Booking seva for {name}, type: {seva_type}, time: {seva_time}")
+        
         # Handle family members (JSON storage)
         family_names = request.form.getlist('familyName[]')
         family_relations = request.form.getlist('familyRelation[]')
@@ -58,22 +63,39 @@ def book_seva():
                 }
                 family_members.append(family_member)
         
-        import json
         family_members_json = json.dumps(family_members)
         
         # Connect to database
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        # Convert time format if needed
+        # Convert time format if needed - IMPORTANT: This should handle all seva types correctly
+        formatted_time_for_display = "09:00 AM"  # Default display format for sevas with no specific time
+        
         try:
-            if "AM" in seva_time or "PM" in seva_time:
-                time_obj = datetime.strptime(seva_time, "%I:%M %p")
-                seva_time = time_obj.strftime("%H:%M:%S")
+            # If a time was selected or provided
+            if seva_time:
+                if "AM" in seva_time or "PM" in seva_time:
+                    time_obj = datetime.strptime(seva_time, "%I:%M %p")
+                    seva_time = time_obj.strftime("%H:%M:%S")
+                    formatted_time_for_display = time_obj.strftime("%I:%M %p")
+                else:
+                    # Ensure time has seconds
+                    if len(seva_time.split(':')) == 2:
+                        seva_time = f"{seva_time}:00"
+                    # Create a display format
+                    time_parts = seva_time.split(':')
+                    hour = int(time_parts[0])
+                    am_pm = "AM" if hour < 12 else "PM"
+                    hour = hour if hour <= 12 else hour - 12
+                    formatted_time_for_display = f"{hour}:{time_parts[1]} {am_pm}"
             else:
-                # Ensure time has seconds
-                if len(seva_time.split(':')) == 2:
-                    seva_time = f"{seva_time}:00"
+                # If no time was provided, use a default time for database and display
+                seva_time = "09:00:00"
+                formatted_time_for_display = "09:00 AM"
+                
+            print(f"DEBUG: Time for DB: {seva_time}, Display time: {formatted_time_for_display}")
+                
         except ValueError as ve:
             flash(f'Invalid time format: {ve}')
             return redirect(url_for('seva.booking'))
@@ -134,9 +156,28 @@ def book_seva():
         """, (name, email, phone, gothra, nakshatra, seva_type, seva_date, seva_time, 
               special_instructions, payment_method, family_members_json))
         
+        # Get the booking ID
+        booking_id = cursor.lastrowid
+        
         conn.commit()
         cursor.close()
         conn.close()
+        
+        # Format date for SMS
+        formatted_date = datetime.strptime(seva_date, "%Y-%m-%d").strftime("%d-%m-%Y")
+        print(f"DEBUG: Sending SMS with time: {formatted_time_for_display}")
+        # Send SMS confirmation
+        sms_response = send_booking_confirmation(
+            phone=phone,
+            name=name,
+            seva_type=seva_type,
+            seva_date=formatted_date,
+            seva_time=formatted_time_for_display
+        )
+        
+        if not sms_response["success"]:
+            # Log the error but don't stop the process
+            print(f"SMS sending failed: {sms_response['error']}")
         
         flash('Seva booked successfully!')
         return redirect(url_for('index'))
@@ -144,6 +185,7 @@ def book_seva():
     except Exception as e:
         flash(f'Error booking seva: {str(e)}')
         return redirect(url_for('seva.booking'))
+
 
 @seva.route('/booking')
 def booking():

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Booking Successful - Raghavendra Swami Math{% endblock %}
+
+{% block content %}
+<div id="rsm-booking-success-container">
+    <div id="rsm-booking-success-header">
+        <h1>Seva Booking Successful</h1>
+        <div id="rsm-booking-header-divider">
+            <div id="rsm-booking-header-divider-line"></div>
+            <div id="rsm-booking-header-divider-icon">ॐ</div>
+            <div id="rsm-booking-header-divider-line"></div>
+        </div>
+    </div>
+    
+    <div id="rsm-booking-success-content">
+        <div class="rsm-success-message">
+            <p>हरये नमः। आपली सेवा बुक झाली आहे।</p>
+            <p>आपल्या फोन नंबरवर एक SMS पाठवण्यात आले आहे.</p>
+        </div>
+        
+        <div class="rsm-booking-details">
+            <h3>Booking Details:</h3>
+            <table>
+                <tr>
+                    <td><strong>Name:</strong></td>
+                    <td>{{ booking.name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Seva Type:</strong></td>
+                    <td>{{ booking.seva_type }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Date:</strong></td>
+                    <td>{{ booking.seva_date.strftime('%d-%m-%Y') }}</td>
+                </tr>
+                {% if booking.seva_time != '00:00:00' %}
+                <tr>
+                    <td><strong>Time:</strong></td>
+                    <td>{{ booking.seva_time.strftime('%I:%M %p') }}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td><strong>Payment Method:</strong></td>
+                    <td>{{ "Online" if booking.payment_method == "online" else "At Math" }}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="rsm-booking-instructions">
+            <h3>कृपया लक्ष्यात घ्यावे:</h3>
+            <ul>
+                <li>ठरलेल्या वेळेच्या 30 मि.आधी यावे</li>
+                <li>नोंद झालेली सेवा रद्द केली जाणार नाही</li>
+                <li>अधिक मदत हवी असल्यास, कृपया संपर्क साधावा</li>
+            </ul>
+        </div>
+        
+        <div class="rsm-booking-nav-buttons">
+            <a href="{{ url_for('index') }}" class="rsm-button">Home</a>
+            <a href="{{ url_for('booking') }}" class="rsm-button">Book Another Seva</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
