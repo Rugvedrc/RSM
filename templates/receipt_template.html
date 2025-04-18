@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% block title %}Seva Receipt - Raghavendra Swami Math{% endblock %}
+
+{% block content %}
+<div class="receipt-container">
+    <div class="receipt-header">
+        <h1>Raghavendra Swami Math</h1>
+        <p>Chhatrapati Sambhaji Nagar</p>
+        <h2>Seva Booking Receipt</h2>
+        <p class="receipt-id">Receipt No: RSM-{{ booking.id }}</p>
+    </div>
+    
+    <div class="receipt-section">
+        <h3>Devotee Details</h3>
+        <div class="detail-row">
+            <div class="detail-label">Name:</div>
+            <div class="detail-value">{{ booking.name }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Email:</div>
+            <div class="detail-value">{{ booking.email }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Phone:</div>
+            <div class="detail-value">{{ booking.phone }}</div>
+        </div>
+        {% if booking.gothra %}
+        <div class="detail-row">
+            <div class="detail-label">Gothra:</div>
+            <div class="detail-value">{{ booking.gothra }}</div>
+        </div>
+        {% endif %}
+        {% if booking.nakshatra %}
+        <div class="detail-row">
+            <div class="detail-label">Nakshatra:</div>
+            <div class="detail-value">{{ booking.nakshatra }}</div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="receipt-section">
+        <h3>Seva Details</h3>
+        <div class="detail-row">
+            <div class="detail-label">Seva Type:</div>
+            <div class="detail-value">{{ booking.seva_type }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Date:</div>
+            <div class="detail-value">{{ formatted_date }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Time:</div>
+            <div class="detail-value">{{ formatted_time }}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Payment Method:</div>
+            <div class="detail-value">{{ booking.payment_method }}</div>
+        </div>
+        {% if booking.special_instructions %}
+        <div class="detail-row">
+            <div class="detail-label">Special Instructions:</div>
+            <div class="detail-value">{{ booking.special_instructions }}</div>
+        </div>
+        {% endif %}
+    </div>
+    
+    {% if family_members and family_members|length > 0 %}
+    <div class="receipt-section">
+        <h3>Family Members</h3>
+        <div class="family-members">
+            {% for member in family_members %}
+            <div class="family-member">
+                • {{ member.name }} ({{ member.relation }})
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="signature-section">
+        <div class="signature-box">
+            Devotee's Signature
+        </div>
+        <div class="signature-box">
+            Math Authority
+        </div>
+    </div>
+    
+    <div class="receipt-footer">
+        <p>Booking Date: {{ today_date }}</p>
+        <p>ॐ Thank you for your devotion ॐ</p>
+        <p>Raghavendra Swami Math, Chhatrapati Sambhaji Nagar</p>
+    </div>
+</div>
+
+<style>
+    .receipt-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 30px;
+        border: 1px solid #ddd;
+        font-family: Arial, sans-serif;
+    }
+    
+    .receipt-header {
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #f57c00;
+        padding-bottom: 20px;
+    }
+    
+    .receipt-header h1 {
+        color: #f57c00;
+        margin-bottom: 5px;
+    }
+    
+    .receipt-id {
+        color: #777;
+    }
+    
+    .receipt-section {
+        margin-bottom: 25px;
+    }
+    
+    .receipt-section h3 {
+        color: #f57c00;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+    }
+    
+    .detail-row {
+        display: flex;
+        padding: 8px 0;
+    }
+    
+    .detail-label {
+        flex: 0 0 150px;
+        font-weight: bold;
+    }
+    
+    .detail-value {
+        flex: 1;
+    }
+    
+    .family-member {
+        margin-bottom: 5px;
+    }
+    
+    .signature-section {
+        margin-top: 50px;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .signature-box {
+        border-top: 1px solid #000;
+        width: 200px;
+        padding-top: 5px;
+        text-align: center;
+    }
+    
+    .receipt-footer {
+        margin-top: 40px;
+        text-align: center;
+        font-size: 12px;
+        color: #777;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+    }
+    
+    /* Print-specific styles */
+    @media print {
+        body {
+            background: none;
+        }
+        .receipt-container {
+            box-shadow: none;
+            border: none;
+        }
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+    }
+    </style>
+    /* Print button only shown when printable=True */
+    {% if printable %}
+    <style>
+        .print-button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #f57c00;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    </style>
+    {% endif %}
+
+{% if printable %}
+<div style="text-align: center; margin: 20px 0;">
+    <button class="print-button" onclick="window.print()">Print Receipt</button>
+</div>
+
+<script>
+    // Auto trigger print dialog if the page is opened directly
+    window.onload = function() {
+        setTimeout(function() {
+            window.print();
+        }, 1000);
+    }
+</script>
+{% endif %}
+{% endblock %}

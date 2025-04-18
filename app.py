@@ -5,9 +5,16 @@ from routes.seva import seva  # Import seva routes
 from routes.donation import donation  # Import donation routes
 from gemini_ai import get_gemini_response  # Import AI function
 from config import get_db_connection  # Import database connection function
+# from flask_weasyprint import HTML, render_pdf
 import os
 import mysql.connector
 from dotenv import load_dotenv
+# Add this to app.py (replacing the previous PDF route)
+from fpdf import FPDF
+import json
+from datetime import datetime
+from flask import make_response
+import traceback
 # Load environment variables from Render
 load_dotenv()
 app = Flask(__name__)
@@ -190,6 +197,68 @@ def change_password():
         return redirect(url_for('admin_dashboard'))
     
     return render_template('change_password.html')
+
+
+# Add this route to app.py after the other routes
+@app.route('/booking/confirmation')
+def booking_confirmation():
+    # This is just a fallback if someone tries to access this page directly
+    return redirect(url_for('index'))
+
+
+@app.route('/booking/receipt/<int:booking_id>')
+def booking_receipt_html(booking_id):
+    try:
+        # Fetch booking details from database
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("""
+            SELECT * FROM seva_bookings 
+            WHERE id = %s
+        """, (booking_id,))
+        booking = cursor.fetchone()
+        cursor.close()
+        conn.close()
+        
+        if not booking:
+            flash('Booking not found')
+            return redirect(url_for('index'))
+        
+        # Format date and time for display
+        formatted_date = datetime.strptime(str(booking['seva_date']), "%Y-%m-%d").strftime("%d-%m-%Y")
+        
+        # Convert time format if needed
+        formatted_time = booking['seva_time']
+        if ":" in formatted_time:
+            time_parts = formatted_time.split(':')
+            if len(time_parts) >= 2:
+                hour = int(time_parts[0])
+                am_pm = "AM" if hour < 12 else "PM"
+                hour = hour if hour <= 12 else hour - 12
+                formatted_time = f"{hour}:{time_parts[1]} {am_pm}"
+        
+        # Parse family members
+        family_members = []
+        if booking['family_members']:
+            try:
+                family_members = json.loads(booking['family_members'])
+            except:
+                family_members = []
+                
+        # Generate HTML receipt
+        return render_template('receipt_template.html',
+                              booking=booking,
+                              formatted_date=formatted_date,
+                              formatted_time=formatted_time,
+                              family_members=family_members,
+                              today_date=datetime.now().strftime("%d-%m-%Y"),
+                              printable=True)
+    except Exception as e:
+        print(f"Error generating receipt: {e}")
+        print(traceback.format_exc())
+        flash(f"Unable to generate receipt: {str(e)}")
+        return redirect(url_for('index'))
+
 
 
 # Run the Flask app

@@ -4,6 +4,7 @@ from config import get_db_connection
 from datetime import datetime
 from send_sms import send_booking_confirmation
 import json
+import urllib.parse
 
 seva = Blueprint('seva', __name__, url_prefix='/seva')
 
@@ -163,9 +164,10 @@ def book_seva():
         cursor.close()
         conn.close()
         
-        # Format date for SMS
+        # Format date for SMS and display
         formatted_date = datetime.strptime(seva_date, "%Y-%m-%d").strftime("%d-%m-%Y")
         print(f"DEBUG: Sending SMS with time: {formatted_time_for_display}")
+        
         # Send SMS confirmation
         sms_response = send_booking_confirmation(
             phone=phone,
@@ -179,8 +181,18 @@ def book_seva():
             # Log the error but don't stop the process
             print(f"SMS sending failed: {sms_response['error']}")
         
-        flash('Seva booked successfully!')
-        return redirect(url_for('index'))
+        # Create WhatsApp message and link
+        whatsapp_message = f"*Seva Booking Confirmation*\n\nName: {name}\nSeva Type: {seva_type}\nDate: {formatted_date}\nTime: {formatted_time_for_display}\nBooking ID: {booking_id}\n\nThank you for booking seva at Raghavendra Swami Math, Chhatrapati Sambhaji Nagar."
+        whatsapp_link = f"https://wa.me/919284357440?text={urllib.parse.quote(whatsapp_message)}"
+        
+        # Redirect to the confirmation page with the details
+        return render_template('booking_confirmation.html', 
+                              name=name,
+                              seva_type=seva_type,
+                              seva_date=formatted_date,
+                              seva_time=formatted_time_for_display,
+                              booking_id=booking_id,
+                              whatsapp_link=whatsapp_link)
         
     except Exception as e:
         flash(f'Error booking seva: {str(e)}')
@@ -190,3 +202,8 @@ def book_seva():
 @seva.route('/booking')
 def booking():
     return render_template('booking.html')
+
+# New route for booking confirmation page
+@seva.route('/confirmation')
+def confirmation():
+    return render_template('booking_confirmation.html')

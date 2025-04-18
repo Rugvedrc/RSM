@@ -396,7 +396,8 @@
                                         value="online" checked>
                                     <label for="rsm-booking-form-pay-online">Pay Online</label>
                                     <div id="rsm-booking-form-qrcode" style="display: none;">
-                                        <img src="{{ url_for('static', filename='images/QR.jpg') }}" alt="Payment QR Code" width="200">
+                                        <img src="{{ url_for('static', filename='images/QR.jpg') }}"
+                                            alt="Payment QR Code" width="200">
                                         <p>Scan to pay online</p>
                                     </div>
                                 </div>
@@ -406,37 +407,47 @@
                                     <label for="rsm-booking-form-pay-math">Pay at Math</label>
                                 </div>
                             </div>
+                            <!-- <div id="rsm-booking-form-column-1">
+                                <label for="rsm-booking-form-txnid" id="rsm-booking-form-label-txnid">
+                                    Transaction ID*
+                                </label>
+                                <input type="text" id="rsm-booking-form-txnid" name="transaction_id"
+                                    pattern="[A-Za-z0-9]{10,20}"
+                                    title="Transaction ID must be 10-20 alphanumeric characters" required>
+                            </div> -->
 
                             <div id="rsm-booking-form-submit">
-                                <button type="submit" id="rsm-booking-form-submit-button">Book Seva</button>
+                                <button type="submit" id="rsm-booking-form-submit-button"><a
+                                        href="templates/booking_seva.html">Book Seva</a></button>
                             </div>
                         </form>
                     </div>
 
                     <script>
                         // QR code display logic
-document.addEventListener('DOMContentLoaded', function() {
-    const payOnlineRadio = document.getElementById('rsm-booking-form-pay-online');
-    const payMathRadio = document.getElementById('rsm-booking-form-pay-math');
-    const qrCodeDiv = document.getElementById('rsm-booking-form-qrcode');
-    
-    // Initially no option selected
-    payOnlineRadio.checked = false;
-    payMathRadio.checked = false;
-    
-    // Show QR code only when Pay Online is selected
-    payOnlineRadio.addEventListener('change', function() {
-        if (this.checked) {
-            qrCodeDiv.style.display = 'block';
-        }
-    });
-    
-    payMathRadio.addEventListener('change', function() {
-        if (this.checked) {
-            qrCodeDiv.style.display = 'none';
-        }
-    });
-});
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const payOnlineRadio = document.getElementById('rsm-booking-form-pay-online');
+                            const payMathRadio = document.getElementById('rsm-booking-form-pay-math');
+                            const qrCodeDiv = document.getElementById('rsm-booking-form-qrcode');
+
+                            // Initially no option selected
+                            payOnlineRadio.checked = false;
+                            payMathRadio.checked = false;
+
+                            // Show QR code only when Pay Online is selected
+                            payOnlineRadio.addEventListener('change', function () {
+                                if (this.checked) {
+                                    qrCodeDiv.style.display = 'block';
+
+                                }
+                            });
+
+                            payMathRadio.addEventListener('change', function () {
+                                if (this.checked) {
+                                    qrCodeDiv.style.display = 'none';
+                                }
+                            });
+                        });
 
 
                         // Function to toggle time slot visibility based on selected seva type
