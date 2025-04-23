@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify, render_template, redirect, url_fo
 from models.seva import SevaBooking
 from config import get_db_connection
 from datetime import datetime
-from send_sms import send_booking_confirmation
 import json
 import urllib.parse
 
@@ -168,19 +167,7 @@ def book_seva():
         formatted_date = datetime.strptime(seva_date, "%Y-%m-%d").strftime("%d-%m-%Y")
         print(f"DEBUG: Sending SMS with time: {formatted_time_for_display}")
         
-        # Send SMS confirmation
-        sms_response = send_booking_confirmation(
-            phone=phone,
-            name=name,
-            seva_type=seva_type,
-            seva_date=formatted_date,
-            seva_time=formatted_time_for_display
-        )
-        
-        if not sms_response["success"]:
-            # Log the error but don't stop the process
-            print(f"SMS sending failed: {sms_response['error']}")
-        
+ 
         # Create WhatsApp message and link
         whatsapp_message = f"*Seva Booking Confirmation*\n\nName: {name}\nSeva Type: {seva_type}\nDate: {formatted_date}\nTime: {formatted_time_for_display}\nBooking ID: {booking_id}\n\nThank you for booking seva at Raghavendra Swami Math, Chhatrapati Sambhaji Nagar."
         whatsapp_link = f"https://wa.me/919284357440?text={urllib.parse.quote(whatsapp_message)}"

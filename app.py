@@ -235,6 +235,7 @@ def booking_receipt_html(booking_id):
                 hour = int(time_parts[0])
                 am_pm = "AM" if hour < 12 else "PM"
                 hour = hour if hour <= 12 else hour - 12
+                hour = 12 if hour == 0 else hour  # Handle midnight case
                 formatted_time = f"{hour}:{time_parts[1]} {am_pm}"
         
         # Parse family members
@@ -244,15 +245,22 @@ def booking_receipt_html(booking_id):
                 family_members = json.loads(booking['family_members'])
             except:
                 family_members = []
+        
+        # Check if transaction ID exists in the database schema (might be None)
+        # If it doesn't exist in your schema yet, this should silently handle the KeyError
+        try:
+            transaction_id = booking.get('transaction_id', None)
+            booking['transaction_id'] = transaction_id
+        except:
+            booking['transaction_id'] = None
                 
-        # Generate HTML receipt
+        # Generate HTML receipt - removed printable=True since we'll auto-print
         return render_template('receipt_template.html',
                               booking=booking,
                               formatted_date=formatted_date,
                               formatted_time=formatted_time,
                               family_members=family_members,
-                              today_date=datetime.now().strftime("%d-%m-%Y"),
-                              printable=True)
+                              today_date=datetime.now().strftime("%d-%m-%Y"))
     except Exception as e:
         print(f"Error generating receipt: {e}")
         print(traceback.format_exc())

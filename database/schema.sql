@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS seva_bookings (
     payment_method VARCHAR(50) NOT NULL,
     family_members JSON,
     booking_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    transaction_id VARCHAR(100);
 );
 
 CREATE TABLE login_credentials (

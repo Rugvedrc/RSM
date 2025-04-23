@@ -7,14 +7,19 @@
 <!-- Hero Section -->
 <!-- Hero Section -->
 <section id="rsm-index-hero-section">
-    <h1 id="rsm-index-hero-heading">राघवेन्द्र सेवा संघ</h1>
-    <h2 id="rsm-index-hero-welcome-heading">सुस्वागतम</h2>
+    <h1 id="rsm-index-hero-heading">राघवेंद्र सेवा संघ</h1>
+    <h2 id="rsm-index-hero-welcome-heading">सुस्वागतम्</h2>
+    <div class="scroll-container">
+        <div class="scroll-text">
+          <h3>पूज्याय राघवेंद्राय सत्यधर्मरताय च। भजतां कल्पवृक्षाय नमतां कामधेनवे॥</h3>
+        </div>
+      </div>
     <div id="rsm-index-hero-container">
         <div id="rsm-index-hero-content">
             
 
-            <p id="rsm-index-hero-welcome-lead">श्री राघवेंद्र स्वामी आणि श्री सत्यध्यानतीर्थ स्वामी यांचे वृंदावनाची प्राणप्रतिष्ठा वैशाख
-                पौर्णिमा श्रीशालिवाहनशके १९१४ मधे श्री श्री १००८ सत्यप्रमोदतीर्थस्वामींच्या हस्ते स्थापना 
+            <p id="rsm-index-hero-welcome-lead">श्री राघवेंद्र स्वामी आणि श्री सत्यध्यानतीर्थ स्वामी यांच्या वृंदावनाची प्राणप्रतिष्ठापना वैशाख
+                पौर्णिमा श्रीशालिवाहनशके १९१४ मधे श्री श्री १००८ सत्यप्रमोदतीर्थस्वामींच्या हस्ते 
                 करण्यात आली. वैशाख पौर्णिमा हा दिवस वर्धापनदिन म्हणून उत्साहात दर वर्षी साजरा केला जातो.</p>
         </div>
         <div id="rsm-index-hero-carousel">
@@ -353,30 +358,7 @@
 </section>
 
 <!-- Donation Section -->
-<section id="rsm-index-donation-section">
-    <div id="rsm-index-donation-container">
-        <div id="rsm-index-donation-row">
-            <div id="rsm-index-donation-column-1">
-                <h2 id="rsm-index-donation-heading">Support Our Mission</h2>
-                <p id="rsm-index-donation-lead">Your generous donations help us maintain the Math and continue our
-                    spiritual and charitable activities.</p>
-                <p id="rsm-index-donation-text">Contributions to Raghavendra Swami Math are used for:</p>
-                <ul id="rsm-index-donation-list">
-                    <li id="rsm-index-donation-list-item-1">Daily poojas and rituals</li>
-                    <li id="rsm-index-donation-list-item-2">Maintenance of the temple premises</li>
-                    <li id="rsm-index-donation-list-item-3">Annadana (free food) service</li>
-                    <li id="rsm-index-donation-list-item-4">Educational and cultural activities</li>
-                    <li id="rsm-index-donation-list-item-5">Support for the needy and underprivileged</li>
-                </ul>
-                <!-- <a href="{{ url_for('donation') }}" id="rsm-index-donation-button">Make a Donation</a> -->
-            </div>
-            <div id="rsm-index-donation-column-2">
-                <img src="{{ url_for('static', filename='images/donation.jpg') }}" alt="Donation"
-                    id="rsm-index-donation-image">
-            </div>
-        </div>
-    </div>
-</section>
+
 
 <!-- Contact Section -->
 <section id="rsm-index-contact-section">
@@ -442,6 +424,55 @@
         </div>
     </div>
 </section>
+
+<section id="rsm-index-donation-section">
+    <div id="rsm-index-donation-container">
+        <!-- <h2 class="donation-section-heading">Bhagavad Gita 18.65</h2> -->
+        
+        <div id="rsm-index-donation-row">
+            <div id="rsm-index-donation-column-1">
+                <!-- Decorative elements -->
+                <div class="lotus-decoration lotus-top-right">
+                    <!-- SVG or background image will be applied via CSS -->
+                </div>
+                
+                <div class="verse-container">
+                    <p id="rsm-index-donation-lead">
+                        मन्मना भव मद्भ‍क्तो मद्याजी मां नमस्कुरु ।<br>
+                        मामेवैष्यसि सत्यं ते प्रतिजाने प्रियोऽसि मे ॥
+                    </p>
+                </div>
+                
+                <p id="rsm-index-donation-text">
+                    "Always think of Me, become My devotee, worship Me and offer your homage unto Me. Thus you will come to Me without fail. I promise you this because you are My very dear friend."
+                </p>
+                
+                <div class="verse-container">
+                    <p id="rsm-index-donation-lead">
+                        सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज ।<br>
+                        अहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा श‍ुच: ॥
+                    </p>
+                </div>
+                
+                <p id="rsm-index-donation-text">
+                    "Abandon all varieties of religion and just surrender unto Me. I shall deliver you from all sinful reactions. Do not fear."
+                </p>
+
+                <h1>Bhagavad Gita 18.65 , 18.66</h1>
+            </div>
+            
+            <div id="rsm-index-donation-column-2">
+                <img src="{{ url_for('static', filename='images/18.65.jpg') }}" alt="Lord Krishna and Arjuna - Bhagavad Gita 18.65" id="rsm-index-donation-image">
+            </div>
+        </div>
+        
+        <div class="donation-footer">
+            <p>This sacred verse from the Bhagavad Gita (18.65) , (18.66) encapsulates the essence of devotional surrender and Lord Krishna's promise to His devotees.</p>
+        </div>
+    </div>
+</section>
+
+
 
 <!-- Guru Dedication Section -->
 <section id="rsm-index-guru-dedication-section">

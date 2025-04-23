@@ -1,217 +1,601 @@
-{% extends 'base.html' %}
-{% block title %}Seva Receipt - Raghavendra Swami Math{% endblock %}
-
-{% block content %}
-<div class="receipt-container">
-    <div class="receipt-header">
-        <h1>Raghavendra Swami Math</h1>
-        <p>Chhatrapati Sambhaji Nagar</p>
-        <h2>Seva Booking Receipt</h2>
-        <p class="receipt-id">Receipt No: RSM-{{ booking.id }}</p>
-    </div>
-    
-    <div class="receipt-section">
-        <h3>Devotee Details</h3>
-        <div class="detail-row">
-            <div class="detail-label">Name:</div>
-            <div class="detail-value">{{ booking.name }}</div>
-        </div>
-        <div class="detail-row">
-            <div class="detail-label">Email:</div>
-            <div class="detail-value">{{ booking.email }}</div>
-        </div>
-        <div class="detail-row">
-            <div class="detail-label">Phone:</div>
-            <div class="detail-value">{{ booking.phone }}</div>
-        </div>
-        {% if booking.gothra %}
-        <div class="detail-row">
-            <div class="detail-label">Gothra:</div>
-            <div class="detail-value">{{ booking.gothra }}</div>
-        </div>
-        {% endif %}
-        {% if booking.nakshatra %}
-        <div class="detail-row">
-            <div class="detail-label">Nakshatra:</div>
-            <div class="detail-value">{{ booking.nakshatra }}</div>
-        </div>
-        {% endif %}
-    </div>
-    
-    <div class="receipt-section">
-        <h3>Seva Details</h3>
-        <div class="detail-row">
-            <div class="detail-label">Seva Type:</div>
-            <div class="detail-value">{{ booking.seva_type }}</div>
-        </div>
-        <div class="detail-row">
-            <div class="detail-label">Date:</div>
-            <div class="detail-value">{{ formatted_date }}</div>
-        </div>
-        <div class="detail-row">
-            <div class="detail-label">Time:</div>
-            <div class="detail-value">{{ formatted_time }}</div>
-        </div>
-        <div class="detail-row">
-            <div class="detail-label">Payment Method:</div>
-            <div class="detail-value">{{ booking.payment_method }}</div>
-        </div>
-        {% if booking.special_instructions %}
-        <div class="detail-row">
-            <div class="detail-label">Special Instructions:</div>
-            <div class="detail-value">{{ booking.special_instructions }}</div>
-        </div>
-        {% endif %}
-    </div>
-    
-    {% if family_members and family_members|length > 0 %}
-    <div class="receipt-section">
-        <h3>Family Members</h3>
-        <div class="family-members">
-            {% for member in family_members %}
-            <div class="family-member">
-                • {{ member.name }} ({{ member.relation }})
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    {% endif %}
-    
-    <div class="signature-section">
-        <div class="signature-box">
-            Devotee's Signature
-        </div>
-        <div class="signature-box">
-            Math Authority
-        </div>
-    </div>
-    
-    <div class="receipt-footer">
-        <p>Booking Date: {{ today_date }}</p>
-        <p>ॐ Thank you for your devotion ॐ</p>
-        <p>Raghavendra Swami Math, Chhatrapati Sambhaji Nagar</p>
-    </div>
-</div>
-
-<style>
-    .receipt-container {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 30px;
-        border: 1px solid #ddd;
-        font-family: Arial, sans-serif;
-    }
-    
-    .receipt-header {
-        text-align: center;
-        margin-bottom: 30px;
-        border-bottom: 2px solid #f57c00;
-        padding-bottom: 20px;
-    }
-    
-    .receipt-header h1 {
-        color: #f57c00;
-        margin-bottom: 5px;
-    }
-    
-    .receipt-id {
-        color: #777;
-    }
-    
-    .receipt-section {
-        margin-bottom: 25px;
-    }
-    
-    .receipt-section h3 {
-        color: #f57c00;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 8px;
-    }
-    
-    .detail-row {
-        display: flex;
-        padding: 8px 0;
-    }
-    
-    .detail-label {
-        flex: 0 0 150px;
-        font-weight: bold;
-    }
-    
-    .detail-value {
-        flex: 1;
-    }
-    
-    .family-member {
-        margin-bottom: 5px;
-    }
-    
-    .signature-section {
-        margin-top: 50px;
-        display: flex;
-        justify-content: space-between;
-    }
-    
-    .signature-box {
-        border-top: 1px solid #000;
-        width: 200px;
-        padding-top: 5px;
-        text-align: center;
-    }
-    
-    .receipt-footer {
-        margin-top: 40px;
-        text-align: center;
-        font-size: 12px;
-        color: #777;
-        border-top: 1px solid #eee;
-        padding-top: 20px;
-    }
-    
-    /* Print-specific styles */
-    @media print {
-        body {
-            background: none;
-        }
-        .receipt-container {
-            box-shadow: none;
-            border: none;
-        }
-        @page {
-            size: A4;
-            margin: 1cm;
-        }
-    }
-    </style>
-    /* Print button only shown when printable=True */
-    {% if printable %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raghavendra Swami Math - Seva Receipt</title>
     <style>
-        .print-button {
-        display: block;
-        margin: 20px auto;
-        padding: 10px 20px;
-        background-color: #f57c00;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: bold;
-    }
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: #f9f7f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .receipt-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #ffffff, #faf8f6);
+            border-radius: 12px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ornamental-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            border: 1px solid #e0d5c8;
+            border-radius: 12px;
+        }
+        
+        .ornamental-border::before {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            border: 2px solid #f0e4d7;
+            border-radius: 8px;
+        }
+        
+        .receipt-header {
+            background: linear-gradient(135deg, #ffa057, #ff7e5f);
+            color: #fff;
+            position: relative;
+            padding: 30px 40px;
+            border-radius: 12px 12px 0 0;
+            box-shadow: 0 4px 15px rgba(255, 126, 95, 0.3);
+        }
+        
+        .mandala-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background-image: radial-gradient(circle at center, transparent 0%, transparent 40%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.1) 60%, transparent 60%, transparent 100%);
+            opacity: 0.6;
+        }
+        
+        .header-content {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 25px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 6px;
+        }
+        
+        .logo-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-text {
+            padding-left: 10px;
+        }
+        
+        .header-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .math-address {
+            font-size: 16px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        .receipt-title {
+            background: rgba(255, 255, 255, 0.15);
+            display: inline-block;
+            padding: 8px 15px;
+            margin-top: 12px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .receipt-title h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .receipt-id {
+            font-size: 14px;
+            margin-top: 4px;
+            opacity: 0.9;
+        }
+        
+        .receipt-content {
+            padding: 35px 40px;
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            color: #ff7e5f;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, #ff7e5f20, transparent);
+            margin-left: 10px;
+        }
+        
+        .section-icon {
+            background: linear-gradient(135deg, #ffa057, #ff7e5f);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 30px;
+            margin-bottom: 30px;
+        }
+        
+        .info-item {
+            position: relative;
+        }
+        
+        .info-label {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .highlight {
+            color: #ff7e5f;
+            font-weight: 600;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        .status-complete {
+            background-color: #e3f5e9;
+            color: #1e8a4c;
+        }
+        
+        .status-pending {
+            background-color: #fff4e5;
+            color: #c17702;
+        }
+        
+        .family-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f7f5;
+            border-radius: 10px;
+        }
+        
+        .family-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .family-table th {
+            background-color: #f0e4d7;
+            text-align: left;
+            padding: 10px 15px;
+            font-weight: 600;
+            color: #7d6148;
+            font-size: 14px;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .family-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #f0e4d7;
+            font-size: 14px;
+        }
+        
+        .family-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .family-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        
+        .special-instructions {
+            padding: 20px;
+            background-color: #f9f7f5;
+            border-radius: 10px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .instructions-content {
+            font-size: 14px;
+            color: #555;
+            font-style: italic;
+            padding: 0 5px;
+        }
+        
+        .instructions-decoration {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            font-size: 26px;
+            color: #e0d5c8;
+            opacity: 0.7;
+        }
+        
+        .quote-left {
+            top: 5px;
+            left: 5px;
+        }
+        
+        .quote-right {
+            bottom: 5px;
+            right: 5px;
+        }
+        
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 25px;
+            gap: 20px;
+        }
+        
+        .signature-box {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .signature-line {
+            display: block;
+            height: 1px;
+            background-color: #ddd;
+            margin-bottom: 8px;
+        }
+        
+        .signature-text {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .seal-container {
+            width: 80px;
+            height: 80px;
+            position: relative;
+        }
+        
+        .seal {
+            width: 100%;
+            height: 100%;
+            border: 1px dashed #ff7e5f;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: rotate 60s linear infinite;
+        }
+        
+        .seal::before {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border: 1px dashed #ff7e5f;
+            border-radius: 50%;
+        }
+        
+        .seal-inner {
+            font-size: 30px;
+            color: #ff7e5f;
+        }
+        
+        .receipt-footer {
+            background: linear-gradient(to right, #f4f1ec, #f9f7f5, #f4f1ec);
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 12px 12px;
+            border-top: 1px solid #f0e4d7;
+        }
+        
+        .footer-decoration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .decoration-item {
+            color: #ff7e5f;
+            font-size: 16px;
+        }
+        
+        .decoration-line {
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ff7e5f, transparent);
+            margin: 0 10px;
+        }
+        
+        .footer-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: #ff7e5f;
+            margin-bottom: 8px;
+        }
+        
+        .footer-info {
+            font-size: 12px;
+            color: #888;
+        }
+        
+        .footer-info p {
+            margin: 3px 0;
+        }
+
+        @media print {
+            body {
+                background: none;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .receipt-container {
+                width: 100%;
+                max-width: none;
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+            
+            @page {
+                size: A4;
+                margin: 0.5cm;
+            }
+        }
     </style>
-    {% endif %}
+</head>
+<body>
+    <div class="receipt-container">
+        <div class="ornamental-border"></div>
+        
+        <div class="receipt-header">
+            <div class="mandala-bg"></div>
+            <div class="header-content">
+                <div class="logo-container">
+                    <div class="logo-inner">
+                        <img id="rsm-base-nav-logo-img" src="{{ url_for('static', filename='images/logo.png') }}" alt="Raghavendra Swami Math Logo" height="40">
+                    </div>
+                </div>
+                <div class="header-text">
+                    <h1>Raghavendra Swami Math</h1>
+                    <p class="math-address">Chhatrapati Sambhaji Nagar</p>
+                    <div class="receipt-title">
+                        <h2>Seva Booking Receipt</h2>
+                        <p class="receipt-id">Receipt No: RSM-{{ booking.id }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="receipt-content">
+            <h3 class="section-title">
+                <span class="section-icon">👤</span>
+                Devotee Details
+            </h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Name</div>
+                    <div class="info-value">{{ booking.name }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Phone</div>
+                    <div class="info-value">{{ booking.phone }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Email</div>
+                    <div class="info-value">{{ booking.email }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Booking Date</div>
+                    <div class="info-value">{{ today_date }}</div>
+                </div>
+                {% if booking.gothra %}
+                <div class="info-item">
+                    <div class="info-label">Gothra</div>
+                    <div class="info-value">{{ booking.gothra }}</div>
+                </div>
+                {% endif %}
+                {% if booking.nakshatra %}
+                <div class="info-item">
+                    <div class="info-label">Nakshatra</div>
+                    <div class="info-value">{{ booking.nakshatra }}</div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <h3 class="section-title">
+                <span class="section-icon">🙏</span>
+                Seva Details
+            </h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Seva Type</div>
+                    <div class="info-value highlight">{{ booking.seva_type }}</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Date</div>
+                    <div class="info-value">{{ formatted_date }}</div>
+                </div>
+                
+                {% if booking.seva_type == 'Pakshapandharwada' or booking.seva_type == 'Other' %}
+                <div class="info-item">
+                    <div class="info-label">Time</div>
+                    <div class="info-value">{{ formatted_time }}</div>
+                </div>
+                {% endif %}
+                
+                <div class="info-item">
+                    <div class="info-label">Payment Method</div>
+                    <div class="info-value">{{ booking.payment_method }}</div>
+                </div>
+                
+                <div class="info-item">
+                    {% if booking.transaction_id %}
+                    <div class="info-label">Transaction ID</div>
+                    <div class="info-value">{{ booking.transaction_id }}</div>
+                    {% elif booking.payment_method == 'Online' %}
+                    <div class="info-label">Payment Status</div>
+                    <div class="info-value">
+                        <span class="status-badge status-complete">Completed</span>
+                    </div>
+                    {% elif booking.payment_method == 'Pay at Math' %}
+                    <div class="info-label">Payment Status</div>
+                    <div class="info-value">
+                        <span class="status-badge status-pending">Pending</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if family_members and family_members|length > 0 %}
+            <h3 class="section-title">
+                <span class="section-icon">👪</span>
+                Family Members
+            </h3>
+            <div class="family-section">
+                <table class="family-table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Relation</th>
+                    </tr>
+                    {% for member in family_members %}
+                    <tr>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.relation }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endif %}
+            
+            {% if booking.special_instructions %}
+            <h3 class="section-title">
+                <span class="section-icon">📝</span>
+                Special Instructions
+            </h3>
+            <div class="special-instructions">
+                <span class="instructions-decoration quote-left">"</span>
+                <p class="instructions-content">{{ booking.special_instructions }}</p>
+                <span class="instructions-decoration quote-right">"</span>
+            </div>
+            {% endif %}
+            
+            <div class="signature-section">
+                <div class="signature-box">
+                    <span class="signature-line"></span>
+                    <span class="signature-text">Signature</span>
+                </div>
+                <div class="seal-container">
+                    <div class="seal">
+                        <div class="seal-inner">ॐ</div>
+                    </div>
+                </div>
+                <div class="signature-box">
+                    <span class="signature-line"></span>
+                    <span class="signature-text">Math Authority</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="receipt-footer">
+            <div class="footer-decoration">
+                <span class="decoration-item">ॐ</span>
+                <span class="decoration-line"></span>
+                <span class="decoration-item">ॐ</span>
+                <span class="decoration-line"></span>
+                <span class="decoration-item">ॐ</span>
+            </div>
+            <p class="footer-title">Thank you for your devotion</p>
+            <div class="footer-info">
+                <p>Raghavendra Swami Math, Chhatrapati Sambhaji Nagar</p>
+                <p>Phone: +91 9284357440</p>
+            </div>
+        </div>
+    </div>
 
-{% if printable %}
-<div style="text-align: center; margin: 20px 0;">
-    <button class="print-button" onclick="window.print()">Print Receipt</button>
-</div>
-
-<script>
-    // Auto trigger print dialog if the page is opened directly
-    window.onload = function() {
-        setTimeout(function() {
+    <script>
+        window.onload = function() {
             window.print();
-        }, 1000);
-    }
-</script>
-{% endif %}
-{% endblock %}
+        }
+    </script>
+</body>
+</html>

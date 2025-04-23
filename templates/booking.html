@@ -8,13 +8,26 @@
         <div id="rsm-booking-header-row">
             <div id="rsm-booking-header-column">
                 <h1 id="rsm-booking-header-heading">Seva Booking</h1>
-                <div id="rsm-booking-header-divider">
-                    <div id="rsm-booking-header-divider-line"></div>
-                    <div id="rsm-booking-header-divider-icon">ॐ</div>
-                    <div id="rsm-booking-header-divider-line"></div>
+                
+                
+                <div id="rsm-index-donation-column-2">
+                    <img src="{{ url_for('static', filename='images/donation.jpg') }}" alt="Donation"
+                        id="rsm-index-donation-image">
                 </div>
-                <p id="rsm-booking-header-text">Book your sevas at Raghavendra Swami Math, Chhatrapati Sambhaji Nagar.
+                
+                <p id="rsm-booking-header-text">
+                    <b>पत्रं पुष्पं फलं तोयं यो मे भक्त्या प्रयच्छति।<br>
+                    तदहं भक्त्युपहृतमश्नामि प्रयतात्मनः ॥</b>
+                    <br><br><i>
+                    "जर एखाद्याने प्रेमाने आणि भक्तीने मला एखादे पान, फूल, फळ अथवा पाणी अर्पण केले तर मी त्याचा स्वीकार करतो."</i><br>
+                    भगवद्गीता अध्याय ९, श्लोक २६
                 </p>
+                
+                
+                <!-- <div id="rsm-booking-action-buttons"> -->
+                    <!-- <button class="rsm-booking-button rsm-booking-button-primary">Book Seva</button> -->
+                    <!-- <button class="rsm-booking-button rsm-booking-button-secondary">Learn More</button> -->
+                <!-- </div> -->
             </div>
         </div>
     </div>
@@ -267,13 +280,13 @@
                                     <select id="rsm-booking-form-sevaType" name="sevaType" required
                                         onchange="toggleTimeSlot()">
                                         <option value="">Choose Seva...</option>
-                                        <option value="Abhishekam">अष्टोत्तर (स्वैच्छिक)</option>
-                                        <option value="Archana">पालखी (स्वैच्छिक)</option>
-                                        <option value="Sahasranama Archana">अन्नदान (स्वैच्छिक)</option>
-                                        <option value="Shradha">श्राद्ध ₹ १२००/- दोन व्यक्ती अधिक व्यक्ती साठी ₹
+                                        <option value="अष्टोत्तर">अष्टोत्तर (स्वैच्छिक)</option>
+                                        <option value="पालखी">पालखी (स्वैच्छिक)</option>
+                                        <option value="अन्नदान">अन्नदान (स्वैच्छिक)</option>
+                                        <option value="श्राद्ध">श्राद्ध ₹ १२००/- दोन व्यक्ती अधिक व्यक्ती साठी ₹
                                             २००/व्यक्ती.</option>
-                                        <option value="Pakshapandharwada">पक्षपंधरवाडा ₹ १२००/- दोन व्यक्ती</option>
-                                        <option value="Annadhanam">सत्यनारायण पूजा ₹ ५०१/-</option>
+                                        <option value="पक्षपंधरवाडा">पक्षपंधरवाडा ₹ १२००/- दोन व्यक्ती</option>
+                                        <option value="सत्यनारायण">सत्यनारायण पूजा ₹ ५०१/-</option>
                                     </select>
                                 </div>
                                 <br>
@@ -458,8 +471,8 @@
                             const timeSelect = document.getElementById('rsm-booking-form-sevaTime');
                             const dateInputContainer = dateInput.parentElement;
 
-                            // If Pakshapandharwada is selected, replace date input with custom dropdown
-                            if (sevaType === 'Pakshapandharwada') {
+                            // If पक्षपंधरवाडा is selected, replace date input with custom dropdown
+                            if (sevaType === 'पक्षपंधरवाडा') {
                                 // Completely hide the default date input
                                 dateInput.style.display = 'none';
 
@@ -585,8 +598,8 @@
                             const timeSelect = document.getElementById('rsm-booking-form-sevaTime');
                             const defaultTimeInput = document.getElementById('rsm-booking-form-sevaTime-default');
 
-                            // Show time slot for Shradha or Pakshapandharwada
-                            if (sevaType === 'Pakshapandharwada') {
+                            // Show time slot for श्राद्ध or पक्षपंधरवाडा
+                            if (sevaType === 'पक्षपंधरवाडा') {
                                 timeRow.style.display = 'block';
                                 timeSelect.required = true;
                                 defaultTimeInput.disabled = true;
@@ -620,19 +633,19 @@
                                 const dateInput = document.getElementById('rsm-booking-form-sevaDate');
 
                                 // If time slot is not visible, use the default time value
-                                if (sevaType !== 'Shradha' && sevaType !== 'Pakshapandharwada') {
+                                if (sevaType !== 'श्राद्ध' && sevaType !== 'पक्षपंधरवाडा') {
                                     timeSelect.value = defaultTimeInput.value;
                                 }
 
-                                // For Pakshapandharwada, make sure the date value from custom select is transferred to the original input
-                                if (sevaType === 'Pakshapandharwada') {
+                                // For पक्षपंधरवाडा, make sure the date value from custom select is transferred to the original input
+                                if (sevaType === 'पक्षपंधरवाडा') {
                                     const pakshaDates = document.getElementById('paksha-date-select');
                                     if (pakshaDates && pakshaDates.value) {
                                         dateInput.value = pakshaDates.value;
                                     } else {
                                         // Prevent submission if no date is selected
                                         event.preventDefault();
-                                        alert('Please select a date for Pakshapandharwada');
+                                        alert('Please select a date for पक्षपंधरवाडा');
                                     }
                                 }
                             });
@@ -642,10 +655,10 @@
 
                     <div id="rsm-booking-info-card">
                         <div id="rsm-booking-info-card-body">
-                            <h4 id="rsm-booking-info-title">कृपया लक्ष्यात घ्यावे </h4>
+                            <h4 id="rsm-booking-info-title">कृपया लक्षात घ्यावे </h4>
                             <ul id="rsm-booking-info-list">
                                 <li id="rsm-booking-info-item-1">सेवा नोंदणी नंतर संदेश येईल </li>
-                                <li id="rsm-booking-info-item-2">ठरलेल्या वेळेच्या 30 मि.आधी यावे </li>
+                                <li id="rsm-booking-info-item-2">निर्धारित वेळेच्या 30 मि.आगोदर यावे </li>
                                 <li id="rsm-booking-info-item-3">नोंद झालेली सेवा रद्द केली जाणार नाही </li>
                             </ul>
                         </div>
