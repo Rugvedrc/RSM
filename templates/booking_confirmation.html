@@ -31,14 +31,11 @@
             
             <div id="rsm-confirmation-actions">
                 <div class="rsm-action-row">
-                    <!-- Update the download receipt link in booking_confirmation.html -->
-<a href="{{ url_for('booking_receipt_html', booking_id=booking_id) }}" id="rsm-download-receipt" target="_blank">
-    <img src="{{ url_for('static', filename='images/pdf-icon.png') }}" alt="Receipt" width="24" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><path fill=%22%23f44336%22 d=%22M20,2H8C6.9,2,6,2.9,6,4v12c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V4C22,2.9,21.1,2,20,2z M11.5,9h1v3.5h-1V9z M13,9h3v1h-3V9z M13,11.5h3v1h-3V11.5z M8,16.5V4h12v12.5H8z M4,6H2v14c0,1.1,0.9,2,2,2h14v-2H4V6z%22/></svg>'" />
-    View Receipt
-</a>
+                    <a href="{{ url_for('booking_receipt_html', booking_id=booking_id) }}" id="rsm-download-receipt" target="_blank">
+                        <img src="{{ url_for('static', filename='images/pdf-icon.png') }}" alt="Receipt" width="24" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><path fill=%22%23f44336%22 d=%22M20,2H8C6.9,2,6,2.9,6,4v12c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V4C22,2.9,21.1,2,20,2z M11.5,9h1v3.5h-1V9z M13,9h3v1h-3V9z M13,11.5h3v1h-3V11.5z M8,16.5V4h12v12.5H8z M4,6H2v14c0,1.1,0.9,2,2,2h14v-2H4V6z%22/></svg>'" />
+                        View Receipt
+                    </a>
                 </div>
-                
-                
                 
                 <div class="rsm-action-row">
                     <button id="rsm-share-button" onclick="shareBooking()">
@@ -57,164 +54,237 @@
 </div>
 
 <style>
+
+    /* Container */
     #rsm-confirmation-container {
+        width: 100%;
         max-width: 800px;
-        margin: 40px auto;
         padding: 20px;
+        box-sizing: border-box;
     }
-    
+
+    /* Card */
     #rsm-confirmation-card {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        padding: 30px;
+        background: rgba(16, 20, 34, 0.85);
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 
+                    0 0 60px rgba(212, 175, 55, 0.2);
+        padding: 40px;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    #rsm-confirmation-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, 
+            rgba(212, 175, 55, 0), 
+            rgba(255, 215, 0, 0.8), 
+            rgba(212, 175, 55, 0));
+        z-index: 1;
+    }
+
+    /* Header */
+    #rsm-confirmation-header {
         text-align: center;
+        margin-bottom: 30px;
     }
-    
+
     #rsm-confirmation-title {
-        color: #f57c00;
-        margin-bottom: 10px;
+        font-size: 2.5rem;
+        margin: 0;
+        color: #ffd700;
+        font-weight: 400;
+        letter-spacing: 1px;
+        text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        animation: titleGlow 3s infinite alternate;
     }
-    
+
+    /* Divider */
     #rsm-confirmation-divider {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 30px;
+        margin: 20px 0;
     }
-    
+
     #rsm-confirmation-divider-line {
         height: 1px;
-        background-color: #ddd;
         flex-grow: 1;
+        background: linear-gradient(90deg, 
+            rgba(212, 175, 55, 0), 
+            rgba(212, 175, 55, 0.7), 
+            rgba(212, 175, 55, 0));
     }
-    
+
     #rsm-confirmation-divider-icon {
-        margin: 0 15px;
-        font-size: 24px;
-        color: #f57c00;
+        font-size: 32px;
+        color: #ffd700;
+        margin: 0 20px;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        animation: omGlow 4s infinite alternate;
     }
-    
+
+    /* Message */
     #rsm-confirmation-message {
-        margin-bottom: 30px;
-        font-size: 16px;
+        font-size: 1.1rem;
         line-height: 1.6;
+        text-align: center;
     }
-    
+
     #devotee-name {
-        font-weight: bold;
+        color: #ffd700;
+        font-weight: 500;
     }
-    
+
+    /* Details */
     #rsm-confirmation-details {
-        background-color: #fff9e6;
-        border-left: 4px solid #f57c00;
-        padding: 15px 20px;
-        margin: 20px 0;
-        text-align: left;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        padding: 20px;
+        margin: 30px 0;
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
     }
-    
+
+    #rsm-confirmation-details h3 {
+        margin-top: 0;
+        color: #ffd700;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-align: center;
+    }
+
     #rsm-confirmation-details ul {
-        list-style-type: none;
-        padding-left: 0;
+        list-style: none;
+        padding: 0;
+        margin: 0;
     }
-    
+
     #rsm-confirmation-details li {
-        margin-bottom: 8px;
-    }
-    
-    #rsm-confirmation-actions {
-        margin: 25px 0;
+        margin: 12px 0;
         display: flex;
-        flex-direction: column;
-        gap: 15px;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        padding-bottom: 8px;
     }
-    
+
+    #rsm-confirmation-details strong {
+        color: #e2c992;
+    }
+
+    /* Actions */
+    #rsm-confirmation-actions {
+        margin: 30px 0;
+    }
+
     .rsm-action-row {
         display: flex;
         justify-content: center;
+        margin: 15px 0;
     }
-    
-    #rsm-download-receipt, #rsm-whatsapp-button, #rsm-share-button {
-        display: inline-flex;
+
+    #rsm-download-receipt,
+    #rsm-share-button {
+        display: flex;
         align-items: center;
         justify-content: center;
-        text-decoration: none;
-        padding: 12px 25px;
-        border-radius: 4px;
-        font-weight: bold;
-        transition: all 0.3s;
-        min-width: 250px;
+        background: rgba(212, 175, 55, 0.1);
+        color: #ffd700;
+        padding: 12px 24px;
+        border-radius: 50px;
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        transition: all 0.3s ease;
+        font-size: 1rem;
         cursor: pointer;
-        border: none;
-        font-size: 16px;
-        font-family: inherit;
+        text-decoration: none;
+        width: 180px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
-    
-    #rsm-download-receipt {
-        background-color: #e64a19;
-        color: white;
-    }
-    
-    #rsm-whatsapp-button {
-        background-color: #25D366;
-        color: white;
-    }
-    
-    #rsm-share-button {
-        background-color: #3b5998;
-        color: white;
-    }
-    
-    #rsm-download-receipt:hover {
-        background-color: #d84315;
-    }
-    
-    #rsm-whatsapp-button:hover {
-        background-color: #128C7E;
-    }
-    
+
+    #rsm-download-receipt:hover,
     #rsm-share-button:hover {
-        background-color: #2d4373;
+        background: rgba(212, 175, 55, 0.2);
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        transform: translateY(-2px);
     }
-    
-    #rsm-download-receipt img, #rsm-whatsapp-button img, #rsm-share-button img {
+
+    #rsm-download-receipt img,
+    #rsm-share-button img {
         margin-right: 10px;
     }
-    
+
+    /* Footer */
     #rsm-confirmation-footer {
-        margin-top: 30px;
         display: flex;
-        justify-content: center;
-        gap: 20px;
+        justify-content: space-around;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(212, 175, 55, 0.2);
     }
-    
-    #rsm-home-button, #rsm-book-another-button {
-        display: inline-block;
-        padding: 10px 20px;
-        text-decoration: none;
-        border-radius: 4px;
-        font-weight: bold;
-        transition: background-color 0.3s;
-    }
-    
-    #rsm-home-button {
-        background-color: #f0f0f0;
-        color: #333;
-    }
-    
+
+    #rsm-home-button,
     #rsm-book-another-button {
-        background-color: #f57c00;
-        color: white;
+        background: linear-gradient(to right, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.2));
+        color: #e2c992;
+        padding: 12px 24px;
+        border-radius: 6px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(212, 175, 55, 0.3);
     }
-    
-    #rsm-home-button:hover {
-        background-color: #ddd;
-    }
-    
+
+    #rsm-home-button:hover,
     #rsm-book-another-button:hover {
-        background-color: #e65100;
+        background: rgba(212, 175, 55, 0.3);
+        color: #ffd700;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
-</style>
+
+    /* Animations */
+    @keyframes titleGlow {
+        0% {
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+        100% {
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+    }
+
+    @keyframes omGlow {
+        0% {
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+            transform: scale(1);
+        }
+        100% {
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            transform: scale(1.1);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        #rsm-confirmation-card {
+            padding: 20px;
+        }
+        
+        #rsm-confirmation-title {
+            font-size: 1.8rem;
+        }
+        
+        #rsm-confirmation-footer {
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+    }
+    </style>
 
 <script>
     function shareBooking() {

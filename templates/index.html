@@ -65,167 +65,6 @@
 </section>
 
 
-<style>
-    /* Hero Section Responsive Styles */
-#rsm-index-hero-section {
-    padding: 2rem 1rem;
-    background-color: #f8f8f8;
-}
-
-#rsm-index-hero-heading {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    /* color: #333; */
-}
-
-#rsm-index-hero-welcome-heading {
-    font-size: 1.8rem;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    /* color: #555; */
-}
-
-#rsm-index-hero-container {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-#rsm-index-hero-content {
-    flex: 1;
-    min-width: 300px;
-}
-
-#rsm-index-hero-welcome-lead {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    text-align: justify;
-}
-
-#rsm-index-hero-carousel {
-    flex: 1;
-    min-width: 300px;
-}
-
-.rsm-index-hero-carousel-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.rsm-index-hero-carousel-slides {
-    width: 100%;
-}
-
-.rsm-index-hero-carousel-slide {
-    display: none;
-    width: 100%;
-}
-
-.rsm-index-hero-carousel-slide.active {
-    display: block;
-}
-
-.rsm-index-hero-carousel-slide img {
-    width: 100%;
-    height: auto;
-    max-height: 400px;
-    object-fit: cover;
-}
-
-.rsm-index-hero-carousel-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    padding: 1rem;
-    text-align: center;
-}
-
-.rsm-index-hero-carousel-caption p {
-    margin: 0;
-    font-size: 1rem;
-}
-
-.rsm-index-hero-carousel-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
-
-.rsm-index-hero-carousel-prev,
-.rsm-index-hero-carousel-next {
-    background-color: rgba(255, 255, 255, 0.7);
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.rsm-index-hero-carousel-dots {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.rsm-index-hero-carousel-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-}
-
-.rsm-index-hero-carousel-dot.active {
-    background-color: #fff;
-}
-
-/* Responsive adjustments */
-@media (min-width: 768px) {
-    #rsm-index-hero-container {
-        flex-direction: row;
-    }
-    
-    #rsm-index-hero-heading {
-        font-size: 3rem;
-    }
-    
-    #rsm-index-hero-welcome-heading {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 767px) {
-    #rsm-index-hero-heading {
-        font-size: 2rem;
-    }
-    
-    #rsm-index-hero-welcome-heading {
-        font-size: 1.5rem;
-    }
-    
-    #rsm-index-hero-welcome-lead {
-        font-size: 1rem;
-    }
-}
-</style>
-
 
 
 <script>document.addEventListener('DOMContentLoaded', function() {
@@ -425,8 +264,15 @@
     </div>
 </section>
 
+<!-- Enhanced Bhagavad Gita Section with Additional Divine Elements -->
 <section class="bg-verse-section">
+    <!-- Divine Particles Background Effect -->
+    <div class="bg-divine-particles"></div>
+    
     <div class="bg-verse-container">
+        <!-- Om Symbol Watermark -->
+        <div class="bg-om-symbol"></div>
+        
         <div class="bg-verse-header">
             <div class="bg-verse-ornament"></div>
             <h2 class="bg-verse-title">भगवद्गीता <span>18.65-66</span></h2>
@@ -436,6 +282,7 @@
         <div class="bg-verse-content">
             <div class="bg-verse-left">
                 <div class="bg-verse-sanskrit">
+                    <div class="bg-verse-icon">𑇡</div>
                     <p>मन्मना भव मद्भ‍क्तो मद्याजी मां नमस्कुरु ।<br>
                     मामेवैष्यसि सत्यं ते प्रतिजाने प्रियोऽसि मे ॥</p>
                 </div>
@@ -449,6 +296,7 @@
                 </div>
                 
                 <div class="bg-verse-sanskrit">
+                    <div class="bg-verse-icon">𑇡</div>
                     <p>सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज ।<br>
                     अहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा श‍ुच: ॥</p>
                 </div>
@@ -460,320 +308,19 @@
             
             <div class="bg-verse-right">
                 <div class="bg-verse-image-container">
+                    <div class="bg-verse-lotus-frame"></div>
                     <img src="static\images\18.65.jpg" alt="Lord Krishna and Arjuna - Bhagavad Gita" class="bg-verse-image">
                     <div class="bg-verse-image-glow"></div>
                 </div>
             </div>
         </div>
+        
+        <!-- Divine Light Rays -->
+        <div class="bg-divine-rays"></div>
     </div>
 </section>
 
-<style>
-    /* Bhagavad Gita Verse Section Styles */
-    .bg-verse-section {
-        background: linear-gradient(135deg, #f3e2c7 0%, #fff1dc 100%);
-        padding: 3rem 2rem;
-        position: relative;
-        overflow: hidden;
-        color: #4a3500;
-        border-radius: 12px;
-        box-shadow: 0 10px 40px rgba(102, 51, 0, 0.1);
-    }
-    
-    .bg-verse-section::before,
-    .bg-verse-section::after {
-        content: "";
-        position: absolute;
-        width: 200px;
-        height: 200px;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='none' stroke='rgba(205, 133, 63, 0.2)' stroke-width='2' d='M50 15c-7.5 0-15 5-15 15s7.5 15 15 15 15-5 15-15-7.5-15-15-15zm-15 15c-7.5 0-15 5-15 15s7.5 15 15 15 15-5 15-15-7.5-15-15-15zm30 0c-7.5 0-15 5-15 15s7.5 15 15 15 15-5 15-15-7.5-15-15-15zm-15 15c-7.5 0-15 5-15 15s7.5 15 15 15 15-5 15-15-7.5-15-15-15z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-size: contain;
-        opacity: 0.3;
-        z-index: 0;
-    }
-    
-    .bg-verse-section::before {
-        top: -50px;
-        left: -50px;
-        transform: rotate(45deg);
-    }
-    
-    .bg-verse-section::after {
-        bottom: -50px;
-        right: -50px;
-        transform: rotate(-135deg);
-    }
-    
-    .bg-verse-container {
-        position: relative;
-        z-index: 1;
-        max-width: 1100px;
-        margin: 0 auto;
-    }
-    
-    .bg-verse-header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 2.5rem;
-    }
-    
-    .bg-verse-title {
-        font-family: 'Palatino', serif;
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin: 0 1.5rem;
-        color: #663300;
-        text-align: center;
-        letter-spacing: 0.05em;
-        position: relative;
-    }
-    
-    .bg-verse-title span {
-        font-size: 1.8rem;
-        font-weight: 400;
-        color: #8B4513;
-    }
-    
-    .bg-verse-ornament {
-        height: 2px;
-        flex-grow: 1;
-        background: linear-gradient(90deg, transparent, #CD853F, transparent);
-        max-width: 150px;
-        position: relative;
-    }
-    
-    .bg-verse-ornament::before,
-    .bg-verse-ornament::after {
-        content: "";
-        position: absolute;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background-color: #CD853F;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-    
-    .bg-verse-ornament::before {
-        left: 15%;
-    }
-    
-    .bg-verse-ornament::after {
-        right: 15%;
-    }
-    
-    .bg-verse-content {
-        display: flex;
-        justify-content: space-between;
-        gap: 2rem;
-        position: relative;
-    }
-    
-    .bg-verse-left {
-        flex: 3;
-        padding: 1.5rem;
-        background-color: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(5px);
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
-        border: 1px solid rgba(205, 133, 63, 0.2);
-    }
-    
-    .bg-verse-right {
-        flex: 2;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .bg-verse-sanskrit {
-        font-family: 'Sanskrit Text', 'Noto Sans Devanagari', sans-serif;
-        font-size: 1.5rem;
-        line-height: 1.7;
-        color: #4a2600;
-        text-align: center;
-        margin-bottom: 1.5rem;
-        padding: 0.8rem;
-        border-left: 3px solid rgba(205, 133, 63, 0.3);
-        border-right: 3px solid rgba(205, 133, 63, 0.3);
-        position: relative;
-    }
-    
-    .bg-verse-sanskrit::before,
-    .bg-verse-sanskrit::after {
-        content: '"';
-        font-family: serif;
-        font-size: 2.5rem;
-        color: #CD853F;
-        opacity: 0.6;
-        position: absolute;
-    }
-    
-    .bg-verse-sanskrit::before {
-        top: -0.5rem;
-        left: 0.2rem;
-    }
-    
-    .bg-verse-sanskrit::after {
-        bottom: -1.5rem;
-        right: 0.2rem;
-    }
-    
-    .bg-verse-translation {
-        font-size: 1.2rem;
-        line-height: 1.6;
-        color: #5a3d1c;
-        text-align: center;
-        margin-bottom: 2rem;
-        padding: 0 1.5rem;
-        font-style: italic;
-    }
-    
-    .bg-verse-separator {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 2rem 0;
-    }
-    
-    .bg-verse-separator span {
-        display: block;
-        width: 50%;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, #CD853F, transparent);
-        position: relative;
-    }
-    
-    .bg-verse-separator span::before {
-        content: "॥";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(255, 255, 255, 0.8);
-        padding: 0 1rem;
-        color: #CD853F;
-        font-size: 1.2rem;
-    }
-    
-    .bg-verse-caption {
-        font-size: 1rem;
-        font-style: italic;
-        text-align: center;
-        margin-top: 2rem;
-        padding: 1rem;
-        color: #8B4513;
-        border-top: 1px solid rgba(205, 133, 63, 0.2);
-    }
-    
-    .bg-verse-image-container {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .bg-verse-image {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-        box-shadow: 0 10px 25px rgba(139, 69, 19, 0.25);
-        border: 5px solid rgba(255, 248, 220, 0.7);
-        transition: transform 0.3s ease;
-    }
-    
-    .bg-verse-image:hover {
-        transform: scale(1.02);
-    }
-    
-    .bg-verse-image-glow {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 10px;
-        background: radial-gradient(circle at center, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
-        z-index: -1;
-        animation: glow 3s infinite alternate;
-    }
-    
-    @keyframes glow {
-        0% {
-            opacity: 0.3;
-            transform: scale(0.95);
-        }
-        100% {
-            opacity: 0.7;
-            transform: scale(1.05);
-        }
-    }
-    
-    /* Media Queries for Responsiveness */
-    @media (max-width: 992px) {
-        .bg-verse-content {
-            flex-direction: column-reverse;
-        }
-        
-        .bg-verse-right {
-            margin-bottom: 2rem;
-        }
-        
-        .bg-verse-image {
-            max-width: 70%;
-        }
-    }
-    
-    @media (max-width: 768px) {
-        .bg-verse-title {
-            font-size: 2rem;
-        }
-        
-        .bg-verse-title span {
-            font-size: 1.5rem;
-        }
-        
-        .bg-verse-sanskrit {
-            font-size: 1.3rem;
-        }
-        
-        .bg-verse-translation {
-            font-size: 1.1rem;
-        }
-    }
-    
-    @media (max-width: 576px) {
-        .bg-verse-section {
-            padding: 2rem 1rem;
-        }
-        
-        .bg-verse-title {
-            font-size: 1.8rem;
-        }
-        
-        .bg-verse-title span {
-            font-size: 1.3rem;
-        }
-        
-        .bg-verse-sanskrit {
-            font-size: 1.1rem;
-            padding: 0.5rem;
-        }
-        
-        .bg-verse-translation {
-            font-size: 1rem;
-            padding: 0 0.8rem;
-        }
-        
-        .bg-verse-image {
-            max-width: 90%;
-        }
-    }
-</style>
+
 
 <!-- Guru Dedication Section -->
 <section id="rsm-index-guru-dedication-section">

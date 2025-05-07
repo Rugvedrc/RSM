@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     {% block additional_head %}{% endblock %}
 </head>
@@ -81,22 +81,578 @@
         </div>
     </footer>
 
-    <!-- Chatbot Button -->
-    <div id="rsm-base-chatbot-icon">
-        <img src="{{ url_for('static', filename='images/robot-icon.png') }}" alt="Chatbot" onclick="toggleChatbot()">
+    <style>
+        /* Global styling */
+        :root {
+            --primary-gold: #d4af37;
+            --deep-purple: #2d0a31;
+            --light-gold: #f1e5bc;
+            --mystical-glow: 0 0 15px #d4af3799, 0 0 25px #d4af3755;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Aastha Chatbot Button */
+        #aastha-chatbot-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--deep-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--mystical-glow);
+            z-index: 999;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-gold);
+            overflow: hidden;
+        }
+
+        #aastha-chatbot-button::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(212,175,55,0.3) 0%, rgba(45,10,49,0) 70%);
+            animation: pulse 2s infinite;
+        }
+
+        #aastha-chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #d4af37, 0 0 30px #d4af3799;
+        }
+
+        #aastha-chatbot-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* Aastha Chatbot Container */
+        #aastha-chatbot-container {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 350px;
+            height: 500px;
+            background: linear-gradient(145deg, rgba(25,5,30,0.95) 0%, rgba(45,10,49,0.95) 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2), var(--mystical-glow);
+            display: flex;
+            flex-direction: column;
+            z-index: 998;
+            transform: scale(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid var(--primary-gold);
+            overflow: hidden;
+        }
+
+        #aastha-chatbot-container.active {
+            transform: scale(1);
+        }
+
+        /* Chat Header */
+        #aastha-chatbot-header {
+            padding: 15px;
+            background: var(--deep-purple);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--primary-gold);
+        }
+
+        #aastha-chatbot-header-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #aastha-chatbot-header-title img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 1px solid var(--primary-gold);
+        }
+
+        #aastha-chatbot-header h3 {
+            margin: 0;
+            color: var(--primary-gold);
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        #aastha-chatbot-header-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--light-gold);
+        }
+
+        #aastha-status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+
+        #aastha-chatbot-close {
+            background: transparent;
+            border: none;
+            color: var(--primary-gold);
+            font-size: 16px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        #aastha-chatbot-close:hover {
+            background: rgba(212,175,55,0.2);
+        }
+
+        /* Chat Messages */
+        #aastha-chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        #aastha-chatbot-messages::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #aastha-chatbot-messages::-webkit-scrollbar-thumb {
+            background-color: var(--primary-gold);
+            border-radius: 5px;
+        }
+
+        .aastha-message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .aastha-bot-message {
+            background: linear-gradient(135deg, rgba(212,175,55,0.2) 0%, rgba(45,10,49,0.8) 100%);
+            border-left: 3px solid var(--primary-gold);
+            color: var(--light-gold);
+            align-self: flex-start;
+            border-top-left-radius: 0;
+        }
+
+        .aastha-user-message {
+            background: linear-gradient(135deg, rgba(212,175,55,0.3) 0%, rgba(212,175,55,0.1) 100%);
+            border-right: 3px solid var(--primary-gold);
+            color: white;
+            align-self: flex-end;
+            border-top-right-radius: 0;
+        }
+
+        /* Chat Input */
+        #aastha-chatbot-input-area {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-top: 1px solid rgba(212,175,55,0.3);
+            background: rgba(25,5,30,0.9);
+        }
+
+        #aastha-chatbot-input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--primary-gold);
+            background: rgba(45,10,49,0.7);
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #aastha-chatbot-input:focus {
+            box-shadow: 0 0 5px var(--primary-gold);
+            border-color: var(--primary-gold);
+        }
+
+        #aastha-chatbot-input::placeholder {
+            color: rgba(241,229,188,0.5);
+        }
+
+        #aastha-chatbot-send {
+            background: var(--primary-gold);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--deep-purple);
+        }
+
+        #aastha-chatbot-send:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(212,175,55,0.7);
+        }
+
+        /* Welcome Screen */
+        #aastha-welcome-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, rgba(25,5,30,0.95) 0%, rgba(45,10,49,0.95) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #aastha-welcome-screen.hidden {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+        }
+
+        #aastha-welcome-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-gold);
+            margin-bottom: 20px;
+            box-shadow: var(--mystical-glow);
+        }
+
+        #aastha-welcome-title {
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--primary-gold);
+            margin: 0 0 10px 0;
+            text-align: center;
+        }
+
+        #aastha-welcome-subtitle {
+            font-size: 14px;
+            color: var(--light-gold);
+            margin: 0 0 25px 0;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        #aastha-start-chat {
+            padding: 12px 25px;
+            background: var(--primary-gold);
+            color: var(--deep-purple);
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #aastha-start-chat:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212,175,55,0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; transform: scale(0.8); }
+            50% { opacity: 0.3; transform: scale(1.1); }
+            100% { opacity: 0.6; transform: scale(0.8); }
+        }
+
+        /* Floating text animation for the button */
+        #ask-aastha-text {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: var(--deep-purple);
+            color: var(--primary-gold);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            border: 1px solid var(--primary-gold);
+            pointer-events: none;
+        }
+
+        #ask-aastha-text::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 25px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid var(--deep-purple);
+        }
+
+        #aastha-chatbot-button:hover #ask-aastha-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Divine floating particles */
+        .divine-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 5s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.2; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Aastha Chatbot Button -->
+    <div id="aastha-chatbot-button" onclick="toggleChatbot()">
+        <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Aastha">
+        <div id="ask-aastha-text">Ask Aastha</div>
     </div>
 
-    <!-- Chatbot Container -->
-    <div id="rsm-base-chatbot-container">
-        <div id="rsm-base-chatbot-header">
-            <span>AI Chatbot</span>
-            <button onclick="toggleChatbot()">✖</button>
+    <!-- Aastha Chatbot Container -->
+    <div id="aastha-chatbot-container">
+        <!-- Chat Header -->
+        <div id="aastha-chatbot-header">
+            <div id="aastha-chatbot-header-title">
+                <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Aastha">
+                <div>
+                    <h3>Aastha</h3>
+                    <div id="aastha-chatbot-header-status">
+                        <span id="aastha-status-dot"></span>
+                        <span>Online now</span>
+                    </div>
+                </div>
+            </div>
+            <button id="aastha-chatbot-close" onclick="toggleChatbot()">✖</button>
         </div>
-        <div id="rsm-base-chatbot-messages"></div>
-        <div id="rsm-base-chatbot-input-container">
-            <input type="text" id="rsm-base-chatbot-input" placeholder="Ask me something..." onkeypress="sendMessage(event)">
+
+        <!-- Welcome Screen -->
+        <div id="aastha-welcome-screen">
+            <img id="aastha-welcome-avatar" src="{{ url_for('static', filename='images/logo1.png') }}" alt="Aastha">
+            <h2 id="aastha-welcome-title">Welcome to Aastha </h2>
+            <p id="aastha-welcome-subtitle">I'm here to guide you for any of your questions regarding our website</p>
+            <button id="aastha-start-chat" onclick="startChat()">Ask Aastha</button>
         </div>
+        
+        <!-- Chat Messages -->
+        <div id="aastha-chatbot-messages"></div>
+
+        <!-- Chat Input -->
+        <div id="aastha-chatbot-input-area">
+            <input type="text" id="aastha-chatbot-input" placeholder="Ask Aastha anything..." onkeypress="handleKeyPress(event)">
+            <button id="aastha-chatbot-send" onclick="sendMessage()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Divine particles effect -->
+        <div class="divine-particles" id="particles-container"></div>
     </div>
+    <style>
+        .spinner {
+          border: 4px solid #f3f3f3;
+          border-top: 4px solid #555;
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+          animation: spin 1s linear infinite;
+          display: inline-block;
+          margin-left: 10px;
+          vertical-align: middle;
+        }
+      
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      </style>
+      
+    <script>
+        // Initialize divine particles
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random positioning
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.bottom = `${Math.random() * 100}%`;
+                particle.style.opacity = Math.random() * 0.5;
+                
+                // Random animation delay
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particle.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Toggle chatbot visibility
+        function toggleChatbot() {
+            const chatbotContainer = document.getElementById('aastha-chatbot-container');
+            chatbotContainer.classList.toggle('active');
+        }
+
+        // Start the chat (hide welcome screen)
+        function startChat() {
+            document.getElementById('aastha-welcome-screen').classList.add('hidden');
+            
+            // Add initial bot message after a short delay
+            setTimeout(() => {
+                addBotMessage("Haraye Namah! 🙏 I am Aastha, your guide for this website. How may I help you?");
+            }, 500);
+        }
+
+        // Handle Enter key press
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Send message
+        function sendMessage() {
+    const input = document.getElementById('aastha-chatbot-input');
+    const message = input.value.trim();
+
+    if (message) {
+        addUserMessage(message);
+        input.value = '';
+
+        const messagesContainer = document.getElementById('aastha-chatbot-messages');
+
+        // Add spinner message
+        const spinnerMessage = document.createElement('div');
+        spinnerMessage.classList.add('aastha-message', 'aastha-bot-message');
+        spinnerMessage.innerHTML = `Thinking... <span class="spinner"></span>`;
+        messagesContainer.appendChild(spinnerMessage);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+        // Fetch response from Flask + Gemini
+        fetch('/get_gemini_response', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_input: message })
+        })
+        .then(response => response.json())
+        .then(data => {
+            spinnerMessage.remove();  // Remove spinner message
+            addBotMessage(data.response || "No response received.");
+        })
+        .catch(error => {
+            spinnerMessage.remove();
+            console.error("Error:", error);
+            addBotMessage("Sorry, there was an error processing your request.");
+        });
+    }
+}
+
+
+
+
+        // Add user message to chat
+        function addUserMessage(message) {
+            const messagesContainer = document.getElementById('aastha-chatbot-messages');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('aastha-message', 'aastha-user-message');
+            messageElement.textContent = message;
+            messagesContainer.appendChild(messageElement);
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Add bot message to chat
+        function addBotMessage(message) {
+            const messagesContainer = document.getElementById('aastha-chatbot-messages');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('aastha-message', 'aastha-bot-message');
+            messageElement.textContent = message;
+            messagesContainer.appendChild(messageElement);
+            
+            // Scroll to bottom
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            createParticles();
+        };
+    </script>
 
     <!-- JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

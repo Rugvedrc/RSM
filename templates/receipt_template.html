@@ -4,424 +4,481 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raghavendra Swami Math - Seva Receipt</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Raleway', sans-serif;
-            background-color: #f9f7f5;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .receipt-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: linear-gradient(to bottom, #ffffff, #faf8f6);
-            border-radius: 12px;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
-            padding: 0;
-            position: relative;
-            overflow: hidden;
-        }
+<style>
+    /* Raghavendra Swami Math - Seva Receipt Styling */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
 
-        .ornamental-border {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            border: 1px solid #e0d5c8;
-            border-radius: 12px;
-        }
-        
-        .ornamental-border::before {
-            content: "";
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            right: 8px;
-            bottom: 8px;
-            border: 2px solid #f0e4d7;
-            border-radius: 8px;
-        }
-        
-        .receipt-header {
-            background: linear-gradient(135deg, #ffa057, #ff7e5f);
-            color: #fff;
-            position: relative;
-            padding: 30px 40px;
-            border-radius: 12px 12px 0 0;
-            box-shadow: 0 4px 15px rgba(255, 126, 95, 0.3);
-        }
-        
-        .mandala-bg {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 150px;
-            background-image: radial-gradient(circle at center, transparent 0%, transparent 40%, rgba(255,255,255,0.1) 40%, rgba(255,255,255,0.1) 60%, transparent 60%, transparent 100%);
-            opacity: 0.6;
-        }
-        
-        .header-content {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 25px;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .logo-container {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            padding: 6px;
-        }
-        
-        .logo-inner {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        
-        .header-text {
-            padding-left: 10px;
-        }
-        
-        .header-text h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 5px;
-            letter-spacing: 0.5px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-        
-        .math-address {
-            font-size: 16px;
-            font-weight: 300;
-            opacity: 0.9;
-        }
-        
-        .receipt-title {
-            background: rgba(255, 255, 255, 0.15);
-            display: inline-block;
-            padding: 8px 15px;
-            margin-top: 12px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-        
-        .receipt-title h2 {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 0;
-        }
-        
-        .receipt-id {
-            font-size: 14px;
-            margin-top: 4px;
-            opacity: 0.9;
-        }
-        
-        .receipt-content {
-            padding: 35px 40px;
-            position: relative;
-        }
-        
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            color: #ff7e5f;
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .section-title::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(to right, #ff7e5f20, transparent);
-            margin-left: 10px;
-        }
-        
-        .section-icon {
-            background: linear-gradient(135deg, #ffa057, #ff7e5f);
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 14px;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px 30px;
-            margin-bottom: 30px;
-        }
-        
-        .info-item {
-            position: relative;
-        }
-        
-        .info-label {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 5px;
-        }
-        
-        .info-value {
-            font-size: 16px;
-            font-weight: 500;
-            color: #333;
-        }
-        
-        .highlight {
-            color: #ff7e5f;
-            font-weight: 600;
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-        
-        .status-complete {
-            background-color: #e3f5e9;
-            color: #1e8a4c;
-        }
-        
-        .status-pending {
-            background-color: #fff4e5;
-            color: #c17702;
-        }
-        
-        .family-section {
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: #f9f7f5;
-            border-radius: 10px;
-        }
-        
-        .family-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        
-        .family-table th {
-            background-color: #f0e4d7;
-            text-align: left;
-            padding: 10px 15px;
-            font-weight: 600;
-            color: #7d6148;
-            font-size: 14px;
-            border-radius: 5px 5px 0 0;
-        }
-        
-        .family-table td {
-            padding: 10px 15px;
-            border-bottom: 1px solid #f0e4d7;
-            font-size: 14px;
-        }
-        
-        .family-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .family-table tr:nth-child(even) {
-            background-color: #fafafa;
-        }
-        
-        .special-instructions {
-            padding: 20px;
-            background-color: #f9f7f5;
-            border-radius: 10px;
-            position: relative;
-            margin-bottom: 30px;
-        }
-        
-        .instructions-content {
-            font-size: 14px;
-            color: #555;
-            font-style: italic;
-            padding: 0 5px;
-        }
-        
-        .instructions-decoration {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            font-size: 26px;
-            color: #e0d5c8;
-            opacity: 0.7;
-        }
-        
-        .quote-left {
-            top: 5px;
-            left: 5px;
-        }
-        
-        .quote-right {
-            bottom: 5px;
-            right: 5px;
-        }
-        
-        .signature-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 25px;
-            gap: 20px;
-        }
-        
-        .signature-box {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .signature-line {
-            display: block;
-            height: 1px;
-            background-color: #ddd;
-            margin-bottom: 8px;
-        }
-        
-        .signature-text {
-            font-size: 12px;
-            color: #888;
-        }
-        
-        .seal-container {
-            width: 80px;
-            height: 80px;
-            position: relative;
-        }
-        
-        .seal {
-            width: 100%;
-            height: 100%;
-            border: 1px dashed #ff7e5f;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: rotate 60s linear infinite;
-        }
-        
-        .seal::before {
-            content: "";
-            position: absolute;
-            top: 4px;
-            left: 4px;
-            right: 4px;
-            bottom: 4px;
-            border: 1px dashed #ff7e5f;
-            border-radius: 50%;
-        }
-        
-        .seal-inner {
-            font-size: 30px;
-            color: #ff7e5f;
-        }
-        
-        .receipt-footer {
-            background: linear-gradient(to right, #f4f1ec, #f9f7f5, #f4f1ec);
-            padding: 20px;
-            text-align: center;
-            border-radius: 0 0 12px 12px;
-            border-top: 1px solid #f0e4d7;
-        }
-        
-        .footer-decoration {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .decoration-item {
-            color: #ff7e5f;
-            font-size: 16px;
-        }
-        
-        .decoration-line {
-            width: 40px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #ff7e5f, transparent);
-            margin: 0 10px;
-        }
-        
-        .footer-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 16px;
-            font-weight: 600;
-            color: #ff7e5f;
-            margin-bottom: 8px;
-        }
-        
-        .footer-info {
-            font-size: 12px;
-            color: #888;
-        }
-        
-        .footer-info p {
-            margin: 3px 0;
-        }
+:root {
+    --primary-gold: #d4af37;
+    --light-gold: #f7e9a3;
+    --dark-gold: #846c15;
+    --deep-blue: #0a0a2a;
+    --mystical-purple: #2e0854;
+    --light-purple: #5d3c81;
+    --base-color: #f9f5ea;
+    --text-color: #333;
+}
 
-        @media print {
-            body {
-                background: none;
-                margin: 0;
-                padding: 0;
-            }
-            
-            .receipt-container {
-                width: 100%;
-                max-width: none;
-                margin: 0;
-                box-shadow: none;
-                page-break-after: always;
-            }
-            
-            @page {
-                size: A4;
-                margin: 0.5cm;
-            }
-        }
-    </style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--deep-blue), var(--mystical-purple));
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.receipt-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    background: var(--base-color);
+    box-shadow: 0 15px 60px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 20px auto;
+}
+
+.ornamental-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid var(--primary-gold);
+    border-radius: 15px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.ornamental-border::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 2px solid var(--primary-gold);
+    border-radius: 12px;
+    opacity: 0.5;
+}
+
+/* Header Styling */
+.receipt-header {
+    position: relative;
+    background: linear-gradient(to right, var(--mystical-purple), var(--deep-blue));
+    color: white;
+    padding: 30px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.mandala-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.2) 100%),
+                     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cpath fill='none' stroke='%23d4af37' stroke-width='1' d='M200,20 A180,180 0 0,1 200,380 A180,180 0 0,1 200,20 Z M200,40 A160,160 0 0,1 200,360 A160,160 0 0,1 200,40 Z M200,60 A140,140 0 0,1 200,340 A140,140 0 0,1 200,60 Z M200,80 A120,120 0 0,1 200,320 A120,120 0 0,1 200,80 Z M200,100 A100,100 0 0,1 200,300 A100,100 0 0,1 200,100 Z'/%3E%3C/svg%3E");
+    background-size: cover;
+    background-position: center;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.header-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.logo-inner {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+    padding: 10px;
+}
+
+.logo-inner img {
+    max-width: 100%;
+    height: auto;
+}
+
+.header-text h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(to right, var(--light-gold), var(--primary-gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: 1px;
+}
+
+.math-address {
+    font-size: 1rem;
+    color: var(--light-gold);
+    margin-bottom: 15px;
+}
+
+.receipt-title {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    width: 80%;
+}
+
+.receipt-title h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.receipt-id {
+    font-size: 0.9rem;
+    color: var(--light-gold);
+    font-weight: 500;
+}
+
+/* Content Styling */
+.receipt-content {
+    padding: 30px;
+    position: relative;
+}
+
+.receipt-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--primary-gold), transparent);
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    color: var(--mystical-purple);
+    margin: 25px 0 15px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: var(--primary-gold);
+    border-radius: 3px;
+}
+
+.section-title:first-of-type {
+    margin-top: 0;
+}
+
+.section-icon {
+    margin-right: 10px;
+    background: var(--light-purple);
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.info-item {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    border-left: 3px solid var(--primary-gold);
+    transition: transform 0.3s ease;
+}
+
+.info-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.info-label {
+    font-size: 0.85rem;
+    color: var(--mystical-purple);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    font-size: 1rem;
+    color: var(--text-color);
+    word-break: break-word;
+}
+
+.info-value.highlight {
+    color: var(--mystical-purple);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-complete {
+    background-color: rgba(39, 174, 96, 0.15);
+    color: #27ae60;
+}
+
+.status-pending {
+    background-color: rgba(243, 156, 18, 0.15);
+    color: #f39c12;
+}
+
+/* Family Members Table */
+.family-section {
+    margin-bottom: 25px;
+}
+
+.family-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.family-table th, .family-table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.family-table th {
+    background: var(--light-purple);
+    color: white;
+    font-weight: 500;
+}
+
+.family-table tr:nth-child(even) {
+    background-color: rgba(93, 60, 129, 0.05);
+}
+
+.family-table tr:hover {
+    background-color: rgba(212, 175, 55, 0.1);
+}
+
+/* Special Instructions */
+.special-instructions {
+    position: relative;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    padding: 20px 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.instructions-decoration {
+    position: absolute;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    color: var(--primary-gold);
+    opacity: 0.3;
+    line-height: 0;
+}
+
+.quote-left {
+    top: 15px;
+    left: 10px;
+}
+
+.quote-right {
+    bottom: 0;
+    right: 10px;
+}
+
+.instructions-content {
+    position: relative;
+    z-index: 1;
+    font-style: italic;
+    color: var(--text-color);
+}
+
+/* Signature Section */
+.signature-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0 20px;
+}
+
+.signature-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+}
+
+.signature-line {
+    width: 100%;
+    height: 1px;
+    background: var(--primary-gold);
+    margin-bottom: 5px;
+}
+
+.signature-text {
+    font-size: 0.9rem;
+    color: var(--mystical-purple);
+}
+
+.seal-container {
+    display: flex;
+    justify-content: center;
+    width: 20%;
+}
+
+.seal {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px dashed var(--primary-gold);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.seal::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 1px solid var(--primary-gold);
+    border-radius: 50%;
+    opacity: 0.7;
+}
+
+.seal-inner {
+    font-size: 2rem;
+    color: var(--primary-gold);
+    font-family: 'Cormorant Garamond', serif;
+}
+
+/* Footer Styling */
+.receipt-footer {
+    background: linear-gradient(to right, var(--mystical-purple), var(--deep-blue));
+    color: white;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.footer-decoration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.decoration-item {
+    color: var(--primary-gold);
+    font-size: 1.5rem;
+}
+
+.decoration-line {
+    height: 1px;
+    width: 80px;
+    background: linear-gradient(to right, transparent, var(--primary-gold), transparent);
+    margin: 0 15px;
+}
+
+.footer-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, var(--light-gold), var(--primary-gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.footer-info {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-info p {
+    margin: 5px 0;
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+    
+    .receipt-container {
+        box-shadow: none;
+        margin: 0;
+        max-width: 100%;
+    }
+    
+    .info-item:hover {
+        transform: none;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .family-table tr:hover {
+        background-color: rgba(93, 60, 129, 0.05);
+    }
+}
+</style>
 </head>
 <body>
     <div class="receipt-container">

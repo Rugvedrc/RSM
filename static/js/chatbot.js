@@ -1,382 +1,220 @@
-
-// Smooth scrolling for Contact section
-const contactLink = document.querySelector('a[href="#rsm-index-contact-section"]');
-if (contactLink) {
-    contactLink.addEventListener('click', function (event) {
-        event.preventDefault();
-        const contactSection = document.getElementById('rsm-index-contact-section');
-        if (contactSection) {
-            contactSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-}
-
-// Initialize the chatbot container
-const chatbotContainer = document.getElementById('rsm-base-chatbot-container');
-if (chatbotContainer) {
-    chatbotContainer.style.display = 'none';
-}
-
-
-// Function to toggle chatbot visibility
-function toggleChatbot() {
-    const chatbotContainer = document.getElementById('rsm-base-chatbot-container');
-
-    if (chatbotContainer.style.display === 'flex' || chatbotContainer.style.display === 'block') {
-        // Hide chatbot
-        chatbotContainer.style.display = 'none';
-        chatbotContainer.classList.remove('active');
-    } else {
-        // Show chatbot
-        chatbotContainer.style.display = 'flex';
-        chatbotContainer.classList.add('active');
-
-        // Add welcome message if this is the first time opening
-        if (chatbotContainer.dataset.initialized !== 'true') {
-            const messagesContainer = document.getElementById('rsm-base-chatbot-messages');
-            if (messagesContainer && messagesContainer.children.length === 0) {
-                addMessage('bot', 'Haraye Namah! Welcome to Raghavendra Swami Math. How can I assist you today? 🙏');
-                chatbotContainer.dataset.initialized = 'true';
-            }
-        }
-
-        // Focus on input when opened
-        document.getElementById('rsm-base-chatbot-input').focus();
-    }
-}
-
-// Function to add a message to the chat window
-function addMessage(sender, message, isTemporary = false) {
-    const messagesContainer = document.getElementById('rsm-base-chatbot-messages');
-
-    // If a temporary message already exists, remove it before adding a new one
-    if (isTemporary) {
-        const existingTempMsg = messagesContainer.querySelector("[data-temp='true']");
-        if (existingTempMsg) {
-            messagesContainer.removeChild(existingTempMsg);
-        }
-    }
-
-    // Create message element
-    const messageElement = document.createElement('div');
-
-    if (sender === 'bot' && message === 'Thinking... 🤔') {
-        // Create typing indicator for "Thinking..." message
-        messageElement.className = 'typing-indicator';
-        messageElement.innerHTML = '<span></span><span></span><span></span>';
-    } else {
-        // Regular message content
-        messageElement.className = `message ${sender === 'user' ? 'user-message' : 'bot-message'}`;
-        messageElement.textContent = message;
-    }
-
-    // Append message element to messages container
-    messagesContainer.appendChild(messageElement);
-
-    // Mark as temporary if needed
-    if (isTemporary) {
-        messageElement.setAttribute('data-temp', 'true');
-    }
-
-    // Smooth scroll to the latest message
-    setTimeout(() => {
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }, 100);
-}
-
-// Function to handle message sending
-function sendMessage(event) {
-    // Check if Enter key is pressed
-    if (event.key === 'Enter') {
-        const input = document.getElementById('rsm-base-chatbot-input');
-        const message = input.value.trim();
-
-        if (message) {
-            // Add user message to chat
-            addMessage('user', message);
-
-            // Clear input field
-            input.value = '';
-
-            // Show thinking indicator
-            addMessage('bot', 'Thinking... 🤔', true);
-
-            // Send message to Gemini AI
-            fetch("/get_gemini_response", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ user_input: message })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // Remove "Thinking..." and add AI response
-                    removeLastBotMessage();
-                    addMessage('bot', data.response);
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    removeLastBotMessage();
-                    addMessage('bot', 'Sorry, something went wrong. 🙏');
-                });
-        }
-    }
-}
-
-function removeLastBotMessage() {
-    const chatContainer = document.getElementById('rsm-base-chatbot-messages');
-    const typingIndicators = chatContainer.getElementsByClassName('typing-indicator');
-    if (typingIndicators.length > 0) {
-        chatContainer.removeChild(typingIndicators[0]);
-    } else {
-        const messages = chatContainer.getElementsByClassName('bot-message');
-        if (messages.length > 0) {
-            chatContainer.removeChild(messages[messages.length - 1]);
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const container = document.getElementById('rsm-booking-form-family-container');
-
-document.querySelector('.rsm-booking-form-family-add').addEventListener('click', function () {
-    const newRow = document.createElement('div');
-    newRow.className = 'rsm-booking-form-family-row';
-    newRow.innerHTML = `
-        <div class="rsm-booking-form-family-column-1">
-            <input type="text" name="familyName[]" placeholder="Name">
-        </div>
-        <div class="rsm-booking-form-family-column-2">
-            <input type="text" name="familyRelation[]" placeholder="Relation">
-        </div>
-        <div class="rsm-booking-form-family-column-3">
-            <button type="button" class="rsm-booking-form-family-remove">Remove</button>
-        </div>
-    `;
-    container.appendChild(newRow);
-
-    // Add event listener to the new remove button
-    newRow.querySelector('.rsm-booking-form-family-remove').addEventListener('click', function () {
-        container.removeChild(newRow);
-    });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Get all required elements
-    const slides = document.querySelectorAll('.rsm-index-hero-carousel-slide');
-    const dots = document.querySelectorAll('.rsm-index-hero-carousel-dot');
-    const prevButton = document.querySelector('.rsm-index-hero-carousel-prev');
-    const nextButton = document.querySelector('.rsm-index-hero-carousel-next');
+    // Navigation menu toggle functionality
+    const navToggler = document.getElementById('rsm-base-nav-toggler');
     
-    // Check if carousel elements exist on the page
-    if (!slides.length) {
-      console.log('No carousel slides found');
-      return;
+    if (navToggler) {
+      navToggler.addEventListener('click', function() {
+        document.body.classList.toggle('menu-open');
+      });
     }
     
-    let currentSlide = 0;
-    let slideInterval;
+    // Close menu when clicking outside of it
+    document.addEventListener('click', function(event) {
+      const isNavMenu = event.target.closest('#rsm-base-nav-menu');
+      const isNavToggler = event.target.closest('#rsm-base-nav-toggler');
+      
+      if (!isNavMenu && !isNavToggler && document.body.classList.contains('menu-open')) {
+        document.body.classList.remove('menu-open');
+      }
+    });
     
-    // Function to show a specific slide
-    function goToSlide(index) {
-      // Remove active class from all slides and dots
-      slides.forEach(slide => slide.classList.remove('active'));
-      dots.forEach(dot => dot.classList.remove('active'));
+    // Close menu when pressing escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && document.body.classList.contains('menu-open')) {
+        document.body.classList.remove('menu-open');
+      }
+    });
+    
+    // Add scroll effect to navigation
+    window.addEventListener('scroll', function() {
+      const nav = document.getElementById('rsm-base-nav-section');
       
-      // Handle index out of bounds
-      if (index < 0) index = slides.length - 1;
-      if (index >= slides.length) index = 0;
+      if (window.scrollY > 50) {
+        nav.style.background = 'linear-gradient(to right, rgba(26, 26, 46, 0.98), rgba(22, 33, 62, 0.98))';
+        nav.style.boxShadow = '0 4px 30px rgba(255, 215, 0, 0.3)';
+      } else {
+        nav.style.background = 'linear-gradient(to right, rgba(26, 26, 46, 0.95), rgba(22, 33, 62, 0.95))';
+        nav.style.boxShadow = '0 4px 30px rgba(255, 215, 0, 0.2)';
+      }
+    });
+    
+    // Highlight current page in navigation
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('#rsm-base-nav-menu-list li a');
+    
+    navLinks.forEach(link => {
+      const linkPath = new URL(link.href).pathname;
       
-      // Set active class to current slide and dot
-      slides[index].classList.add('active');
-      dots[index].classList.add('active');
-      
-      // Update current slide index
-      currentSlide = index;
-      
-      console.log('Changed to slide', index);
+      if (currentPath === linkPath) {
+        link.style.color = '#ffd700';
+        link.style.fontWeight = '600';
+        link.style.backgroundColor = 'rgba(255, 215, 0, 0.12)';
+        link.style.textShadow = '0 0 8px rgba(255, 215, 0, 0.3)';
+        
+        const indicator = document.createElement('span');
+        indicator.style.position = 'absolute';
+        indicator.style.bottom = '0';
+        indicator.style.left = '50%';
+        indicator.style.width = '70%';
+        indicator.style.height = '2px';
+        indicator.style.background = 'linear-gradient(90deg, #ffd700, #ff9d00)';
+        indicator.style.transform = 'translateX(-50%)';
+        indicator.style.boxShadow = '0 0 10px #ffd700';
+        
+        link.appendChild(indicator);
+      }
+    });
+    
+    // Add divine light effect to logo
+    const logoImg = document.getElementById('rsm-base-nav-logo-img');
+    if (logoImg) {
+      setInterval(() => {
+        logoImg.style.filter = 'drop-shadow(0 0 8px rgba(255, 215, 0, 0.4))';
+        
+        setTimeout(() => {
+          logoImg.style.filter = 'drop-shadow(0 0 12px rgba(255, 215, 0, 0.7))';
+        }, 1000);
+        
+        setTimeout(() => {
+          logoImg.style.filter = 'drop-shadow(0 0 10px rgba(255, 215, 0, 0.5))';
+        }, 2000);
+      }, 3000);
     }
     
-    // Function to go to next slide
-    function nextSlide() {
-      goToSlide(currentSlide + 1);
-    }
-    
-    // Function to go to previous slide
-    function prevSlide() {
-      goToSlide(currentSlide - 1);
-    }
-    
-    // Start automatic slideshow
-    function startSlideshow() {
-      // Clear any existing interval
-      if (slideInterval) {
-        clearInterval(slideInterval);
+    // Add divine particle effect
+    const createDivineParticles = () => {
+      const nav = document.getElementById('rsm-base-nav-section');
+      
+      if (!nav) return;
+      
+      for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('span');
+        particle.className = 'divine-particle';
+        particle.style.position = 'absolute';
+        particle.style.width = Math.random() * 4 + 1 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.background = '#ffd700';
+        particle.style.borderRadius = '50%';
+        particle.style.opacity = Math.random() * 0.5 + 0.1;
+        particle.style.boxShadow = '0 0 10px rgba(255, 215, 0, 0.5)';
+        
+        // Random position
+        const posX = Math.random() * 100;
+        particle.style.left = posX + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        
+        // Animation
+        particle.style.animation = `float-y ${Math.random() * 3 + 2}s infinite ease-in-out alternate, 
+                                  float-x ${Math.random() * 5 + 3}s infinite ease-in-out alternate`;
+        
+        nav.appendChild(particle);
       }
       
-      slideInterval = setInterval(nextSlide, 5000);
-      console.log('Started slideshow');
-    }
+      // Add keyframes for particle animation
+      if (!document.getElementById('divine-particle-style')) {
+        const style = document.createElement('style');
+        style.id = 'divine-particle-style';
+        style.innerHTML = `
+          @keyframes float-y {
+            from { transform: translateY(0); }
+            to { transform: translateY(20px); }
+          }
+          @keyframes float-x {
+            from { transform: translateX(0); }
+            to { transform: translateX(20px); }
+          }
+          .divine-particle {
+            pointer-events: none;
+            z-index: -1;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    };
     
-    // Add event listeners
-    prevButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      prevSlide();
-      // Restart slideshow timer after manual navigation
-      startSlideshow();
-      console.log('Previous button clicked');
-    });
-    
-    nextButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      nextSlide();
-      // Restart slideshow timer after manual navigation
-      startSlideshow();
-      console.log('Next button clicked');
-    });
-    
-    // Add click events to dots
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', function(e) {
-        e.preventDefault();
-        goToSlide(index);
-        // Restart slideshow timer after manual navigation
-        startSlideshow();
-        console.log('Dot', index, 'clicked');
-      });
-    });
-    
-    // Initialize the carousel
-    goToSlide(0);
-    startSlideshow();
-    
-    console.log('Carousel initialized with', slides.length, 'slides');
+    // Run particle effect
+    createDivineParticles();
   });
 
 
 
-
-
-
-
-
-
-
-
-
-  // Function to toggle category sections
-function toggleCategory(element) {
-    // Find the content associated with this category header
-    const categoryContent = element.nextElementSibling;
-    const toggleIcon = element.querySelector('.rsm-booking-category-toggle');
-    
-    // Toggle visibility
-    if (categoryContent.style.display === 'block') {
-        categoryContent.style.display = 'none';
-        toggleIcon.textContent = '+';
-    } else {
-        categoryContent.style.display = 'block';
-        toggleIcon.textContent = '-';
-    }
-}
-
-// Function to toggle individual seva details
-function toggleSeva(element) {
-    const details = element.nextElementSibling;
-    const toggleSpan = element.querySelector('.rsm-booking-seva-toggle');
-    
-    if (details.style.display === 'block') {
-        details.style.display = 'none';
-        toggleSpan.textContent = '+';
-    } else {
-        details.style.display = 'block';
-        toggleSpan.textContent = '-';
-        
-        // Add Book Seva button if it doesn't exist
-        if (!details.querySelector('.rsm-booking-book-button')) {
-            const bookButton = document.createElement('button');
-            bookButton.className = 'rsm-booking-book-button';
-            bookButton.textContent = 'Book Seva';
-            
-            // Get the seva name from the parent element
-            const sevaName = element.querySelector('.rsm-booking-seva-name').textContent;
-            
-            bookButton.addEventListener('click', function() {
-                // Scroll to booking form
-                document.getElementById('rsm-booking-form-section').scrollIntoView({ behavior: 'smooth' });
-                
-                // Set the selected seva in the dropdown
-                const sevaSelect = document.getElementById('rsm-booking-form-sevaType');
-                for (let i = 0; i < sevaSelect.options.length; i++) {
-                    if (sevaSelect.options[i].text.includes(sevaName)) {
-                        sevaSelect.selectedIndex = i;
-                        // Trigger the change event to update any dependent fields
-                        sevaSelect.dispatchEvent(new Event('change'));
-                        break;
-                    }
-                }
-            });
-            
-            details.appendChild(bookButton);
-        }
-    }
-}
-
-// Initialize all categories and sevas to be closed when page loads
+  /* Carousel JavaScript */
 document.addEventListener('DOMContentLoaded', function() {
-    // Hide all category content sections
-    const categoryContents = document.querySelectorAll('.rsm-booking-category-content');
-    categoryContents.forEach(function(content) {
-        content.style.display = 'none';
+  const slides = document.querySelectorAll('.rsm-index-hero-carousel-slide');
+  const dots = document.querySelectorAll('.rsm-index-hero-carousel-dot');
+  const prevBtn = document.querySelector('.rsm-index-hero-carousel-prev');
+  const nextBtn = document.querySelector('.rsm-index-hero-carousel-next');
+  let currentSlide = 0;
+  
+  function showSlide(n) {
+    slides.forEach((slide) => {
+      slide.classList.remove('active');
+    });
+    dots.forEach((dot) => {
+      dot.classList.remove('active');
     });
     
-    // Hide all seva details
-    const sevaDetails = document.querySelectorAll('.rsm-booking-seva-details');
-    sevaDetails.forEach(function(detail) {
-        detail.style.display = 'none';
-    });
+    currentSlide = (n + slides.length) % slides.length;
     
-    // Make sure all toggle icons show '+' initially
-    const toggleIcons = document.querySelectorAll('.rsm-booking-category-toggle, .rsm-booking-seva-toggle');
-    toggleIcons.forEach(function(icon) {
-        icon.textContent = '+';
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+  }
+  
+  function nextSlide() {
+    showSlide(currentSlide + 1);
+  }
+  
+  function prevSlide() {
+    showSlide(currentSlide - 1);
+  }
+  
+  prevBtn.addEventListener('click', prevSlide);
+  nextBtn.addEventListener('click', nextSlide);
+  
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      showSlide(index);
     });
+  });
+  
+  // Auto slide change
+  setInterval(nextSlide, 5000);
+});
+
+function toggleCategory(element) {
+  const content = element.nextElementSibling;
+  const toggle = element.querySelector('.rsm-booking-category-toggle');
+  
+  if (content.style.display === 'block') {
+      content.style.display = 'none';
+      element.classList.remove('active');
+  } else {
+      content.style.display = 'block';
+      element.classList.add('active');
+  }
+}
+
+function toggleSeva(element) {
+  const details = element.nextElementSibling;
+  const toggle = element.querySelector('.rsm-booking-seva-toggle');
+  
+  if (details.style.display === 'block') {
+      details.style.display = 'none';
+      element.classList.remove('active');
+  } else {
+      details.style.display = 'block';
+      element.classList.add('active');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Add shimmering effect to the header
+  const header = document.getElementById('rsm-booking-header-heading');
+  header.classList.add('glow-effect');
+  
+  // Initially expand the first category
+  const firstCategory = document.querySelector('.rsm-booking-category-header');
+  if (firstCategory) {
+      toggleCategory(firstCategory);
+  }
 });
