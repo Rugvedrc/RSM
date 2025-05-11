@@ -35,13 +35,7 @@
                         {% endif %}
                     {% endfor %}
                 </select>
-                <select id="statusFilter" onchange="filterBookings()">
-                    <option value="">All Statuses</option>
-                    <option value="pending">Pending</option>
-                    <option value="confirmed">Confirmed</option>
-                    <option value="completed">Completed</option>
-                    <option value="cancelled">Cancelled</option>
-                </select>
+
                 <button id="resetFilters" class="rsm-reset-btn" onclick="resetFilters()">Reset Filters</button>
             </div>
             
@@ -64,8 +58,8 @@
                             <th onclick="sortTable(2)">Seva Type <span class="sort-icon">⇕</span></th>
                             <th onclick="sortTable(3)">Date <span class="sort-icon">⇕</span></th>
                             <th onclick="sortTable(4)">Time <span class="sort-icon">⇕</span></th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <!-- <th>Status</th>
+                            <th>Actions</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -80,139 +74,6 @@
                             <td>{{ booking.seva_type }}</td>
                             <td>{{ booking.seva_date.strftime('%d %b, %Y') }}</td>
                             <td>{{ booking.seva_time }}</td>
-                            <td>
-                                <span class="rsm-status-badge status-{{ booking.status|default('pending') }}">
-                                    {{ booking.status|default('pending')|capitalize }}
-                                </span>
-                            </td>
-                            <td>
-                                <div class="rsm-action-buttons">
-                                    <button class="rsm-view-details-btn" onclick="showDetails('{{ loop.index }}')">View</button>
-                                    <div class="rsm-dropdown">
-                                        <button class="rsm-dropdown-btn">⋮</button>
-                                        <div class="rsm-dropdown-content">
-                                            <a href="#" onclick="updateStatus('{{ booking.id }}', 'confirmed')">Confirm</a>
-                                            <a href="#" onclick="updateStatus('{{ booking.id }}', 'cancelled')">Cancel</a>
-                                            <a href="#" onclick="updateStatus('{{ booking.id }}', 'completed')">Complete</a>
-                                            <a href="#" onclick="sendReminder('{{ booking.id }}')">Send Reminder</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Booking Details Modal -->
-                                <div id="details-{{ loop.index }}" class="rsm-booking-details" style="display:none;">
-                                    <div class="rsm-details-content">
-                                        <h3>Booking Details</h3>
-                                        
-                                        <div class="rsm-detail-grid">
-                                            <div class="rsm-detail-item">
-                                                <span class="rsm-detail-label">Name:</span>
-                                                <span class="rsm-detail-value">{{ booking.name }}</span>
-                                            </div>
-                                            
-                                            <div class="rsm-detail-item">
-                                                <span class="rsm-detail-label">Email:</span>
-                                                <span class="rsm-detail-value">{{ booking.email }}</span>
-                                            </div>
-                                            
-                                            <div class="rsm-detail-item">
-                                                <span class="rsm-detail-label">Phone:</span>
-                                                <span class="rsm-detail-value">{{ booking.phone }}</span>
-                                            </div>
-                                            
-                                            <div class="rsm-detail-item">
-                                                <span class="rsm-detail-label">Seva Type:</span>
-                                                <span class="rsm-detail-value">{{ booking.seva_type }}</span>
-                                            </div>
-                                            
-                                            <div class="rsm-detail-item">
-                                                <span class="rsm-detail-label">Date:</span>
-                                                <span class="rsm-detail-value">{{ booking.seva_date.strftime('%d %b, %Y') }}</span>
-                                            </div>
-                                            
-                                            <div class="rsm-detail-item">
-                                                <span class="rsm-detail-label">Time:</span>
-                                                <span class="rsm-detail-value">{{ booking.seva_time }}</span>
-                                            </div>
-                                            
-                                            <div class="rsm-detail-item">
-                                                <span class="rsm-detail-label">Gothra:</span>
-                                                <span class="rsm-detail-value">{{ booking.gothra or 'Not provided' }}</span>
-                                            </div>
-                                            
-                                            <div class="rsm-detail-item">
-                                                <span class="rsm-detail-label">Nakshatra:</span>
-                                                <span class="rsm-detail-value">{{ booking.nakshatra or 'Not provided' }}</span>
-                                            </div>
-                                            
-                                            <div class="rsm-detail-item">
-                                                <span class="rsm-detail-label">Payment Method:</span>
-                                                <span class="rsm-detail-value">{{ booking.payment_method }}</span>
-                                            </div>
-                                            
-                                            <div class="rsm-detail-item">
-                                                <span class="rsm-detail-label">Status:</span>
-                                                <span class="rsm-detail-value">{{ booking.status|default('pending')|capitalize }}</span>
-                                            </div>
-                                            
-                                            <div class="rsm-detail-item">
-                                                <span class="rsm-detail-label">Booking Time:</span>
-                                                <span class="rsm-detail-value">{{ booking.booking_time.strftime('%d %b, %Y %H:%M') }}</span>
-                                            </div>
-                                        </div>
-                                        
-                                        {% if booking.special_instructions %}
-                                        <div class="rsm-detail-item full-width">
-                                            <span class="rsm-detail-label">Special Instructions:</span>
-                                            <span class="rsm-detail-value">{{ booking.special_instructions }}</span>
-                                        </div>
-                                        {% endif %}
-                                        
-                                        {% if booking.family_members %}
-                                        <div class="rsm-detail-item full-width">
-                                            <span class="rsm-detail-label">Family Members:</span>
-                                            <div class="rsm-detail-value">
-                                                <ul class="rsm-family-list" id="family-members-{{ loop.index }}">
-                                                    <!-- Family members will be populated via JavaScript -->
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <script>
-                                            document.addEventListener('DOMContentLoaded', function() {
-                                                try {
-                                                    let familyData = {{ booking.family_members|tojson }};
-                                                    const familyList = document.getElementById('family-members-{{ loop.index }}');
-                                                    
-                                                    if(familyData && familyList) {
-                                                        // If already JSON, no need to parse again
-                                                        if (typeof familyData === 'string') {
-                                                            familyData = JSON.parse(familyData);
-                                                        }
-                                                        
-                                                        familyData.forEach(function(member) {
-                                                            const li = document.createElement('li');
-                                                            li.textContent = `${member.name} (${member.relation})`;
-                                                            familyList.appendChild(li);
-                                                        });
-                                                    }
-                                                } catch(e) {
-                                                    console.error('Error parsing family members:', e);
-                                                    document.getElementById('family-members-{{ loop.index }}').innerHTML = 
-                                                        '<li class="error">Error displaying family members</li>';
-                                                }
-                                            });
-                                        </script>
-                                        {% endif %}
-                                        
-                                        <div class="rsm-detail-actions">
-                                            <button class="rsm-status-btn confirm" onclick="updateStatus('{{ booking.id }}', 'confirmed')">Confirm</button>
-                                            <button class="rsm-status-btn cancel" onclick="updateStatus('{{ booking.id }}', 'cancelled')">Cancel</button>
-                                            <button class="rsm-status-btn complete" onclick="updateStatus('{{ booking.id }}', 'completed')">Complete</button>
-                                            <button class="rsm-close-details-btn" onclick="hideDetails('{{ loop.index }}')">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -232,673 +93,1050 @@
 </div>
 
 <script>
-// Initialize counters on page load
-document.addEventListener('DOMContentLoaded', function() {
-    updateRecordCount();
     
-    // Fix date display and data attributes for filtering
-    const table = document.getElementById('bookingsTable');
-    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-    for (let i = 0; i < rows.length; i++) {
-        const dateCell = rows[i].getElementsByTagName('td')[3];
-        if (dateCell) {
-            try {
-                // Ensure the displayed date is properly formatted while keeping the data attribute intact
-                const displayDate = new Date(rows[i].getAttribute('data-seva-date'));
-                if (!isNaN(displayDate)) {
-                    const options = { day: '2-digit', month: 'short', year: 'numeric' };
-                    dateCell.textContent = displayDate.toLocaleDateString('en-US', options);
-                }
-            } catch (e) {
-                console.error('Error formatting date:', e);
-            }
-        }
-    }
-});
 
-function showDetails(index) {
-    document.getElementById('details-' + index).style.display = 'block';
-    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+// Function to show booking details modal
+function showDetails(bookingId) {
+    const detailsModal = document.getElementById(`details-${bookingId}`);
+    if (detailsModal) {
+        detailsModal.style.display = 'flex';
+        document.body.classList.add('modal-open');
+    }
 }
 
-function hideDetails(index) {
-    document.getElementById('details-' + index).style.display = 'none';
-    document.body.style.overflow = ''; // Restore scrolling
+// Function to hide booking details modal
+function hideDetails(bookingId) {
+    const detailsModal = document.getElementById(`details-${bookingId}`);
+    if (detailsModal) {
+        detailsModal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+    }
 }
 
-function filterBookings() {
-    const searchInput = document.getElementById('bookingSearch').value.toLowerCase();
-    const sevaTypeFilter = document.getElementById('sevaTypeFilter').value;
-    const dateFilter = document.getElementById('dateFilter').value;
-    const statusFilter = document.getElementById('statusFilter').value;
-    const table = document.getElementById('bookingsTable');
-    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-    
-    let visibleCount = 0;
-    
-    for (let i = 0; i < rows.length; i++) {
-        const nameCell = rows[i].getElementsByTagName('td')[0];
-        const contactCell = rows[i].getElementsByTagName('td')[1];
-        
-        // Get values from data attributes for exact matching
-        const sevaType = rows[i].getAttribute('data-seva-type');
-        const sevaDate = rows[i].getAttribute('data-seva-date');
-        const status = rows[i].getAttribute('data-status');
-        
-        if (nameCell && contactCell) {
-            const name = nameCell.textContent.toLowerCase();
-            const contact = contactCell.textContent.toLowerCase();
-            
-            const searchMatch = name.includes(searchInput) || contact.includes(searchInput);
-            const sevaTypeMatch = !sevaTypeFilter || sevaType === sevaTypeFilter;
-            const dateMatch = !dateFilter || sevaDate === dateFilter;
-            const statusMatch = !statusFilter || status === statusFilter;
-            
-            if (searchMatch && sevaTypeMatch && dateMatch && statusMatch) {
-                rows[i].style.display = '';
-                visibleCount++;
-            } else {
-                rows[i].style.display = 'none';
-            }
-        }
-    }
-    
-    // Update the record count
-    document.getElementById('visibleRecords').textContent = visibleCount;
-}
-
-function resetFilters() {
-    document.getElementById('bookingSearch').value = '';
-    document.getElementById('sevaTypeFilter').value = '';
-    document.getElementById('dateFilter').value = '';
-    document.getElementById('statusFilter').value = '';
-    
-    // Reset the table view
-    const table = document.getElementById('bookingsTable');
-    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-    
-    for (let i = 0; i < rows.length; i++) {
-        rows[i].style.display = '';
-    }
-    
-    updateRecordCount();
-}
-
-function updateRecordCount() {
-    const table = document.getElementById('bookingsTable');
-    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
-    const totalRecords = rows.length;
-    
-    let visibleRecords = 0;
-    for (let i = 0; i < rows.length; i++) {
-        if (rows[i].style.display !== 'none') {
-            visibleRecords++;
-        }
-    }
-    
-    document.getElementById('visibleRecords').textContent = visibleRecords;
-    document.getElementById('totalRecords').textContent = totalRecords;
-}
-
-function sortTable(columnIndex) {
-    const table = document.getElementById('bookingsTable');
-    const tbody = table.getElementsByTagName('tbody')[0];
-    const rows = Array.from(tbody.getElementsByTagName('tr'));
-    
-    // Get the current sort direction
-    const th = table.getElementsByTagName('th')[columnIndex];
-    const currentDirection = th.getAttribute('data-sort') === 'asc' ? 'desc' : 'asc';
-    
-    // Update the sort direction
-    const allTh = table.getElementsByTagName('th');
-    for (let i = 0; i < allTh.length; i++) {
-        allTh[i].removeAttribute('data-sort');
-    }
-    th.setAttribute('data-sort', currentDirection);
-    
-    // Sort the rows
-    rows.sort((a, b) => {
-        let aValue = a.getElementsByTagName('td')[columnIndex].textContent.trim();
-        let bValue = b.getElementsByTagName('td')[columnIndex].textContent.trim();
-        
-        // Special handling for date column
-        if (columnIndex === 3) {
-            aValue = new Date(a.getAttribute('data-seva-date'));
-            bValue = new Date(b.getAttribute('data-seva-date'));
-        }
-        
-        if (aValue < bValue) {
-            return currentDirection === 'asc' ? -1 : 1;
-        }
-        if (aValue > bValue) {
-            return currentDirection === 'asc' ? 1 : -1;
-        }
-        return 0;
+// Function to update booking status
+function updateStatus(bookingId, status) {
+    // Show loading indicator
+    const statusBadges = document.querySelectorAll(`[data-booking-id="${bookingId}"] .rsm-status-badge`);
+    statusBadges.forEach(badge => {
+        badge.classList.add('updating');
     });
     
-    // Re-append rows in sorted order
-    rows.forEach(row => tbody.appendChild(row));
-}
-
-function updateStatus(bookingId, status) {
-    // In a real application, this would send an AJAX request to update the status
-    // For demonstration purposes, we'll just show an alert
-    alert(`Status of booking #${bookingId} updated to ${status}`);
-    
-    // In a production environment, you would use fetch or XMLHttpRequest:
-    /*
-    fetch('/api/bookings/' + bookingId + '/status', {
+    // Send AJAX request to update status
+    fetch('/admin/update_booking_status', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'X-CSRFToken': getCsrfToken() // Implement this function to get CSRF token
         },
-        body: JSON.stringify({ status: status })
+        body: JSON.stringify({
+            booking_id: bookingId,
+            status: status
+        })
     })
     .then(response => response.json())
     .then(data => {
-        // Update the UI with the new status
-        console.log('Success:', data);
+        if (data.success) {
+            // Update status badge in UI
+            statusBadges.forEach(badge => {
+                badge.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+                badge.className = `rsm-status-badge status-${status}`;
+                badge.classList.remove('updating');
+            });
+            
+            // Also update the data-status attribute for filtering
+            const bookingRow = document.querySelector(`tr[data-booking-id="${bookingId}"]`);
+            if (bookingRow) {
+                bookingRow.setAttribute('data-status', status);
+            }
+            
+            // Show success message
+            showNotification('Status updated successfully', 'success');
+        } else {
+            // Show error message
+            showNotification('Failed to update status: ' + (data.message || 'Unknown error'), 'error');
+            statusBadges.forEach(badge => {
+                badge.classList.remove('updating');
+            });
+        }
     })
-    .catch((error) => {
-        console.error('Error:', error);
+    .catch(error => {
+        console.error('Error updating status:', error);
+        showNotification('Error updating status. Please try again.', 'error');
+        statusBadges.forEach(badge => {
+            badge.classList.remove('updating');
+        });
     });
-    */
 }
 
+// Function to send reminder
 function sendReminder(bookingId) {
-    // In a real application, this would send an AJAX request to send a reminder
-    alert(`Reminder sent for booking #${bookingId}`);
+    // Show loading indicator
+    showNotification('Sending reminder...', 'info');
+    
+    // Send AJAX request to send reminder
+    fetch('/admin/send_booking_reminder', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCsrfToken()
+        },
+        body: JSON.stringify({
+            booking_id: bookingId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification('Reminder sent successfully', 'success');
+        } else {
+            showNotification('Failed to send reminder: ' + (data.message || 'Unknown error'), 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error sending reminder:', error);
+        showNotification('Error sending reminder. Please try again.', 'error');
+    });
 }
 
-function exportData(format) {
-    // In a real application, this would generate and download the export
-    alert(`Exporting data in ${format.toUpperCase()} format`);
+// Function to filter bookings
+function filterBookings() {
+    const searchTerm = document.getElementById('bookingSearch').value.toLowerCase();
+    const sevaTypeFilter = document.getElementById('sevaTypeFilter').value;
+    const dateFilter = document.getElementById('dateFilter').value;
+    const statusFilter = document.getElementById('statusFilter').value;
     
-    // Example implementation for a real application:
-    /*
-    fetch('/api/bookings/export/' + format)
-    .then(response => response.blob())
-    .then(blob => {
-        const url = window.URL.createObjectURL(blob);
+    const rows = document.querySelectorAll('#bookingsTable tbody tr');
+    let visibleCount = 0;
+    const totalCount = rows.length;
+    
+    rows.forEach(row => {
+        const name = row.cells[0].textContent.toLowerCase();
+        const email = row.cells[1].querySelector('div:first-child').textContent.toLowerCase();
+        const phone = row.cells[1].querySelector('div:last-child').textContent.toLowerCase();
+        const sevaType = row.getAttribute('data-seva-type');
+        const sevaDate = row.getAttribute('data-seva-date');
+        const status = row.getAttribute('data-status');
+        
+        const matchesSearch = name.includes(searchTerm) || 
+                              email.includes(searchTerm) || 
+                              phone.includes(searchTerm);
+        const matchesSevaType = !sevaTypeFilter || sevaType === sevaTypeFilter;
+        const matchesDate = !dateFilter || sevaDate === dateFilter;
+        const matchesStatus = !statusFilter || status === statusFilter;
+        
+        if (matchesSearch && matchesSevaType && matchesDate && matchesStatus) {
+            row.style.display = '';
+            visibleCount++;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+    
+    // Update record count
+    document.getElementById('visibleRecords').textContent = visibleCount;
+    document.getElementById('totalRecords').textContent = totalCount;
+}
+
+// Function to reset filters
+function resetFilters() {
+    document.getElementById('bookingSearch').value = '';
+    document.getElementById('sevaTypeFilter').selectedIndex = 0;
+    document.getElementById('dateFilter').selectedIndex = 0;
+    document.getElementById('statusFilter').selectedIndex = 0;
+    filterBookings();
+}
+
+// Function to sort table
+function sortTable(columnIndex) {
+    const table = document.getElementById('bookingsTable');
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const sortDirection = table.getAttribute('data-sort-direction') === 'asc' ? 'desc' : 'asc';
+    
+    // Update sort direction
+    table.setAttribute('data-sort-direction', sortDirection);
+    
+    // Update sort icons
+    const sortIcons = table.querySelectorAll('.sort-icon');
+    sortIcons.forEach(icon => {
+        icon.textContent = '⇕';
+    });
+    
+    const clickedIcon = table.querySelector(`th:nth-child(${columnIndex + 1}) .sort-icon`);
+    if (clickedIcon) {
+        clickedIcon.textContent = sortDirection === 'asc' ? '↑' : '↓';
+    }
+    
+    // Sort rows
+    rows.sort((a, b) => {
+        let aValue, bValue;
+        
+        // For date column
+        if (columnIndex === 3) {
+            aValue = a.getAttribute('data-seva-date');
+            bValue = b.getAttribute('data-seva-date');
+        } else {
+            aValue = a.cells[columnIndex].textContent.trim();
+            bValue = b.cells[columnIndex].textContent.trim();
+        }
+        
+        // Compare values
+        if (sortDirection === 'asc') {
+            return aValue.localeCompare(bValue);
+        } else {
+            return bValue.localeCompare(aValue);
+        }
+    });
+    
+    // Reorder rows
+    rows.forEach(row => {
+        tbody.appendChild(row);
+    });
+}
+
+// Function to export data
+function exportData(format) {
+    const table = document.getElementById('bookingsTable');
+    const visibleRows = Array.from(table.querySelectorAll('tbody tr')).filter(row => 
+        row.style.display !== 'none'
+    );
+    
+    if (visibleRows.length === 0) {
+        showNotification('No data to export', 'warning');
+        return;
+    }
+    
+    // Show loading notification
+    showNotification(`Preparing ${format.toUpperCase()} export...`, 'info');
+    
+    // Get headers
+    const headers = Array.from(table.querySelectorAll('thead th')).map(th => 
+        th.textContent.replace(/[⇕↑↓]/g, '').trim()
+    );
+    
+    // Get data
+    const data = visibleRows.map(row => {
+        return Array.from(row.cells).map((cell, index) => {
+            // Special handling for contact column
+            if (index === 1) {
+                const email = cell.querySelector('div:first-child').textContent.trim();
+                const phone = cell.querySelector('div:last-child').textContent.trim();
+                return `${email} / ${phone}`;
+            } else if (index === 5) {
+                // Status column
+                return cell.querySelector('.rsm-status-badge').textContent.trim();
+            } else if (index === 6) {
+                // Skip actions column
+                return '';
+            } else {
+                return cell.textContent.trim();
+            }
+        }).filter((_, i) => i !== 6); // Remove the 'Actions' column
+    });
+    
+    if (format === 'csv') {
+        // Create CSV content
+        const csvContent = [
+            headers.filter((_, i) => i !== 6).join(','),
+            ...data.map(row => row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(','))
+        ].join('\n');
+        
+        // Create download link
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        a.style.display = 'none';
         a.href = url;
-        a.download = `seva_bookings_${new Date().toISOString().split('T')[0]}.${format}`;
+        a.download = `seva_bookings_${new Date().toISOString().split('T')[0]}.csv`;
         document.body.appendChild(a);
         a.click();
-        window.URL.revokeObjectURL(url);
-    })
-    .catch(error => console.error('Error exporting data:', error));
-    */
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        showNotification('CSV exported successfully', 'success');
+    } else if (format === 'pdf') {
+        // For PDF export, we'll submit to server-side endpoint
+        // that will generate PDF and return it as download
+        
+        fetch('/admin/export_bookings_pdf', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCsrfToken()
+            },
+            body: JSON.stringify({
+                headers: headers.filter((_, i) => i !== 6),
+                data: data
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.blob();
+            }
+            throw new Error('PDF generation failed');
+        })
+        .then(blob => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `seva_bookings_${new Date().toISOString().split('T')[0]}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('PDF exported successfully', 'success');
+        })
+        .catch(error => {
+            console.error('Error exporting PDF:', error);
+            showNotification('Error generating PDF. Please try again.', 'error');
+        });
+    }
 }
+
+// Helper function to get CSRF token
+function getCsrfToken() {
+    // Look for CSRF token in meta tags
+    const metaToken = document.querySelector('meta[name="csrf-token"]');
+    if (metaToken) {
+        return metaToken.getAttribute('content');
+    }
+    
+    // Or from cookie
+    const csrfCookie = document.cookie.split(';')
+        .find(cookie => cookie.trim().startsWith('csrf_token='));
+    
+    if (csrfCookie) {
+        return csrfCookie.split('=')[1];
+    }
+    
+    return '';
+}
+
+// Function to show notification
+function showNotification(message, type = 'info') {
+    // Create notification container if it doesn't exist
+    let container = document.querySelector('.rsm-notifications');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'rsm-notifications';
+        document.body.appendChild(container);
+    }
+    
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `rsm-notification ${type}`;
+    notification.innerHTML = `
+        <div class="rsm-notification-content">
+            <span class="rsm-notification-message">${message}</span>
+            <button class="rsm-notification-close">&times;</button>
+        </div>
+    `;
+    
+    // Add to container
+    container.appendChild(notification);
+    
+    // Add close functionality
+    const closeBtn = notification.querySelector('.rsm-notification-close');
+    closeBtn.addEventListener('click', () => {
+        notification.classList.add('fade-out');
+        setTimeout(() => {
+            if (container.contains(notification)) {
+                container.removeChild(notification);
+            }
+        }, 300);
+    });
+    
+    // Auto-remove after a delay for non-error notifications
+    if (type !== 'error') {
+        setTimeout(() => {
+            notification.classList.add('fade-out');
+            setTimeout(() => {
+                if (container.contains(notification)) {
+                    container.removeChild(notification);
+                }
+            }, 300);
+        }, 5000);
+    }
+}
+
+// Add data-booking-id attribute to all rows for easier reference
+document.addEventListener('DOMContentLoaded', function() {
+    const rows = document.querySelectorAll('#bookingsTable tbody tr');
+    rows.forEach((row, index) => {
+        // Extract booking ID from the updateStatus calls
+        const actionLink = row.querySelector('a[onclick*="updateStatus"]');
+        if (actionLink) {
+            const onclickAttr = actionLink.getAttribute('onclick');
+            const idMatch = onclickAttr.match(/updateStatus\('([^']+)'/);
+            if (idMatch && idMatch[1]) {
+                const bookingId = idMatch[1];
+                row.setAttribute('data-booking-id', bookingId);
+                
+                // Also set the data-booking-id on the status badge
+                const statusBadge = row.querySelector('.rsm-status-badge');
+                if (statusBadge) {
+                    statusBadge.setAttribute('data-booking-id', bookingId);
+                }
+            }
+        }
+    });
+    
+    // Initialize record count
+    filterBookings();
+    
+    // Set initial sort direction
+    document.getElementById('bookingsTable').setAttribute('data-sort-direction', 'asc');
+});
 </script>
 
-<style>
-    .rsm-admin-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 2rem; 
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+<style>/* Divine Mystical Styling for Seva Bookings Page */
+.rsm-admin-container {
+    background: linear-gradient(to bottom, #0c0b15, #161328);
+    color: #e0daf0;
+    font-family: 'Poppins', sans-serif;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 25px rgba(103, 79, 162, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.rsm-admin-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23674fa2' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    z-index: 0;
+    opacity: 0.5;
+}
+
+.rsm-admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.rsm-admin-heading {
+    color: #ffd700;
+    font-size: 2.5rem;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    font-weight: 600;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.rsm-admin-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    height: 3px;
+    width: 80px;
+    background: linear-gradient(90deg, #ffd700, transparent);
+    border-radius: 3px;
+}
+
+.rsm-admin-back-btn {
+    background: linear-gradient(45deg, #472b75, #674fa2);
+    color: #fff;
+    padding: 0.7rem 1.5rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 0 15px rgba(103, 79, 162, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.rsm-admin-back-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(103, 79, 162, 0.5);
+    border-color: rgba(255, 215, 0, 0.5);
+}
+
+.rsm-admin-back-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+    opacity: 0;
+}
+
+.rsm-admin-back-btn:hover::before {
+    animation: shine 1.5s ease;
+}
+
+@keyframes shine {
+    0% {
+        opacity: 0;
+        left: -50%;
     }
-    
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+        left: 150%;
+    }
+}
+
+.rsm-admin-content {
+    background: rgba(13, 12, 24, 0.7);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(103, 79, 162, 0.2);
+}
+
+.rsm-table-wrapper h2 {
+    color: #ffd700;
+    font-size: 1.7rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    position: relative;
+    display: inline-block;
+}
+
+.rsm-table-wrapper h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, #ffd700, transparent);
+    border-radius: 2px;
+}
+
+.rsm-search-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.rsm-search-filter input, 
+.rsm-search-filter select {
+    background: rgba(33, 29, 58, 0.8);
+    border: 1px solid rgba(103, 79, 162, 0.3);
+    border-radius: 8px;
+    color: #e0daf0;
+    padding: 0.7rem 1rem;
+    flex: 1;
+    min-width: 150px;
+    box-shadow: 0 0 5px rgba(103, 79, 162, 0.1);
+    transition: all 0.3s ease;
+}
+
+.rsm-search-filter input:focus, 
+.rsm-search-filter select:focus {
+    outline: none;
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+}
+
+.rsm-search-filter input::placeholder {
+    color: rgba(224, 218, 240, 0.5);
+}
+
+.rsm-reset-btn {
+    background: linear-gradient(45deg, #332554, #472b75);
+    color: #e0daf0;
+    border: 1px solid rgba(103, 79, 162, 0.3);
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.rsm-reset-btn:hover {
+    background: linear-gradient(45deg, #3c2b63, #513185);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.rsm-table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.rsm-record-count {
+    color: #b8b0d9;
+    font-size: 0.9rem;
+}
+
+.rsm-export-controls {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.rsm-export-btn {
+    background: linear-gradient(45deg, #332554, #472b75);
+    color: #e0daf0;
+    border: 1px solid rgba(103, 79, 162, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.rsm-export-btn:hover {
+    background: linear-gradient(45deg, #3c2b63, #513185);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.rsm-table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.rsm-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(24, 20, 42, 0.7);
+}
+
+.rsm-table thead th {
+    background: rgba(55, 44, 92, 0.8);
+    color: #ffd700;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 500;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 2px solid rgba(103, 79, 162, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.rsm-table thead th:hover {
+    background: rgba(65, 52, 109, 0.8);
+}
+
+.rsm-table tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(103, 79, 162, 0.2);
+}
+
+.rsm-table tbody tr:hover {
+    background: rgba(103, 79, 162, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rsm-table tbody td {
+    padding: 1rem;
+    color: #e0daf0;
+    border-bottom: 1px solid rgba(103, 79, 162, 0.2);
+}
+
+.rsm-status-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
+}
+
+.status-pending {
+    background: rgba(255, 152, 0, 0.2);
+    color: #ffb74d;
+    border: 1px solid rgba(255, 152, 0, 0.3);
+}
+
+.status-confirmed {
+    background: rgba(76, 175, 80, 0.2);
+    color: #81c784;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.status-completed {
+    background: rgba(33, 150, 243, 0.2);
+    color: #64b5f6;
+    border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+.status-cancelled {
+    background: rgba(244, 67, 54, 0.2);
+    color: #e57373;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.rsm-action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.rsm-view-details-btn {
+    background: linear-gradient(45deg, #332554, #472b75);
+    color: #e0daf0;
+    border: 1px solid rgba(103, 79, 162, 0.3);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.rsm-view-details-btn:hover {
+    background: linear-gradient(45deg, #3c2b63, #513185);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.rsm-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.rsm-dropdown-btn {
+    background: rgba(55, 44, 92, 0.8);
+    color: #e0daf0;
+    border: 1px solid rgba(103, 79, 162, 0.3);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.rsm-dropdown-btn:hover {
+    background: rgba(65, 52, 109, 0.8);
+}
+
+.rsm-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    min-width: 150px;
+    background: rgba(28, 23, 49, 0.95);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    padding: 0.5rem 0;
+    z-index: 100;
+    border: 1px solid rgba(103, 79, 162, 0.3);
+    transform-origin: top right;
+    transition: all 0.2s ease;
+}
+
+.rsm-dropdown:hover .rsm-dropdown-content {
+    display: block;
+    animation: scaleIn 0.2s ease;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.rsm-dropdown-content a {
+    color: #e0daf0;
+    padding: 0.6rem 1rem;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.rsm-dropdown-content a:hover {
+    background: rgba(103, 79, 162, 0.3);
+    color: #ffd700;
+}
+
+.rsm-booking-details {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(7, 6, 15, 0.8);
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 2rem;
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.rsm-details-content {
+    background: linear-gradient(to bottom, #161328, #0c0b15);
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 2rem auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 30px rgba(103, 79, 162, 0.2);
+    border: 1px solid rgba(103, 79, 162, 0.3);
+    position: relative;
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.rsm-details-content h3 {
+    color: #ffd700;
+    font-size: 1.8rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    position: relative;
+    padding-bottom: 0.8rem;
+}
+
+.rsm-details-content h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 2px;
+    width: 100px;
+    background: linear-gradient(90deg, transparent, #ffd700, transparent);
+    border-radius: 2px;
+}
+
+.rsm-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.rsm-detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.rsm-detail-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.rsm-detail-label {
+    font-size: 0.9rem;
+    color: #b8b0d9;
+    margin-bottom: 0.3rem;
+}
+
+.rsm-detail-value {
+    font-size: 1.1rem;
+    color: #e0daf0;
+    font-weight: 500;
+}
+
+.rsm-family-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.rsm-family-list li {
+    background: rgba(103, 79, 162, 0.15);
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid #674fa2;
+}
+
+.rsm-detail-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.rsm-status-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.rsm-status-btn.confirm {
+    background: rgba(76, 175, 80, 0.2);
+    color: #81c784;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.rsm-status-btn.confirm:hover {
+    background: rgba(76, 175, 80, 0.3);
+    transform: translateY(-2px);
+}
+
+.rsm-status-btn.cancel {
+    background: rgba(244, 67, 54, 0.2);
+    color: #e57373;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.rsm-status-btn.cancel:hover {
+    background: rgba(244, 67, 54, 0.3);
+    transform: translateY(-2px);
+}
+
+.rsm-status-btn.complete {
+    background: rgba(33, 150, 243, 0.2);
+    color: #64b5f6;
+    border: 1px solid rgba(33, 150, 243, 0.3);
+}
+
+.rsm-status-btn.complete:hover {
+    background: rgba(33, 150, 243, 0.3);
+    transform: translateY(-2px);
+}
+
+.rsm-close-details-btn {
+    background: linear-gradient(45deg, #332554, #472b75);
+    color: #e0daf0;
+    border: 1px solid rgba(103, 79, 162, 0.3);
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.rsm-close-details-btn:hover {
+    background: linear-gradient(45deg, #3c2b63, #513185);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.rsm-no-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    background: rgba(13, 12, 24, 0.7);
+    border-radius: 8px;
+    border: 1px dashed rgba(103, 79, 162, 0.3);
+}
+
+.rsm-no-data svg {
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.rsm-no-data p {
+    color: #b8b0d9;
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 0;
+}
+
+/* Subtle animation for rows */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.rsm-table tbody tr {
+    animation: fadeInUp 0.3s ease forwards;
+    animation-delay: calc(var(--row-index, 0) * 0.05s);
+    opacity: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
     .rsm-admin-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #e9ecef;
-    }
-    
-    .rsm-admin-heading {
-        margin: 0;
-        color: #333;
-        font-weight: 600;
-    }
-    
-    .rsm-admin-back-btn {
-        padding: 0.5rem 1rem;
-        background-color: #6c757d;
-        color: white;
-        text-decoration: none;
-        border-radius: 4px;
-        font-size: 0.9rem;
-        transition: background-color 0.2s;
-    }
-    
-    .rsm-admin-back-btn:hover {
-        background-color: #5a6268;
-        text-decoration: none;
-        color: white;
-    }
-    
-    .rsm-table-wrapper {
-        background-color: #fff;
-        border-radius: 8px;
-        padding: 1.5rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-    
-    .rsm-search-filter {
-        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         gap: 1rem;
-        margin-bottom: 1.5rem;
-        flex-wrap: wrap;
-        align-items: center;
-    }
-    
-    .rsm-search-filter input, 
-    .rsm-search-filter select {
-        padding: 0.6rem 0.8rem;
-        border: 1px solid #ced4da;
-        border-radius: 4px;
-        flex-grow: 1;
-        min-width: 150px;
-        font-size: 0.95rem;
-    }
-    
-    .rsm-search-filter input:focus, 
-    .rsm-search-filter select:focus {
-        outline: none;
-        border-color: #80bdff;
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    }
-    
-    .rsm-reset-btn {
-        padding: 0.6rem 1rem;
-        background-color: #e9ecef;
-        color: #495057;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-    
-    .rsm-reset-btn:hover {
-        background-color: #dee2e6;
     }
     
     .rsm-table-controls {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-    }
-    
-    .rsm-record-count {
-        color: #6c757d;
-        font-size: 0.9rem;
-    }
-    
-    .rsm-export-controls {
-        display: flex;
-        gap: 0.5rem;
-    }
-    
-    .rsm-export-btn {
-        padding: 0.4rem 0.8rem;
-        background-color: #28a745;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 0.85rem;
-        transition: background-color 0.2s;
-    }
-    
-    .rsm-export-btn:hover {
-        background-color: #218838;
-    }
-    
-    .rsm-table-container {
-        overflow-x: auto;
-        margin-bottom: 1.5rem;
-    }
-    
-    .rsm-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
-    }
-    
-    .rsm-table th, 
-    .rsm-table td {
-        padding: 0.85rem;
-        text-align: left;
-        border-bottom: 1px solid #e9ecef;
-        vertical-align: middle;
-    }
-    
-    .rsm-table th {
-        background-color: #f8f9fa;
-        font-weight: 600;
-        position: relative;
-        cursor: pointer;
-        user-select: none;
-    }
-    
-    .rsm-table th[data-sort] .sort-icon {
-        color: #007bff;
-    }
-    
-    .rsm-table th[data-sort="asc"] .sort-icon::after {
-        content: "↑";
-    }
-    
-    .rsm-table th[data-sort="desc"] .sort-icon::after {
-        content: "↓";
-    }
-    
-    .rsm-table tbody tr:hover {
-        background-color: #f8f9fa;
-    }
-    
-    .rsm-status-badge {
-        display: inline-block;
-        padding: 0.25rem 0.5rem;
-        border-radius: 50px;
-        font-size: 0.75rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    
-    .status-pending {
-        background-color: #ffeeba;
-        color: #856404;
-    }
-    
-    .status-confirmed {
-        background-color: #d4edda;
-        color: #155724;
-    }
-    
-    .status-completed {
-        background-color: #cce5ff;
-        color: #004085;
-    }
-    
-    .status-cancelled {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
-    
-    .rsm-action-buttons {
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-    }
-    
-    .rsm-view-details-btn {
-        padding: 0.35rem 0.8rem;
-        background-color: #17a2b8;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 0.85rem;
-        transition: background-color 0.2s;
-    }
-    
-    .rsm-view-details-btn:hover {
-        background-color: #138496;
-    }
-    
-    .rsm-dropdown {
-        position: relative;
-        display: inline-block;
-    }
-    
-    .rsm-dropdown-btn {
-        padding: 0.35rem 0.6rem;
-        background-color: #6c757d;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    
-    .rsm-dropdown-content {
-        display: none;
-        position: absolute;
-        right: 0;
-        background-color: #fff;
-        min-width: 160px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-        z-index: 1;
-        border-radius: 4px;
-        overflow: hidden;
-    }
-    
-    .rsm-dropdown-content a {
-        color: #212529;
-        padding: 0.7rem 1rem;
-        text-decoration: none;
-        display: block;
-        font-size: 0.9rem;
-        transition: background-color 0.2s;
-    }
-    
-    .rsm-dropdown-content a:hover {
-        background-color: #f8f9fa;
-        text-decoration: none;
-    }
-    
-    .rsm-dropdown:hover .rsm-dropdown-content {
-        display: block;
-    }
-    
-    .rsm-booking-details {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-        backdrop-filter: blur(3px);
-    }
-    
-    .rsm-details-content {
-        background-color: white;
-        padding: 2rem;
-        border-radius: 8px;
-        width: 90%;
-        max-width: 700px;
-        max-height: 90vh;
-        overflow-y: auto;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-    
-    .rsm-details-content h3 {
-        margin-top: 0;
-        margin-bottom: 1.5rem;
-        color: #343a40;
-        font-weight: 600;
-        border-bottom: 1px solid #e9ecef;
-        padding-bottom: 0.8rem;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
     }
     
     .rsm-detail-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 1.2rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .rsm-detail-item {
-        margin-bottom: 0.8rem;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .rsm-detail-item.full-width {
-        grid-column: 1 / -1;
-    }
-    
-    .rsm-detail-label {
-        font-weight: 600;
-        color: #495057;
-        margin-bottom: 0.3rem;
-        font-size: 0.9rem;
-    }
-    
-    .rsm-detail-value {
-        color: #212529;
-        word-break: break-word;
+        grid-template-columns: 1fr;
     }
     
     .rsm-detail-actions {
-        display: flex;
-        gap: 0.8rem;
-        margin-top: 2rem;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-    }
-    
-    .rsm-status-btn {
-        padding: 0.5rem 1rem;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        transition: background-color 0.2s;
-    }
-    
-    .rsm-status-btn.confirm {
-        background-color: #28a745;
-    }
-    
-    .rsm-status-btn.confirm:hover {
-        background-color: #218838;
-    }
-    
-    .rsm-status-btn.cancel {
-        background-color: #dc3545;
-    }
-    
-    .rsm-status-btn.cancel:hover {
-        background-color: #c82333;
-    }
-    
-    .rsm-status-btn.complete {
-        background-color: #007bff;
-    }
-    
-    .rsm-status-btn.complete:hover {
-        background-color: #0069d9;
-    }
-    
-    .rsm-close-details-btn {
-        padding: 0.5rem 1rem;
-        background-color: #6c757d;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-    
-    .rsm-close-details-btn:hover {
-        background-color: #5a6268;
-    }
-    
-    .rsm-family-list {
-        margin: 0;
-        padding-left: 1.5rem;
-    }
-    
-    .rsm-family-list li {
-        margin-bottom: 0.5rem;
-    }
-    
-    .rsm-family-list li.error {
-        color: #dc3545;
-        font-style: italic;
-    }
-    
-    .rsm-no-data {
-        text-align: center;
-        padding: 3rem 1rem;
-        color: #6c757d;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         justify-content: center;
-        gap: 1rem;
     }
-    
-    .rsm-no-data p {
-        margin: 0;
-        font-size: 1.1rem;
-    }
-    
-    @media (max-width: 768px) {
-        .rsm-search-filter {
-            flex-direction: column;
-            align-items: stretch;
-        }
-        
-        .rsm-search-filter input,
-        .rsm-search-filter select,
-        .rsm-reset-btn {
-            width: 100%;
-        }
-        
-        .rsm-table-controls {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-        
-        .rsm-export-controls {
-            width: 100%;
-            justify-content: space-between;
-        }
-        
-        .rsm-detail-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .rsm-detail-actions {
-            justify-content: center;
-        }
-    }
-    
-    /* Animation for modal */
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    
-    .rsm-booking-details {
-        animation: fadeIn 0.3s ease-out;
-    }
-    
-    /* Print styles */
-    @media print {
-        .rsm-admin-header, 
-        .rsm-search-filter, 
-        .rsm-table-controls, 
-        .rsm-action-buttons, 
-        .rsm-close-details-btn {
-            display: none !important;
-        }
-        
-        .rsm-table-wrapper {
-            box-shadow: none;
-            padding: 0;
-        }
-        
-        .rsm-table th, 
-        .rsm-table td {
-            padding: 0.5rem;
-        }
-    }
-</style>
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(13, 12, 24, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(103, 79, 162, 0.5);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(103, 79, 162, 0.7);
+}
+
+/* Font import */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');</style>
 {% endblock %}

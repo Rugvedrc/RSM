@@ -15,6 +15,8 @@ import json
 from datetime import datetime
 from flask import make_response
 import traceback
+import bcrypt
+
 # Load environment variables from Render
 load_dotenv()
 app = Flask(__name__)
@@ -73,19 +75,17 @@ def login():
         # Check credentials against database
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM login_credentials WHERE username = %s AND password = %s", 
-                      (username, password))
+        cursor.execute("SELECT * FROM login_credentials WHERE username = %s", (username,))
         user = cursor.fetchone()
-        cursor.close()
-        conn.close()
-        
-        if user:
+
+        if user and bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
             session['logged_in'] = True
             session['username'] = username
             return redirect(url_for('admin_dashboard'))
         else:
             flash('Invalid username or password')
             return render_template('login.html', error='Invalid username or password')
+
     
     return render_template('login.html')
 
@@ -178,7 +178,7 @@ def change_password():
                       (session['username'],))
         user = cursor.fetchone()
         
-        if not user or user['password'] != current_password:
+        if not user or not bcrypt.checkpw(current_password.encode('utf-8'), user['password'].encode('utf-8')):
             flash('Current password is incorrect')
             return redirect(url_for('change_password'))
         
@@ -187,8 +187,10 @@ def change_password():
             return redirect(url_for('change_password'))
         
         # Update password
+        hashed_new_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
         cursor.execute("UPDATE login_credentials SET password = %s WHERE username = %s",
-                     (new_password, session['username']))
+        (hashed_new_password.decode('utf-8'), session['username']))
+
         conn.commit()
         cursor.close()
         conn.close()
@@ -267,7 +269,64 @@ def booking_receipt_html(booking_id):
         flash(f"Unable to generate receipt: {str(e)}")
         return redirect(url_for('index'))
 
+# Add these routes to your app.py file
 
+@app.route('/my-bookings')
+def my_bookings():
+    return render_template('my_bookings_access.html')
+
+@app.route('/verify-my-bookings', methods=['POST'])
+def verify_my_bookings():
+    verify_type = request.form.get('verify_type')
+    
+    if verify_type == 'phone':
+        phone = request.form.get('phone')
+        if not phone:
+            flash('Please enter a valid phone number')
+            return redirect(url_for('my_bookings'))
+        
+        # Fetch bookings by phone
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("""
+            SELECT * FROM seva_bookings 
+            WHERE phone = %s
+            ORDER BY seva_date DESC
+        """, (phone,))
+        bookings = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        
+        return render_template('my_bookings_list.html', 
+                              bookings=bookings, 
+                              identifier=phone, 
+                              identifier_type='phone')
+    
+    elif verify_type == 'email':
+        email = request.form.get('email')
+        if not email or '@' not in email:
+            flash('Please enter a valid email address')
+            return redirect(url_for('my_bookings'))
+        
+        # Fetch bookings by email
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("""
+            SELECT * FROM seva_bookings 
+            WHERE email = %s
+            ORDER BY seva_date DESC
+        """, (email,))
+        bookings = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        
+        return render_template('my_bookings_list.html', 
+                              bookings=bookings, 
+                              identifier=email, 
+                              identifier_type='email')
+    
+    flash('Invalid verification method')
+    return redirect(url_for('my_bookings'))
 
 # Run the Flask app
 if __name__ == '__main__':

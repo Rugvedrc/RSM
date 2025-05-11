@@ -194,3 +194,4 @@ def booking():
 @seva.route('/confirmation')
 def confirmation():
     return render_template('booking_confirmation.html')
+

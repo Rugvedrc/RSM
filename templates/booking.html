@@ -8,25 +8,26 @@
         <div id="rsm-booking-header-row">
             <div id="rsm-booking-header-column">
                 <h1 id="rsm-booking-header-heading">Seva Booking</h1>
-                
-                
+
+
                 <div id="rsm-index-donation-column-2">
                     <img src="{{ url_for('static', filename='images/donation.jpg') }}" alt="Donation"
                         id="rsm-index-donation-image">
                 </div>
-                
+
                 <p id="rsm-booking-header-text">
                     <b>पत्रं पुष्पं फलं तोयं यो मे भक्त्या प्रयच्छति।<br>
-                    तदहं भक्त्युपहृतमश्नामि प्रयतात्मनः ॥</b>
+                        तदहं भक्त्युपहृतमश्नामि प्रयतात्मनः ॥</b>
                     <br><br><i>
-                    "जर एखाद्याने प्रेमाने आणि भक्तीने मला एखादे पान, फूल, फळ अथवा पाणी अर्पण केले तर मी त्याचा स्वीकार करतो."</i><br>
+                        "जर एखाद्याने प्रेमाने आणि भक्तीने मला एखादे पान, फूल, फळ अथवा पाणी अर्पण केले तर मी त्याचा
+                        स्वीकार करतो."</i><br>
                     भगवद्गीता अध्याय ९, श्लोक २६
                 </p>
-                
-                
+
+
                 <!-- <div id="rsm-booking-action-buttons"> -->
-                    <!-- <button class="rsm-booking-button rsm-booking-button-primary">Book Seva</button> -->
-                    <!-- <button class="rsm-booking-button rsm-booking-button-secondary">Learn More</button> -->
+                <!-- <button class="rsm-booking-button rsm-booking-button-primary">Book Seva</button> -->
+                <!-- <button class="rsm-booking-button rsm-booking-button-secondary">Learn More</button> -->
                 <!-- </div> -->
             </div>
         </div>
@@ -408,7 +409,7 @@
                                     <input type="radio" id="rsm-booking-form-pay-online" name="paymentMethod"
                                         value="online" checked>
                                     <label for="rsm-booking-form-pay-online">Pay Online</label>
-                                    <div id="rsm-booking-form-qrcode" style="display: none;">
+                                    <div id="rsm-booking-form-qrcode">
                                         <img src="{{ url_for('static', filename='images/QR.jpg') }}"
                                             alt="Payment QR Code" width="200">
                                         <p>Scan to pay online</p>
@@ -420,13 +421,15 @@
                                     <label for="rsm-booking-form-pay-math">Pay at Math</label>
                                 </div>
                             </div>
-                            <div id="rsm-booking-form-column-1">
+
+                            <!-- Transaction ID field - will be toggled by JavaScript -->
+                            <div id="rsm-booking-form-txnid-container">
                                 <label for="rsm-booking-form-txnid" id="rsm-booking-form-label-txnid">
                                     Transaction ID*
                                 </label>
                                 <input type="text" id="rsm-booking-form-txnid" name="transaction_id"
                                     pattern="[A-Za-z0-9]{10,20}"
-                                    title="Transaction ID must be 10-20 alphanumeric characters" required>
+                                    title="Transaction ID must be 10-20 alphanumeric characters">
                             </div>
 
                             <div id="rsm-booking-form-submit">
@@ -437,28 +440,44 @@
 
                     <script>
                         // QR code display logic
+
+                        // Payment method toggle script
                         document.addEventListener('DOMContentLoaded', function () {
+                            // Get references to all the elements we need
                             const payOnlineRadio = document.getElementById('rsm-booking-form-pay-online');
                             const payMathRadio = document.getElementById('rsm-booking-form-pay-math');
+                            const txnIdContainer = document.getElementById('rsm-booking-form-txnid-container');
+                            const txnIdInput = document.getElementById('rsm-booking-form-txnid');
                             const qrCodeDiv = document.getElementById('rsm-booking-form-qrcode');
 
-                            // Initially no option selected
-                            payOnlineRadio.checked = false;
-                            payMathRadio.checked = false;
+                            // Function to toggle the visibility of the transaction ID field
+                            function toggleTransactionIdField() {
+                                console.log('Payment method changed. Pay Online checked:', payOnlineRadio.checked);
 
-                            // Show QR code only when Pay Online is selected
-                            payOnlineRadio.addEventListener('change', function () {
-                                if (this.checked) {
+                                if (payOnlineRadio.checked) {
+                                    // Show the transaction ID field and make it required
+                                    txnIdContainer.style.display = 'block';
+                                    txnIdInput.required = true;
+                                    // Also show the QR code
                                     qrCodeDiv.style.display = 'block';
-
-                                }
-                            });
-
-                            payMathRadio.addEventListener('change', function () {
-                                if (this.checked) {
+                                } else {
+                                    // Hide the transaction ID field and make it not required
+                                    txnIdContainer.style.display = 'none';
+                                    txnIdInput.required = false;
+                                    // Hide the QR code as well
                                     qrCodeDiv.style.display = 'none';
                                 }
-                            });
+                            }
+
+                            // Add event listeners to both radio buttons
+                            payOnlineRadio.addEventListener('change', toggleTransactionIdField);
+                            payMathRadio.addEventListener('change', toggleTransactionIdField);
+
+                            // Initial setup based on the default selected option
+                            toggleTransactionIdField();
+
+                            // Console log to verify the script is running
+                            console.log('Payment method toggle script initialized');
                         });
 
 

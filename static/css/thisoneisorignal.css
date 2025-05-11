@@ -1282,7 +1282,7 @@ a:hover {
 	background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/temple-backdrop.jpg');
 	background-size: cover;
 	background-position: center;
-	color: var(--text-light);
+	color: #f8f0e3;
 	text-align: center;
 	padding: 40px 0;
 }
@@ -1296,7 +1296,7 @@ a:hover {
 #rsm-announcements-hero-heading {
 	font-size: 3.5rem;
 	margin-bottom: 20px;
-	color: var(--text-light);
+	color: #f8f0e3;
 	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 #rsm-announcements-hero-text {
@@ -1330,7 +1330,7 @@ a:hover {
 	margin-bottom: 40px;
 }
 #rsm-announcements-upcoming-events-card-1,#rsm-announcements-upcoming-events-card-2,#rsm-announcements-upcoming-events-card-3 {
-	background-color: var(--text-light);
+	background-color: #f8f0e3;
 	border-radius: var(--border-radius);
 	overflow: hidden;
 	box-shadow: var(--box-shadow);
@@ -1343,12 +1343,12 @@ a:hover {
 #rsm-announcements-upcoming-events-card-header-1,#rsm-announcements-upcoming-events-card-header-2,#rsm-announcements-upcoming-events-card-header-3 {
 	padding: 20px;
 	background-color: var(--primary);
-	color: var(--text-light);
+	color: #f8f0e3;
 }
 #rsm-announcements-upcoming-events-card-title-1,#rsm-announcements-upcoming-events-card-title-2,#rsm-announcements-upcoming-events-card-title-3 {
 	margin: 0;
 	font-size: 1.5rem;
-	color: var(--text-light);
+	color: #f8f0e3;
 }
 #rsm-announcements-upcoming-events-card-body-1,#rsm-announcements-upcoming-events-card-body-2,#rsm-announcements-upcoming-events-card-body-3 {
 	padding: 20px;
@@ -1377,7 +1377,7 @@ a:hover {
 	display: inline-block;
 	padding: 8px 20px;
 	background-color: var(--primary);
-	color: var(--text-light);
+	color: #f8f0e3;
 	border-radius: 30px;
 	font-weight: 500;
 	transition: var(--transition);
@@ -1414,7 +1414,7 @@ a:hover {
 	gap: 20px;
 }
 #rsm-announcements-recent-announcements-item-1,#rsm-announcements-recent-announcements-item-2,#rsm-announcements-recent-announcements-item-3,#rsm-announcements-recent-announcements-item-4,#rsm-announcements-recent-announcements-item-5 {
-	background-color: var(--text-light);
+	background-color: #f8f0e3;
 	border-radius: var(--border-radius);
 	padding: 20px;
 	box-shadow: var(--box-shadow);
@@ -1473,7 +1473,7 @@ a:hover {
 	display: inline-block;
 	padding: 12px 30px;
 	background-color: var(--primary);
-	color: var(--text-light);
+	color: #f8f0e3;
 	border-radius: 30px;
 	font-weight: 500;
 	transition: var(--transition);
@@ -1492,11 +1492,11 @@ a:hover {
 	border-radius: var(--border-radius);
 	overflow: hidden;
 	box-shadow: var(--box-shadow);
-	background-color: var(--text-light);
+	background-color: #f8f0e3;
 }
 #rsm-announcements-festival-calendar-table-header {
 	background-color: var(--primary);
-	color: var(--text-light);
+	color: #f8f0e3;
 	display: revert-layer;
 }
 #rsm-announcements-festival-calendar-table th {
@@ -1519,13 +1519,13 @@ a:hover {
 /* Modal Styles */
 .modal-header {
 	background-color: var(--primary);
-	color: var(--text-light);
+	color: #f8f0e3;
 }
 .modal-title {
-	color: var(--text-light);
+	color: #f8f0e3;
 }
 .btn-close {
-	color: var(--text-light);
+	color: #f8f0e3;
 	opacity: 0.8;
 }
 .btn-primary {

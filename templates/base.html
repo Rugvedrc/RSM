@@ -30,11 +30,11 @@
             <div id="rsm-base-nav-menu">
                 <ul id="rsm-base-nav-menu-list">
                     <li id="rsm-base-nav-menu-item-home"><a href="{{ url_for('index') }}">Home</a></li>
-                    <li id="rsm-base-nav-menu-item-about"><a href="{{ url_for('about')}}">About Us</a></li>
-                    <li id="rsm-base-nav-menu-item-announcements"><a href="{{ url_for('announcements') }}">Events</a></li>
-                    <li id="rsm-base-nav-menu-item-seva"><a href="{{ url_for('booking') }}">Seva Booking</a></li>
-                    <li id="rsm-base-nav-menu-item-donations"><a href="{{ url_for('donation') }}">Gallery</a></li>
-                    <li id="rsm-base-nav-menu-item-contact"><a href="{{ url_for('members') }}">Life Members</a></li> 
+                    <li id="rsm-base-nav-menu-item-about"><a href="{{ url_for('about')}}">आपल्या विषयी</a></li>
+                    <li id="rsm-base-nav-menu-item-announcements"><a href="{{ url_for('announcements') }}">कार्यक्रम</a></li>
+                    <li id="rsm-base-nav-menu-item-seva"><a href="{{ url_for('booking') }}">सेवा नोंदणी</a></li>
+                    <li id="rsm-base-nav-menu-item-donations"><a href="{{ url_for('donation') }}">आठवणीतले फोटो</a></li>
+                    <li id="rsm-base-nav-menu-item-my-bookings"><a href="{{ url_for('my_bookings') }}">My Bookings</a></li> 
                     <li id="rsm-base-nav-menu-item-contact"><a href="{{url_for('login')}}">Login</a></li> 
                 </ul>
             </div>
@@ -52,14 +52,14 @@
             <div id="rsm-base-footer-row-1">
                 <div id="rsm-base-footer-column-1">
                     <h5 id="rsm-base-footer-title">राघवेंद्र सेवा संघ</h5>
-                    <p id="rsm-base-footer-address">Chhatrapati Sambhaji Nagar<br>Maharashtra, India</p>
+                    <p id="rsm-base-footer-address">छत्रपती संभाजीनगर<br>महाराष्ट्र, भारत</p>
                 </div>
                 <div id="rsm-base-footer-column-2">
                     <h5 id="rsm-base-footer-quick-links-title">Quick Links</h5>
                     <ul id="rsm-base-footer-quick-links-list">
                         <li id="rsm-base-footer-quick-links-item-home"><a href="{{ url_for('index') }}">Home</a></li>
-                        <li id="rsm-base-footer-quick-links-item-about"><a href="{{ url_for('about') }}">About Us</a></li>
-                        <li id="rsm-base-footer-quick-links-item-seva"><a href="{{ url_for('booking') }}">Seva Booking</a></li>
+                        <li id="rsm-base-footer-quick-links-item-about"><a href="{{ url_for('about') }}">आपल्या विषयी</a></li>
+                        <li id="rsm-base-footer-quick-links-item-seva"><a href="{{ url_for('booking') }}">सेवा नोंदणी</a></li>
                         <!-- <li id="rsm-base-footer-quick-links-item-donations"><a href="{{ url_for('donation') }}">Donations</a></li> -->
                     </ul>
                 </div>
@@ -468,6 +468,175 @@
     </style>
 </head>
 <body>
+
+    <!-- CSS for the divine mystical popup -->
+<!-- CSS for the simple mystical popup -->
+<style>
+    /* Mystical popup styling with minimal content */
+    .aastha-popup {
+        position: fixed;
+        background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.2);
+        padding: 12px 18px;
+        bottom: 90px;
+        right: 40px;
+        z-index: 9999;
+        animation: mysticalFloat 3s infinite alternate;
+        border: 1px solid rgba(255, 215, 0, 0.4);
+        backdrop-filter: blur(5px);
+        display: none;
+    }
+
+    /* Golden arrow pointing to the chatbot button */
+    .aastha-popup:after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        right: 30px;
+        border-width: 12px 12px 0;
+        border-style: solid;
+        border-color: #24243e transparent transparent;
+        filter: drop-shadow(0 4px 3px rgba(255, 215, 0, 0.3));
+    }
+
+    /* Simple text with divine styling */
+    .aastha-popup-text {
+        font-size: 18px;
+        font-weight: bold;
+        color: #FFD700;
+        margin: 0;
+        cursor: pointer;
+        text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        font-family: 'Georgia', serif;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Small star icon */
+    .aastha-popup-text:before {
+        content: '★';
+        margin-right: 8px;
+        font-size: 20px;
+        animation: pulse 2s infinite;
+        display: inline-block;
+    }
+
+    /* Divine floating animation */
+    @keyframes mysticalFloat {
+        0% {
+            transform: translateY(0);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.2);
+        }
+        100% {
+            transform: translateY(-6px);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6), 0 0 50px rgba(255, 215, 0, 0.3);
+        }
+    }
+
+    /* Divine pulse animation for the star */
+    @keyframes pulse {
+        0% {
+            opacity: 0.7;
+            transform: scale(0.9);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        100% {
+            opacity: 0.7;
+            transform: scale(0.9);
+        }
+    }
+
+    /* For mobile responsiveness */
+    @media (max-width: 768px) {
+        .aastha-popup {
+            bottom: 70px;
+            right: 20px;
+        }
+    }
+    
+    /* Divine glow for chatbot button when highlighted */
+    .divine-glow {
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.4) !important;
+        animation: divinePulse 2s infinite alternate !important;
+    }
+    
+    @keyframes divinePulse {
+        0% {
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.4);
+        }
+        100% {
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.9), 0 0 40px rgba(255, 215, 0, 0.6);
+        }
+    }
+</style>
+
+<!-- Simple Mystical Popup HTML -->
+<div class="aastha-popup" id="aastha-popup">
+    <p class="aastha-popup-text">Ask Aastha</p>
+</div>
+
+<!-- JavaScript to control the simple mystical popup -->
+<script>
+    // Show popup after 3 seconds of page load
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            showPopup();
+        }, 3000);
+    });
+
+    // Function to show the popup
+    function showPopup() {
+        // Check if user has seen the popup before
+        if (!localStorage.getItem('aasthaPopupSeen')) {
+            const popup = document.getElementById('aastha-popup');
+            popup.style.display = 'block';
+            
+            // Point to the chatbot with a divine glow effect
+            setTimeout(function() {
+                highlightChatbotButton();
+            }, 1000);
+            
+            // Hide after 5 seconds
+            setTimeout(function() {
+                hidePopup();
+            }, 5000);
+        }
+    }
+
+    // Function to hide the popup
+    function hidePopup() {
+        document.getElementById('aastha-popup').style.display = 'none';
+        // Remember that user has seen the popup
+        localStorage.setItem('aasthaPopupSeen', 'true');
+        // Reset after 24 hours
+        setTimeout(function() {
+            localStorage.removeItem('aasthaPopupSeen');
+        }, 24 * 60 * 60 * 1000);
+        
+        // Remove divine glow
+        const chatbotButton = document.getElementById('aastha-chatbot-button');
+        if (chatbotButton) chatbotButton.classList.remove('divine-glow');
+    }
+
+    // Function to highlight the chatbot button with divine glow
+    function highlightChatbotButton() {
+        const chatbotButton = document.getElementById('aastha-chatbot-button');
+        if (chatbotButton) {
+            chatbotButton.classList.add('divine-glow');
+        }
+    }
+
+    // When user clicks on the popup, open the chatbot
+    document.getElementById('aastha-popup').addEventListener('click', function() {
+        toggleChatbot();
+        hidePopup();
+    });
+</script>
     <!-- Aastha Chatbot Button -->
     <div id="aastha-chatbot-button" onclick="toggleChatbot()">
         <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Aastha">

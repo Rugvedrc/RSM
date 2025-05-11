@@ -1,0 +1,365 @@
+{% extends 'base.html' %}
+
+{% block title %}My Bookings - Raghavendra Swami Math{% endblock %}
+
+{% block additional_head %}
+<style>
+    /* Mystical Dark Theme with Golden Accents for My Bookings Page */
+
+/* Base Styles */
+body {
+    background: #0a0a14;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(45, 32, 85, 0.4) 0%, rgba(10, 10, 20, 0.2) 90%),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M50,10 L55,30 L75,30 L60,45 L65,65 L50,55 L35,65 L40,45 L25,30 L45,30 Z" stroke="rgba(255,215,0,0.05)" stroke-width="0.5" fill="none" /></svg>');
+    color: #e0e0e0;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
+/* Main Container */
+.my-bookings-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: linear-gradient(145deg, rgba(22, 22, 35, 0.92), rgba(15, 15, 25, 0.96));
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.08),
+                inset 0 0 15px rgba(255, 215, 0, 0.05);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    animation: pageEntrance 1s ease forwards;
+}
+
+@keyframes pageEntrance {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Decorative elements */
+.my-bookings-container::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,215,0,0.03)" stroke-width="0.5"/><circle cx="50" cy="50" r="30" fill="none" stroke="rgba(255,215,0,0.03)" stroke-width="0.5"/><circle cx="50" cy="50" r="20" fill="none" stroke="rgba(255,215,0,0.03)" stroke-width="0.5"/></svg>');
+    z-index: -1;
+    opacity: 0.7;
+}
+
+/* Page Header */
+.page-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.page-header h2 {
+    color: #ffd700;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+    font-weight: normal;
+}
+
+.page-header p {
+    color: #c0c0c0;
+    font-size: 1.1rem;
+    max-width: 80%;
+    margin: 1rem auto;
+    line-height: 1.5;
+}
+
+/* Header Divider */
+.header-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.header-divider-line {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.5), transparent);
+    flex-grow: 1;
+    max-width: 150px;
+}
+
+.header-divider-icon {
+    font-size: 1.8rem;
+    color: #ffd700;
+    margin: 0 1rem;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    animation: pulseGlow 3s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% { text-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
+    100% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.7); }
+}
+
+/* Form Section */
+.form-section {
+    display: flex;
+    justify-content: center;
+}
+
+.form-card {
+    width: 100%;
+    max-width: 500px;
+    background: rgba(18, 18, 30, 0.7);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.form-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.5), transparent);
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    color: #ffd700;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(25, 25, 40, 0.8);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 4px;
+    color: #f0f0f0;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.1);
+    background: rgba(30, 30, 50, 0.9);
+}
+
+.form-control::placeholder {
+    color: rgba(200, 200, 200, 0.6);
+}
+
+/* Buttons */
+.btn-verify {
+    display: block;
+    width: 100%;
+    padding: 0.9rem;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.9), rgba(218, 165, 32, 0.8));
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.5px;
+}
+
+.btn-verify:hover {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 1), rgba(218, 165, 32, 0.9));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+.btn-verify:active {
+    transform: translateY(0);
+}
+
+.btn-verify::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.btn-verify:hover::after {
+    opacity: 0.3;
+    transform: scale(1);
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+}
+
+.divider-line {
+    flex-grow: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.3), transparent);
+}
+
+.divider-text {
+    color: #c0c0c0;
+    margin: 0 1rem;
+    font-size: 0.9rem;
+}
+
+/* Error Messages */
+.error-message {
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    display: none;
+}
+
+/* Alert */
+.alert {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 4px;
+    text-align: center;
+    animation: alertEntrance 0.5s ease forwards;
+}
+
+.alert-warning {
+    background: rgba(255, 165, 0, 0.1);
+    border: 1px solid rgba(255, 165, 0, 0.3);
+    color: #ffd700;
+}
+
+@keyframes alertEntrance {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .my-bookings-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .page-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .page-header p {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+}
+
+/* Interactive highlights */
+input:focus ~ label,
+input:not(:placeholder-shown) ~ label {
+    color: #ffd700;
+}
+
+.form-control:hover {
+    border-color: rgba(255, 215, 0, 0.3);
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="my-bookings-container">
+    <div class="page-header">
+        <h2>My Seva Bookings</h2>
+        <div class="header-divider">
+            <div class="header-divider-line"></div>
+            <div class="header-divider-icon">ॐ</div>
+            <div class="header-divider-line"></div>
+        </div>
+        <p>Enter your phone number or email to view your previous seva bookings</p>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-warning">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="form-section">
+        <div class="form-card">
+            <form id="phoneVerificationForm" method="POST" action="{{ url_for('verify_my_bookings') }}">
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter phone number used for booking">
+                    <div class="error-message" id="phone-error">Please enter a valid phone number</div>
+                </div>
+                <button type="submit" name="verify_type" value="phone" class="btn-verify">Verify with Phone</button>
+            </form>
+
+            <div class="divider">
+                <div class="divider-line"></div>
+                <div class="divider-text">OR</div>
+                <div class="divider-line"></div>
+            </div>
+
+            <form id="emailVerificationForm" method="POST" action="{{ url_for('verify_my_bookings') }}">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email used for booking">
+                    <div class="error-message" id="email-error">Please enter a valid email address</div>
+                </div>
+                <button type="submit" name="verify_type" value="email" class="btn-verify">Verify with Email</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Basic form validation
+    document.getElementById('phoneVerificationForm').addEventListener('submit', function(e) {
+        const phoneInput = document.getElementById('phone');
+        const phoneError = document.getElementById('phone-error');
+        
+        if (phoneInput.value.trim() === '') {
+            e.preventDefault();
+            phoneError.style.display = 'block';
+        } else {
+            phoneError.style.display = 'none';
+        }
+    });
+
+    document.getElementById('emailVerificationForm').addEventListener('submit', function(e) {
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('email-error');
+        
+        if (emailInput.value.trim() === '' || !emailInput.value.includes('@')) {
+            e.preventDefault();
+            emailError.style.display = 'block';
+        } else {
+            emailError.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}
