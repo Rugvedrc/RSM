@@ -7,16 +7,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-/* 
-:root {
-  --divine-primary: #1a1a2e;
-  --divine-secondary: #0f0f29;
-  --divine-accent-gold: #ffd700;
-  --divine-accent-saffron: #ff9d00;
-  --divine-accent-crimson: #ff3547;
-  --divine-accent-purple: #9d4edd;
-  --divine-text-light: #e6e6ff;
-} */
+
 
 body {
   font-family: 'Cormorant', serif;
@@ -962,16 +953,7 @@ body::after {
 /* Divine Mystical Hero Section Styling */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap');
 
-/* :root {
-  --gold-primary: #d4af37;
-  --gold-light: #f1d78a;
-  --gold-dark: #9c7c21;
-  --bg-dark: #07070c;
-  --text-light: #f8f0e3;
-  --sacred-red: #a02c2c;
-  --divine-purple: #3b1758;
-  --mystic-glow: 0 0 15px #f1d78a, 0 0 30px rgba(212, 175, 55, 0.4);
-} */
+
 
 /* Main Hero Section */
 #rsm-index-hero-section {
@@ -2537,7 +2519,7 @@ strong {
 #rsm-index-guru-dedication-image {
   max-width: 50%;
   height: auto;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   box-shadow:
     0 0 0 4px rgba(255, 215, 0, 0.7),
     0 0 20px rgba(255, 215, 0, 0.5),
@@ -2723,6 +2705,7 @@ strong {
   padding: 0;
   position: relative;
   display: inline-block;
+  padding-top: 20px;
 }
 
 .rsm-about-main-heading::after {
@@ -3329,6 +3312,7 @@ strong {
   color: rgba(140, 120, 170, 1) !important;
   border-bottom: 1px solid rgba(40, 20, 70, 0.4) !important;
   transition: all 0.3s ease;
+  background: linear-gradient(135deg, rgba(25, 10, 45, 1) 0%, rgba(35, 15, 65, 1) 100%) !important;
 }
 
 /* Style the table rows with the proper background */
@@ -4654,6 +4638,7 @@ strong {
   font-weight: 400;
   text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
   position: relative;
+  padding-top: 20px;
 }
 
 /* Divine ornament for the heading */
